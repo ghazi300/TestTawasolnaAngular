@@ -20,6 +20,8 @@ import { OrdersComponent } from './views/crm/orders/orders.component';
 import { DeliveryComponent } from './views/crm/delivery/delivery.component';
 import { ContractsComponent } from './views/crm/contracts/contracts.component';
 import { IndexComponent } from './views/crm/index/index.component';
+import { RegisterComponent } from './views/auth/register/register.component';
+import { ForgetPasswordComponent } from './views/auth/forget-password/forget-password.component';
 
 @NgModule({
   declarations: [
@@ -31,7 +33,9 @@ import { IndexComponent } from './views/crm/index/index.component';
     OrdersComponent,
     DeliveryComponent,
     ContractsComponent,
-    IndexComponent
+    IndexComponent,
+    RegisterComponent,
+    ForgetPasswordComponent
   ],
   imports: [
     BrowserModule,

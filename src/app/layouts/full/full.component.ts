@@ -86,6 +86,8 @@ export class FullComponent {
       link: "/chips",
       icon: "award",
       menu: "Chips",
+
+
     },
     {
       link: "/tabs",

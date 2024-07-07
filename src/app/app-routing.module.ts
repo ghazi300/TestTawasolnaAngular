@@ -20,10 +20,18 @@ import { DashboardComponent } from './dashboard/dashboard.component';
 import { FullComponent } from './layouts/full/full.component';
 import { AuthComponent } from './views/auth/auth/auth.component';
 import { IndexComponent } from './views/crm/index/index.component';
+import {RegisterComponent} from "./views/auth/register/register.component";
+import {ForgetPasswordComponent} from "./views/auth/forget-password/forget-password.component";
 
 const routes: Routes = [
   {
     path : "auth", component: AuthComponent
+  },
+  {
+    path : "signup", component: RegisterComponent
+  },
+  {
+    path : "forgetpassowrd", component: ForgetPasswordComponent
   },
   {
     
@@ -52,6 +60,7 @@ const routes: Routes = [
       {path:"button", component:ButtonsComponent},
     ]
   },
+  {path:'front',loadChildren:() => import('./frontoffice/frontoffice.module').then(m => m.FrontofficeModule)},
 
   {path:"", redirectTo:"/home", pathMatch:"full"},
   {path:"**", redirectTo:"/home", pathMatch:"full"},

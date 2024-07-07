@@ -35,10 +35,41 @@
             ],
             "styles": [
               "src/styles.scss",
-              "src/assets/styles/style.scss"
+              "src/assets/styles/style.scss",
+              "src/assets/css/styleLanding.css",
+              "src/assets/css/style.css",
+            "src/assets/vendor/font-awesome/css/all.min.css",
+              "src/assets/vendor/bootstrap-icons/bootstrap-icons.css",
+              "src/assets/vendor/OverlayScrollbars-master/css/OverlayScrollbars.min.css",
+              "src/assets/vendor/tiny-slider/dist/tiny-slider.css",
+              "src/assets/vendor/choices.js/public/assets/styles/choices.min.css",
+              "src/assets/vendor/glightbox-master/dist/css/glightbox.min.css",
+              "src/assets/vendor/dropzone/dist/dropzone.css",
+              "src/assets/vendor/flatpickr/dist/flatpickr.css",
+             "src/assets/vendor/plyr/plyr.css",
+             "src/assets/vendor/zuck.js/dist/zuck.min.css"
+
             ],
             "scripts": [
-              "node_modules/apexcharts/dist/apexcharts.min.js"
+              "src/assets/js/functions.js",
+              "src/assets/vendor/pswmeter/pswmeter.min.js",
+              "node_modules/apexcharts/dist/apexcharts.min.js",
+           "src/assets/vendor/bootstrap/dist/js/bootstrap.bundle.min.js",
+
+
+              "src/assets/vendor/tiny-slider/dist/tiny-slider.js",
+              "src/assets/vendor/OverlayScrollbars-master/js/OverlayScrollbars.min.js",
+              "src/assets/vendor/choices.js/public/assets/scripts/choices.min.js",
+             "src/assets/vendor/glightbox-master/dist/js/glightbox.min.js",
+              "src/assets/vendor/flatpickr/dist/flatpickr.min.js",
+              "src/assets/vendor/plyr/plyr.js",
+              "src/assets/vendor/dropzone/dist/min/dropzone.min.js",
+              "src/assets/vendor/zuck.js/dist/zuck.min.js",
+              "src/assets/js/zuck-stories.js"
+
+
+
+
             ]
           },
           "configurations": {
