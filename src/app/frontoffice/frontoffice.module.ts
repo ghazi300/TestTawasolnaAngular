@@ -7,6 +7,8 @@ import { NavbarComponent } from './components/navbar/navbar.component';
 import { SidebarComponent } from './components/sidebar/sidebar.component';
 import { RightsidebarComponent } from './components/rightsidebar/rightsidebar.component';
 import { MainComponent } from './pages/main/main.component';
+import { IncidentFormComponent } from './incident-form/incident-form.component';
+import { ReactiveFormsModule } from '@angular/forms';
 
 
 @NgModule({
@@ -15,11 +17,13 @@ import { MainComponent } from './pages/main/main.component';
     NavbarComponent,
     SidebarComponent,
     RightsidebarComponent,
-    MainComponent
+    MainComponent,
+    IncidentFormComponent
   ],
   imports: [
     CommonModule,
-    FrontofficeRoutingModule
+    FrontofficeRoutingModule,
+    ReactiveFormsModule
   ]
 })
 export class FrontofficeModule { }

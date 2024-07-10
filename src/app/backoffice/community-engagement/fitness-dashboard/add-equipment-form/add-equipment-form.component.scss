@@ -1,0 +1,32 @@
+/* add-equipment-form.component.scss */
+
+mat-form-field {
+    width: 100%;
+    margin-bottom: 15px;
+  }
+  
+  button {
+    margin-top: 15px;
+  }
+  
+  /* Styles spécifiques pour le formulaire d'ajout */
+  .w-100 {
+    width: 100%;
+  }
+  
+  .mb-32 {
+    margin-bottom: 32px;
+  }
+  
+  /* Styles spécifiques pour les cartes */
+  mat-card {
+    margin-bottom: 24px;
+    padding: 16px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+  }
+  
+  /* Styles spécifiques pour les en-têtes */
+  .mat-card-content h4 {
+    font-size: 20px;
+    margin-bottom: 16px;
+  }
