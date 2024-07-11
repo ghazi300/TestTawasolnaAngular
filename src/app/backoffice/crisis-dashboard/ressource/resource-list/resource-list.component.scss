@@ -1,0 +1,81 @@
+.table-responsive {
+    overflow-x: auto;
+  
+    table {
+      width: 100%;
+      border-collapse: collapse;
+  
+      th.mat-header-cell, td.mat-cell {
+        padding: 16px;
+        text-align: left;
+        white-space: nowrap;
+      }
+  
+      th.mat-header-cell {
+        font-size: 14px;
+        font-weight: 600;
+        background-color: #f5f5f5;
+      }
+  
+      td.mat-cell {
+        font-size: 14px;
+      }
+  
+      tr.mat-header-row {
+        background-color: #f5f5f5;
+      }
+    }
+  }
+  
+  @media (max-width: 768px) {
+    th.mat-header-cell, td.mat-cell {
+      padding: 12px;
+      font-size: 12px;
+    }
+  }
+  
+  @media (max-width: 576px) {
+    th.mat-header-cell, td.mat-cell {
+      padding: 8px;
+      font-size: 10px;
+    }
+  }
+  .table-container {
+    overflow-x: auto; /* Permet le défilement horizontal si le tableau est trop large */
+    margin: 0 -8px; /* Compense les espaces de padding */
+  }
+  
+  table {
+    width: 100%;
+    border-collapse: collapse; /* Pour éviter les doublons de bordure entre les cellules */
+  }
+  
+  th.mat-header-cell, td.mat-cell {
+    padding: 16px; /* Espacement interne des cellules */
+    text-align: left; /* Alignement du texte */
+  }
+  
+  th.mat-header-cell {
+    font-size: 14px; /* Taille de police pour les en-têtes */
+    font-weight: bold; /* Poids de la police pour les en-têtes */
+    background-color: #f5f5f5; /* Couleur de fond pour les en-têtes */
+  }
+  
+  td.mat-cell {
+    font-size: 14px; /* Taille de police pour les cellules */
+  }
+  
+  @media (max-width: 768px) {
+    th.mat-header-cell, td.mat-cell {
+      padding: 12px; /* Réduit l'espace interne pour les petits écrans */
+      font-size: 12px; /* Réduit la taille de la police */
+    }
+  }
+  
+  @media (max-width: 576px) {
+    th.mat-header-cell, td.mat-cell {
+      padding: 8px; /* Réduit encore plus l'espace interne */
+      font-size: 10px; /* Réduit davantage la taille de la police */
+    }
+  }
+  
