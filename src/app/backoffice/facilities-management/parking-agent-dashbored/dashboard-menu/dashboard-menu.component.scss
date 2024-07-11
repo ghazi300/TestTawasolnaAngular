@@ -1,0 +1,68 @@
+
+
+$card-hover-scale: 1.05;
+$card-padding: 10px;
+$card-number-font-size: 18px;
+$card-text-font-size: 14px;
+.greeting-card-container {
+    display: flex;
+    justify-content: center;
+    margin: 0px 0; 
+  }
+  
+  .greeting-card {
+    width: 100%;
+    max-width: 1000px; // Adjust as needed
+    height: 200px; // Increased height
+    padding: 20px;
+    text-align: center;
+    background-image: url('../../../../../assets/images/parking/eae72d27-e2dc-43e9-813b-75def54cb051.jpg'); // Update with the correct path to your image
+    background-size: cover;
+    background-position: center;
+    color: white; // Adjust text color for better contrast
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+  .cards-container {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center; // Centers the cards within the parent container
+    gap: 10px; // Adds a gap between the cards
+  }
+.card-container {
+    
+  cursor: pointer;
+  transition: transform 0.2s;
+
+  &:hover {
+    transform: scale($card-hover-scale);
+  }
+
+  .card-header {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    height: 100px; 
+    background-color: rgb(100, 172, 220); 
+  }
+
+  .card-number {
+    font-size: $card-number-font-size;
+    font-weight: bold;
+  }
+
+  .card-text {
+    font-size: $card-text-font-size;
+    margin-top: $card-padding;
+    text-align: center;
+  }
+}
+
+.chart-container {
+  max-width: 400px; 
+  max-height: 300px; 
+  margin: 0 auto; 
+}
+

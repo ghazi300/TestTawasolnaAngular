@@ -1,0 +1,41 @@
+<div class="greeting-card-container">
+    <mat-card class="greeting-card">
+      <p>Good morning, Administrator</p>
+    </mat-card>
+  </div>
+
+<div fxLayout="row wrap" fxLayoutGap="10px grid">
+    <div fxFlex="100%" fxFlex.md="25%" fxFlex.lg="20%" fxFlex.xl="15%" *ngFor="let card of cards">
+      <mat-card class="card-container overflow-hidden" (click)="onCardClick(card)">
+        <div class="card-header">
+          <!-- <mat-icon>{{ card.icon }}</mat-icon> -->
+          <p class="card-number">{{ card.number }}</p>
+          <span class="card-text">{{ card.text }}</span>
+        </div>
+      </mat-card>
+    </div>
+  </div>
+  
+
+<mat-card>
+  <mat-card-content>
+    <h4 class="mb-32">Traffic Flow</h4>
+    <div class="chart-container">
+      <apx-chart 
+        [series]="activeusercardChartOptions.series"
+        [chart]="activeusercardChartOptions.chart"
+        [labels]="activeusercardChartOptions.labels"
+        [legend]="activeusercardChartOptions.legend"
+        [tooltip]="activeusercardChartOptions.tooltip">
+      </apx-chart>
+    </div>
+  </mat-card-content>
+</mat-card>
+
+
+
+
+
+
+
+

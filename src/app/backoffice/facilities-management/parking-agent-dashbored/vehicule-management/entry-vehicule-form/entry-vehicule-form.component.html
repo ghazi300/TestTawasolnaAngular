@@ -1,0 +1,46 @@
+<h4 mat-dialog-title fxLayout="row" fxLayoutAlign="center center" class="dialog-title">Vehicule Entry</h4>
+<div mat-dialog-content>
+  <form>
+    <mat-form-field>
+      <mat-label>Registration number</mat-label>
+      <input matInput [(ngModel)]="Registrationnumber" name="Registrationnumber">
+    </mat-form-field>
+    <mat-form-field>
+      <mat-label>Vehicule's category</mat-label>
+      <input matInput [(ngModel)]="Vcategory" name="Vcategory">
+    </mat-form-field>
+    <mat-form-field>
+      <mat-label>Owner's Full name</mat-label>
+      <input matInput [(ngModel)]="ownerfullname" name="ownerfullname">
+    </mat-form-field>
+    <mat-form-field>
+      <mat-label>Owner's contact</mat-label>
+      <input matInput [(ngModel)]="ownercontact" name="ownercontact">
+    </mat-form-field>
+    <mat-form-field>
+        <mat-label>Station number</mat-label>
+        <mat-select [(ngModel)]="stationnumber" name="stationnumber">
+          <mat-option *ngFor="let station of stationOptions" [value]="station.value">
+            {{ station.viewValue }}
+          </mat-option>
+        </mat-select>
+      </mat-form-field>
+    <mat-form-field>
+      <mat-label>Entry Date-Time</mat-label>
+      <input matInput [(ngModel)]="entrydatetime" name="entrydatetime" type="datetime-local" readonly>
+    </mat-form-field>
+    <mat-form-field>
+        <mat-label>out  Date-Time</mat-label>
+        <input matInput [(ngModel)]="outdatetime" name="outdatetime" type="datetime-local" readonly>
+      </mat-form-field> 
+       <!-- Status Input -->
+    <mat-form-field>
+        <mat-label>Status</mat-label>
+        <input matInput [ngStyle]="getStatusStyle()" [value]="getStatus()" readonly>
+      </mat-form-field>
+  </form>
+</div>
+<div mat-dialog-actions>
+  <button   mat-raised-button class="me-8 mb-8" (click)="cancel()">Cancel</button>
+  <button  mat-raised-button class="me-8 mb-8" (click)="save()" color="warn">Save</button>
+</div>

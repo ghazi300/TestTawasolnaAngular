@@ -13,7 +13,7 @@
 
             </div>
 
-            <div class="pt-8">
+            <!-- <div class="pt-8">
                 <ul>
                     <li class="list-group mb-8" *ngFor="let sidenav of filteredSidebarMenu">
                         <a matRipple [matRippleColor]="'#f7f8f443'" routerLink="{{ sidenav.link }}"
@@ -23,7 +23,42 @@
                         </a>
                     </li>
                 </ul>
-            </div>
+            </div> -->
+            <div class="pt-8">
+                <ul>
+                  <ng-container *ngFor="let sidenav of filteredSidebarMenu">
+                    <li class="list-group mb-8">
+                      <!-- Si le menu a des enfants -->
+                      <ng-container *ngIf="sidenav.children && sidenav.children.length > 0">
+                        <!-- Afficher le menu principal avec un lien vide (non cliquable) -->
+                        <div class="sidebar-menu fs-16 w-100 d-flex align-items-center">
+                          <i-feather name="{{ sidenav.icon }}" class="feather-base me-16"></i-feather>
+                          <span class="ps-4">{{ sidenav.menu }}</span>
+                        </div>
+                        <!-- Afficher les sous-menus de manière récursive -->
+                        <ul class="pl-4">
+                          <li *ngFor="let child of sidenav.children">
+                            <a matRipple [matRippleColor]="'#f7f8f443'" routerLink="{{ child.link }}"
+                               class="sidebar-menu fs-16 w-100 d-flex align-items-center" [routerLinkActive]="routerActive">
+                              <i-feather name="{{ child.icon }}" class="feather-base me-16"></i-feather>
+                              <span class="ps-4">{{ child.menu }}</span>
+                            </a>
+                          </li>
+                        </ul>
+                      </ng-container>
+                      <!-- Si le menu n'a pas d'enfants -->
+                      <ng-container *ngIf="!sidenav.children || sidenav.children.length === 0">
+                        <a matRipple [matRippleColor]="'#f7f8f443'" routerLink="{{ sidenav.link }}"
+                           class="sidebar-menu fs-16 w-100 d-flex align-items-center" [routerLinkActive]="routerActive">
+                          <i-feather name="{{ sidenav.icon }}" class="feather-base me-16"></i-feather>
+                          <span class="ps-4">{{ sidenav.menu }}</span>
+                        </a>
+                      </ng-container>
+                    </li>
+                  </ng-container>
+                </ul>
+              </div>
+              
 
             <div class="m-8 pt-4">
                 <div class="buy-flexy ps-24 pe-24 mt-48 mb-48">
