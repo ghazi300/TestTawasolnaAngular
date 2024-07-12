@@ -1,41 +1,95 @@
-<div class="greeting-card-container">
+<!-- <div class="greeting-card-container">
     <mat-card class="greeting-card">
       <p>Good morning, Administrator</p>
     </mat-card>
-  </div>
+  </div> -->
+  <div fxLayout="row" fxLayoutAlign="center center" class="greeting-card-container">
+  <mat-card fxFlex="0 1 100%" class="greeting-card">
+    <p>Good morning, Administrator</p>
+  </mat-card>
+</div>
 
-<div fxLayout="row wrap" fxLayoutGap="10px grid">
+
+<!-- <div fxLayout="row wrap" fxLayoutGap="10px grid">
     <div fxFlex="100%" fxFlex.md="25%" fxFlex.lg="20%" fxFlex.xl="15%" *ngFor="let card of cards">
       <mat-card class="card-container overflow-hidden" (click)="onCardClick(card)">
-        <div class="card-header">
+        <div class="card-header"> -->
           <!-- <mat-icon>{{ card.icon }}</mat-icon> -->
-          <p class="card-number">{{ card.number }}</p>
+          <!-- <p class="card-number">{{ card.number }}</p>
           <span class="card-text">{{ card.text }}</span>
         </div>
       </mat-card>
     </div>
+  </div> -->
+  <div fxLayout="row wrap" fxLayoutGap="10px grid">
+    <div fxFlex="100%" fxFlex.md="25%" fxFlex.lg="20%" fxFlex.xl="15%" *ngFor="let card of cards">
+      <mat-card class="card-container overflow-hidden">
+        <div class="card-header" (click)="onCardClick(card)">
+          <!-- <mat-icon>{{ card.icon }}</mat-icon> -->
+          <p class="card-number">{{ card.number }}</p>
+          <span class="card-text">{{ card.text }}</span>
+        </div>
+        <a *ngIf="card.link" [routerLink]="card.link" class="card-link"></a>
+      </mat-card>
+    </div>
   </div>
   
+  
 
-<mat-card>
-  <mat-card-content>
-    <h4 class="mb-32">Traffic Flow</h4>
-    <div class="chart-container">
-      <apx-chart 
-        [series]="activeusercardChartOptions.series"
-        [chart]="activeusercardChartOptions.chart"
-        [labels]="activeusercardChartOptions.labels"
-        [legend]="activeusercardChartOptions.legend"
-        [tooltip]="activeusercardChartOptions.tooltip">
-      </apx-chart>
+
+
+
+
+<!-- <div>
+  <div fxLayout="row wrap" fxLayoutGap="30px grid">
+    <div fxFlex.md="33%" fxFlex.lg="33%" fxFlex.xl="33%" fxFlex.sm="100%">
+      <mat-card>
+        <mat-card-content>
+          <h4 class="mb-32">Traffic Flow</h4>
+          <div class="chart-container">
+            <apx-chart 
+              [series]="activeusercardChartOptions.series"
+              [chart]="activeusercardChartOptions.chart"
+              [labels]="activeusercardChartOptions.labels"
+              [legend]="activeusercardChartOptions.legend"
+              [tooltip]="activeusercardChartOptions.tooltip">
+            </apx-chart>
+          </div>
+        </mat-card-content>
+      </mat-card>   
+     </div>
+    <div fxFlex.md="66%" class="overflow-x-hidden" fxFlex.lg="66%" fxFlex.xl="66%" fxFlex.sm="100%">
+      <app-parking-list></app-parking-list>
     </div>
-  </mat-card-content>
-</mat-card>
+  </div>
+</div> -->
 
-
-
-
-
-
+<div>
+  <div fxLayout="row wrap" fxLayoutGap="30px grid">
+    <div fxFlex.md="50%" fxFlex.lg="50%" fxFlex.xl="50%" fxFlex.sm="100%">
+      <mat-card>
+        <mat-card-content>
+          <h4 class="mb-32">Traffic Flow</h4>
+          <div class="chart-container">
+            <apx-chart 
+              [series]="activeusercardChartOptions.series"
+              [chart]="activeusercardChartOptions.chart"
+              [labels]="activeusercardChartOptions.labels"
+              [legend]="activeusercardChartOptions.legend"
+              [tooltip]="activeusercardChartOptions.tooltip">
+            </apx-chart>
+          </div>
+        </mat-card-content>
+      </mat-card>
+    </div>
+    <div fxFlex.md="50%" fxFlex.lg="50%" fxFlex.xl="50%" fxFlex.sm="100%">
+      <mat-card>
+        <mat-card-content>
+          <app-parking-list></app-parking-list>
+        </mat-card-content>
+      </mat-card>
+    </div>
+  </div>
+</div>
 
 

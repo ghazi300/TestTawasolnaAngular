@@ -22,4 +22,30 @@
       padding: 16px; 
     }
   }
+  .badge {
+    padding: 0.5em 1em;
+    font-size: 1em;
+    font-weight: bold;
+    text-align: center;
+    border-radius: 0.5em;
+  }
+  
+  .rounded-pill {
+    border-radius: 50px;
+  }
+  
+  .badge-success {
+    background-color: #28a745;
+    color: white;
+  }
+  
+  .badge-warning {
+    background-color: #ffc107;
+    color: black;
+  }
+  
+  .badge-danger {
+    background-color: #dc3545;
+    color: white;
+  }
   

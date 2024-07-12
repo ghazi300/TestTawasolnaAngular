@@ -1,4 +1,5 @@
 import { Component ,OnInit, ViewChild} from '@angular/core';
+import { Router } from '@angular/router';
 import {
   ApexChart,
   ApexLegend,
@@ -11,6 +12,7 @@ interface cards {
     // icon: string;
     number: number;
     text: string;
+    link?: string;
   }
   
   export interface ActiveUserCardChartOptions {
@@ -37,7 +39,7 @@ export class DashboardMenuComponent {
 
  
   
-  constructor() {
+  constructor(private router: Router) {
     // Initial pie chart data
     this.activeusercardChartOptions = {
       series: [44, 55, 41, 17, 15],
@@ -60,10 +62,7 @@ export class DashboardMenuComponent {
     };
   }
   drilldownData: { [key: string]: { series: number[], labels: string[] } } = {
-    'Total Vehicles Parked': {
-      series: [50, 25, 25], // Exemple de données pour le drilldown
-      labels: ['Voitures', 'Camions', 'Motos'],
-    },
+    
     'Vehicles In': {
       series: [60, 20, 20], // Exemple de données pour le drilldown
       labels: ['Voitures', 'Camions', 'Motos'],
@@ -71,11 +70,7 @@ export class DashboardMenuComponent {
     'Vehicles Out': {
       series: [70, 15, 15], // Exemple de données pour le drilldown
       labels: ['Voitures', 'Camions', 'Motos'],
-    },
-    'This is the fourth card': {
-      series: [40, 30, 30], // Exemple de données pour le drilldown
-      labels: ['Catégorie A', 'Catégorie B', 'Catégorie C'],
-    },
+    }
   };
 
   // Function to load drilldown data
@@ -90,10 +85,8 @@ export class DashboardMenuComponent {
   ngOnInit(): void {
     // Initialisation des données du graphique principal
     const data: TrafficAnalysisData[] = [
-      { category: 'Total Vehicles Parked', value: 50 },
       { category: 'Vehicles In', value: 20 },
       { category: 'Vehicles Out', value: 30 },
-      { category: 'parking capacite', value: 40 },
     ];
 
     this.activeusercardChartOptions.series = data.map(item => item.value);
@@ -122,22 +115,20 @@ export class DashboardMenuComponent {
       // icon: "car",
       number: 10,
       text: "Total Vehicule Parked ",
+
     },
     {
       // icon: "info",
       number: 20,
       text: "Vehicule In ",
+          link: "/vehiculelist"
     },
     {
       // icon: "warning",
       number: 30,
       text: "Vehicule Out ",
     },
-    {
-      // icon: "check_circle",
-      number: 40,
-      text: "This is the fourth card",
-    },
+  
   ];
 
   tiles = [
@@ -166,8 +157,12 @@ export class DashboardMenuComponent {
       color: '#DDBDF1'
     }
   ];
+
   onCardClick(card: cards): void {
     console.log('Card clicked:', card);
-    // Ajoutez ici la logique pour ce qui se passe lorsque la carte est cliquée
+    // Vous pouvez ajouter ici la logique supplémentaire avant de naviguer vers une autre page
+    if (card.link) {
+      this.router.navigateByUrl('/admin/facilityManagement/parkingagentdashbored'+card.link);
+    }
   }
 }
