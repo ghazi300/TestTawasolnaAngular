@@ -8,7 +8,9 @@ import { SidebarComponent } from './components/sidebar/sidebar.component';
 import { RightsidebarComponent } from './components/rightsidebar/rightsidebar.component';
 import { MainComponent } from './pages/main/main.component';
 import { IncidentFormComponent } from './incident-form/incident-form.component';
-import { ReactiveFormsModule } from '@angular/forms';
+import { ManagementcordinationComponent } from './pages/managementcordination/managementcordination.component';
+import { HttpClientModule } from '@angular/common/http';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 
 
 @NgModule({
@@ -18,12 +20,16 @@ import { ReactiveFormsModule } from '@angular/forms';
     SidebarComponent,
     RightsidebarComponent,
     MainComponent,
-    IncidentFormComponent
+    IncidentFormComponent,
+    ManagementcordinationComponent
   ],
   imports: [
     CommonModule,
     FrontofficeRoutingModule,
-    ReactiveFormsModule
+    FormsModule,
+      ReactiveFormsModule,
+    HttpClientModule
+
   ]
 })
 export class FrontofficeModule { }

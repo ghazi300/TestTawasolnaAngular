@@ -48,6 +48,13 @@ export class DashboardComponent implements OnInit{
 
     },
     {
+      link: "/admin/managment",
+      icon: "user",
+      menu: "managment",
+      roles:["admin","user"]
+
+    },
+    {
       link: "/dashboard/stock",
       icon: "grid",
       menu: "Stock",
