@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
+import { IncidentService } from 'src/app/service/incident.service';
 
 interface Incident {
   id: number;
@@ -13,18 +14,26 @@ interface Incident {
   styleUrls: ['./incident-recent.component.scss']
 })
 export class IncidentRecentComponent implements OnInit {
-  recentIncidents: Incident[] = [
-    { id: 1, title: 'Server Down', status: 'open' },
-    { id: 2, title: 'Data Breach', status: 'in-progress' },
-    { id: 3, title: 'Network Issue', status: 'closed' }
-  ];
+  recentIncidents: any[] = [];
 
-  constructor(private router:Router) {}
+  constructor(private router: Router, private incidentService: IncidentService) {}
 
-  ngOnInit(): void {}
+  ngOnInit(): void {
+    this.loadRecentIncidents();
+  }
+
+  loadRecentIncidents(): void {
+    this.incidentService.getRecentIncidents().subscribe(
+      (data: any[]) => {
+        this.recentIncidents = data;
+      },
+      (error) => {
+        console.error('Error fetching recent incidents:', error);
+      }
+    );
+  }
 
   viewDetails(id: number): void {
-    // Logic to view details of the incident
     this.router.navigate(['/admin/crisis/incident/detail/', id]);
   }
 }

@@ -1,90 +1,63 @@
-import { Component, EventEmitter, Output } from '@angular/core';
+import { Component, OnInit, EventEmitter, Output } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { IncidentService } from 'src/app/service/incident.service'; 
+import { AlertService } from 'src/app/service/alert.service';
+import { MAT_SELECT_CONFIG, MatSelectConfig } from '@angular/material/select';
 
 @Component({
   selector: 'app-incident-form',
   templateUrl: './incident-form.component.html',
-  styleUrls: ['./incident-form.component.scss']
+  styleUrls: ['./incident-form.component.scss'],
+  providers: [
+    {
+      provide: MAT_SELECT_CONFIG,
+      useValue: {
+        overlayPanelClass: 'custom-select-overlay'
+      } as MatSelectConfig
+    }
+  ]
 })
-export class IncidentFormComponent {
+export class IncidentFormComponent implements OnInit {
   @Output() closeModal = new EventEmitter<void>();
-  incidentForm: FormGroup;
-  uploadedFiles: File[] = [];
-  filePreviewUrls: { [key: string]: string } = {};
-  fileContents: { [key: string]: string } = {};
 
-  constructor(private fb: FormBuilder) {
+  incidentForm: FormGroup;
+  graviteOptions: string[] = ['FAIBLE', 'MOYENNE', 'ELEVEE'];
+
+  constructor(
+    private fb: FormBuilder,
+    private incidentService: IncidentService,
+    private alertService: AlertService
+  ) {
     this.incidentForm = this.fb.group({
       title: ['', Validators.required],
       description: ['', Validators.required],
       location: ['', Validators.required],
       date: ['', Validators.required],
-      gravite:['',Validators.required],
-      fileUpload: [null]
+      gravite: ['', Validators.required],
     });
   }
 
-  onFileChange(event: any) {
-    const files = event.target.files;
-    for (let file of files) {
-      this.uploadedFiles.push(file);
-      const reader = new FileReader();
+  ngOnInit(): void {}
 
-      reader.onload = (e: any) => {
-        if (this.isImage(file)) {
-          this.filePreviewUrls[file.name] = e.target.result;
-        } else {
-          const textContent = e.target.result as string;
-          this.fileContents[file.name] = textContent.length > 100 ? textContent.substring(0, 100) + '...' : textContent;
-        }
-      };
-
-      if (this.isImage(file)) {
-        reader.readAsDataURL(file);
-      } else {
-        reader.readAsText(file);
-      }
-    }
-  }
-
-  isImage(file: File): boolean {
-    return file.type.startsWith('image/');
-  }
-
-  removeFile(file: File) {
-    const index = this.uploadedFiles.indexOf(file);
-    if (index > -1) {
-      this.uploadedFiles.splice(index, 1);
-      delete this.filePreviewUrls[file.name];
-      delete this.fileContents[file.name];
-    }
-  }
-
-  onSubmit() {
+  onSubmit(): void {
     if (this.incidentForm.valid) {
-      const formData = new FormData();
-      formData.append('title', this.incidentForm.get('title')?.value);
-      formData.append('description', this.incidentForm.get('description')?.value);
-      formData.append('location', this.incidentForm.get('location')?.value);
-      formData.append('date', this.incidentForm.get('date')?.value);
-      formData.append('gravite', this.incidentForm.get('gravite')?.value);
-
-      for (let file of this.uploadedFiles) {
-        formData.append('files', file);
-      }
-
-      // You can now send formData to your backend API
-      console.log(formData);
-
-      this.closeModal.emit();
+      const incidentPayload: any = this.incidentForm.value;
+      this.incidentService.createIncident(incidentPayload).subscribe(
+        (response) => {
+          console.log('Incident created:', response);
+          this.alertService.showSuccess('Incident created successfully!');
+          this.closeModal.emit(); // Emit event to close modal
+        },
+        (error) => {
+          console.error('Error creating incident:', error);
+          this.alertService.showError('Error creating incident.');
+        }
+      );
     }
   }
 
-  onCancel() {
+  onCancel(): void {
     this.incidentForm.reset();
-    this.uploadedFiles = [];
-    this.filePreviewUrls = {};
-    this.fileContents = {};
-    this.closeModal.emit();
+    this.closeModal.emit(); // Emit event to close modal
   }
 }

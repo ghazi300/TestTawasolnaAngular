@@ -1,5 +1,8 @@
 import { Component, EventEmitter, Output } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { AlertService } from 'src/app/service/alert.service';
+import { ResourceService } from 'src/app/service/resource.service'; // Adjust the path as needed
+
 @Component({
   selector: 'app-add-resource-form',
   templateUrl: './add-resource-form.component.html',
@@ -11,7 +14,7 @@ export class AddResourceFormComponent {
 
   resourceForm: FormGroup;
 
-  constructor(private fb: FormBuilder) {
+  constructor(private fb: FormBuilder, private resourceService: ResourceService,private as:AlertService) {
     this.resourceForm = this.fb.group({
       name: ['', Validators.required],
       type: ['', Validators.required],
@@ -22,7 +25,17 @@ export class AddResourceFormComponent {
 
   onSubmit() {
     if (this.resourceForm.valid) {
-      this.formSubmit.emit(this.resourceForm.value);
+      this.resourceService.createResource(this.resourceForm.value).subscribe(
+        (response) => {
+          this.as.showSuccess('Resource created successfully!');
+          this.formSubmit.emit(response);
+          this.resourceForm.reset();
+        },
+        (error) => {
+          this.as.showError('Error creating resource.');
+          console.error('Error creating resource:', error);
+        }
+      );
     }
   }
 

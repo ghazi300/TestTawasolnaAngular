@@ -29,6 +29,7 @@
     "angular-feather": "^6.3.0",
     "apexcharts": "^3.35.3",
     "ng-apexcharts": "^1.7.1",
+    "ng-openapi-gen": "^0.51.0",
     "rxjs": "~7.5.5",
     "tslib": "^2.4.0",
     "zone.js": "~0.11.6"
