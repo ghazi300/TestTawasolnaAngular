@@ -35,7 +35,8 @@ export class DashboardMenuComponent {
 
   @ViewChild("activeusercardchart") chart1: ChartComponent = Object.create(null);
   public activeusercardChartOptions!: Partial<ActiveUserCardChartOptions> | any;
-  
+  currentDate: Date = new Date();
+
 
  
   

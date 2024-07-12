@@ -69,7 +69,8 @@
     <div fxFlex.md="50%" fxFlex.lg="50%" fxFlex.xl="50%" fxFlex.sm="100%">
       <mat-card>
         <mat-card-content>
-          <h4 class="mb-32">Traffic Flow</h4>
+          <h4 class="mb-32">Traffic Flow - {{ currentDate | date: 'short' }}</h4>
+
           <div class="chart-container">
             <apx-chart 
               [series]="activeusercardChartOptions.series"
