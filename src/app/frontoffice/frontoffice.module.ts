@@ -9,6 +9,8 @@ import { RightsidebarComponent } from './components/rightsidebar/rightsidebar.co
 import { MainComponent } from './pages/main/main.component';
 import { IncidentFormComponent } from './incident-form/incident-form.component';
 import { ReactiveFormsModule } from '@angular/forms';
+import { TawasalnaModule } from '../tawasalna-module';
+import { MatDialogModule } from '@angular/material/dialog';
 
 
 @NgModule({
@@ -18,12 +20,15 @@ import { ReactiveFormsModule } from '@angular/forms';
     SidebarComponent,
     RightsidebarComponent,
     MainComponent,
-    IncidentFormComponent
+    IncidentFormComponent,
+
   ],
   imports: [
     CommonModule,
     FrontofficeRoutingModule,
-    ReactiveFormsModule
+    ReactiveFormsModule,
+    TawasalnaModule,
+    MatDialogModule
   ]
 })
 export class FrontofficeModule { }

@@ -1,0 +1,6 @@
+<div class="resource-inventory">
+  <h4>Resource Inventory</h4>
+  <app-resource-list [resources]="resources"></app-resource-list>
+  <button mat-button color="primary" (click)="showAddResourceForm()">Add Resource</button>
+  <app-add-resource-form *ngIf="isAddResourceFormVisible" (formSubmit)="onResourceAdded($event)" (formCancel)="hideAddResourceForm()"></app-add-resource-form>
+</div>
