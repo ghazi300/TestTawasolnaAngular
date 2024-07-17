@@ -1,5 +1,3 @@
-declare var zuck: any; // Declare zuck variable for TypeScript
-
 import { Component, OnInit } from '@angular/core';
 import { MatDialog } from '@angular/material/dialog';
 import { CalendarEvent, CalendarView, CalendarEventTimesChangedEvent } from 'angular-calendar';
@@ -7,7 +5,7 @@ import { isSameDay, isSameMonth } from 'date-fns';
 import { Event } from 'src/app/models/event'; 
 import { EventService } from 'src/app/Services/event.service'; 
 import { EventDetailsDialogComponent } from '../event-details-dialog/event-details-dialog.component'; 
-import mongoose, { mongo } from 'mongoose';
+import { AddEventDialogComponent } from '../add-event-dialog/add-event-dialog.component'; // Importer le composant de dialogue
 
 @Component({
   selector: 'app-facility-booking',
@@ -19,11 +17,7 @@ export class FacilityBookingComponent implements OnInit {
   view: CalendarView = CalendarView.Week;
   CalendarView = CalendarView;
   activeDayIsOpen = false;
-  showForm = false;
-  newEvent: Partial<Event> = {};
-
   events: CalendarEvent[] = [];
-  selectedEvent: Event | undefined;
 
   constructor(private eventService: EventService, public dialog: MatDialog) { }
 
@@ -81,79 +75,75 @@ export class FacilityBookingComponent implements OnInit {
   }
 
   handleEvent(action: string, event: CalendarEvent): void {
-    this.selectedEvent = this.events.find(e => e.id === event.id) as Event;
-    console.log(this.selectedEvent); // Log the selected event to check its structure
+    const selectedEvent = this.events.find(e => e.id === event.id) as Event;
     this.dialog.open(EventDetailsDialogComponent, {
-      data: this.selectedEvent
+      data: selectedEvent
     });
   }
 
   showAddEventForm(): void {
-    this.showForm = true;
-  }
+    const dialogRef = this.dialog.open(AddEventDialogComponent);
 
-  addEvent(): void {
-    const newEvent: Event = {
-      title: this.newEvent.title || '',
-      start: new Date(this.newEvent.start || ''),
-      end: new Date(this.newEvent.end || ''),
-      location: this.newEvent.location || '',
-      description: this.newEvent.description || '',
-      category: this.newEvent.category || '',
-      imageUrl: this.newEvent.imageUrl || '',
-      maxParticipants: this.newEvent.maxParticipants || 0,
-      notes: this.newEvent.notes || '',
-      participants: []
-    };
+    dialogRef.afterClosed().subscribe(result => {
+      if (result) {
+        const newEvent: Event = {
+          title: result.title || '',
+          start: new Date(result.start || ''),
+          end: new Date(result.end || ''),
+          location: result.location || '',
+          description: result.description || '',
+          category: result.category || '',
+          imageUrl: result.imageUrl || '',
+          maxParticipants: result.maxParticipants || 0,
+          notes: result.notes || '',
+          participants: []
+        };
 
-    this.eventService.createEvent(newEvent).subscribe(
-      createdEvent => {
-        this.events = [
-          ...this.events,
-          {
-            id: createdEvent.id,
-            title: createdEvent.title,
-            start: new Date(createdEvent.start),
-            end: new Date(createdEvent.end),
-            location: createdEvent.location || '',
-            description: createdEvent.description || '',
-            category: createdEvent.category || '',
-            imageUrl: createdEvent.imageUrl || '',
-            maxParticipants: createdEvent.maxParticipants || 0,
-            notes: createdEvent.notes || '',
-            draggable: true,
-            resizable: {
-              beforeStart: true,
-              afterEnd: true,
-            }
+        this.eventService.createEvent(newEvent).subscribe(
+          createdEvent => {
+            this.events = [
+              ...this.events,
+              {
+                id: createdEvent.id,
+                title: createdEvent.title,
+                start: new Date(createdEvent.start),
+                end: new Date(createdEvent.end),
+                location: createdEvent.location || '',
+                description: createdEvent.description || '',
+                category: createdEvent.category || '',
+                imageUrl: createdEvent.imageUrl || '',
+                maxParticipants: createdEvent.maxParticipants || 0,
+                notes: createdEvent.notes || '',
+                draggable: true,
+                resizable: {
+                  beforeStart: true,
+                  afterEnd: true,
+                }
+              }
+            ];
+          },
+          error => {
+            console.error('Error adding event:', error);
           }
-        ];
-        this.showForm = false; // Hide the form after successful addition
-        this.newEvent = {}; // Clear the form fields
-      },
-      error => {
-        console.error('Error adding event:', error);
+        );
       }
-    );
+    });
   }
 
   saveEventDates(event: CalendarEvent<any>): void {
-    // Assurez-vous d'avoir une logique pour récupérer les données nécessaires
-    // Adaptation à votre logique spécifique
     const eventData: Partial<Event> = {
       id: event.id as number,
       title: event.title,
       start: event.start,
-      end: event.end || event.start, // Définissez une valeur par défaut pour end si nécessaire
+      end: event.end || event.start,
       location: event.location || '',
       description: event.description || '',
       category: event.category || '',
       imageUrl: event.imageUrl || '',
-      maxParticipants: event.maxParticipants || 0, // Définissez une valeur par défaut si nécessaire
+      maxParticipants: event.maxParticipants || 0,
       notes: event.notes || ''
     };
-  
-    // Vérifiez si id est défini avant d'appeler updateEvent
+
     if (eventData.id !== undefined) {
       this.eventService.updateEvent(eventData.id, eventData as Event).subscribe(
         () => {

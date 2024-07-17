@@ -37,8 +37,11 @@
       </p>
       <p><strong>Participants:</strong></p>
       <ul>
-        <li *ngFor="let participant of data.participants">{{ participant.name }}</li>
-      </ul>
+        <li *ngFor="let participant of data.participants">
+            <!-- Ajouter l'icône d'envoi d'email ici -->
+            <mat-icon class="email-icon" (click)="sendEmail(participant.email)">email</mat-icon>
+            {{ participant.name }}
+          </li>      </ul>
       <div *ngIf="editMode">
         <mat-form-field>
           <mat-label>Add Participants</mat-label>
@@ -49,7 +52,7 @@
           </mat-select>
         </mat-form-field>
         <button mat-button (click)="addParticipants()">Add Participants</button>
-      </div>
+    </div>
     </div>
   </div>
   <div mat-dialog-actions>
@@ -57,5 +60,6 @@
     <button mat-button *ngIf="editMode" (click)="saveChanges()">Save</button>
     <button mat-button *ngIf="editMode" (click)="cancelEdit()">Cancel</button>
     <button mat-button (click)="onClose()">Close</button>
+    <button mat-button color="warn" (click)="deleteEvent(data.id, data.title)" *ngIf="!editMode">Supprimer l'événement</button>
   </div>
   

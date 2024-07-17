@@ -35,38 +35,4 @@
       (eventClicked)="handleEvent('Clicked', $event.event)">
     </mwl-calendar-day-view>
   </span>
-
-  <!-- Formulaire d'ajout d'événement -->
-  <div *ngIf="showForm">
-    <form (ngSubmit)="addEvent()">
-      <label for="title">Title</label>
-      <input type="text" id="title" name="title" [(ngModel)]="newEvent.title" required>
-
-      <label for="start">Start Date</label>
-      <input type="datetime-local" id="start" name="start" [(ngModel)]="newEvent.start" required>
-
-      <label for="end">End Date</label>
-      <input type="datetime-local" id="end" name="end" [(ngModel)]="newEvent.end" required>
-
-      <label for="location">Location</label>
-      <input type="text" id="location" name="location" [(ngModel)]="newEvent.location">
-
-      <label for="description">Description</label>
-      <textarea id="description" name="description" [(ngModel)]="newEvent.description"></textarea>
-
-      <label for="category">Category</label>
-      <input type="text" id="category" name="category" [(ngModel)]="newEvent.category">
-
-      <label for="imageUrl">Image URL</label>
-      <input type="text" id="imageUrl" name="imageUrl" [(ngModel)]="newEvent.imageUrl">
-
-      <label for="maxParticipants">Max Participants</label>
-      <input type="number" id="maxParticipants" name="maxParticipants" [(ngModel)]="newEvent.maxParticipants">
-
-      <label for="notes">Notes</label>
-      <textarea id="notes" name="notes" [(ngModel)]="newEvent.notes"></textarea>
-
-      <button type="submit">Save</button>
-    </form>
-  </div>
 </div>

@@ -17,6 +17,9 @@ import { FormsModule } from '@angular/forms';
 import { CalendarModule } from 'angular-calendar';
 import { MatSelectModule } from '@angular/material/select';
 import { HttpClientModule } from '@angular/common/http';
+import { AddEventDialogComponent } from './add-event-dialog/add-event-dialog.component';
+import { MatDialogModule } from '@angular/material/dialog';
+import { MatIconModule } from '@angular/material/icon';
 
 
 
@@ -24,9 +27,11 @@ import { HttpClientModule } from '@angular/common/http';
   declarations: [
     DashboardComponent,
     EventDetailsDialogComponent,
-    FacilityBookingComponent
+    FacilityBookingComponent,
+    AddEventDialogComponent
   ],
   imports: [
+    MatIconModule,
     CommonModule,
     BackofficeRoutingModule,
     FeatherModule,
@@ -40,8 +45,10 @@ import { HttpClientModule } from '@angular/common/http';
     FormsModule,
     CalendarModule,
     MatSelectModule,
-    HttpClientModule
-
+    HttpClientModule,
+    MatInputModule,
+    MatDialogModule,
+    
 
   ]
 })

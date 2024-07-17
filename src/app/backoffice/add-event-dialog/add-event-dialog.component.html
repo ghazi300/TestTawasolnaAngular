@@ -1,0 +1,62 @@
+<h2 mat-dialog-title>Add Event</h2>
+<mat-dialog-content class="event-dialog-content">
+  <div class="event-details">
+    <!-- Côté gauche : Autres informations -->
+    <form (ngSubmit)="onSubmit()" class="event-form">
+      <mat-form-field>
+        <mat-label>Title</mat-label>
+        <input matInput [(ngModel)]="event.title" name="title" required>
+      </mat-form-field>
+      <mat-form-field>
+        <mat-label>Start Date</mat-label>
+        <input matInput type="datetime-local" [(ngModel)]="event.start" name="start" required>
+      </mat-form-field>
+      <mat-form-field>
+        <mat-label>End Date</mat-label>
+        <input matInput type="datetime-local" [(ngModel)]="event.end" name="end" required>
+      </mat-form-field>
+      <mat-form-field>
+        <mat-label>Location</mat-label>
+        <input matInput [(ngModel)]="event.location" name="location">
+      </mat-form-field>
+      <mat-form-field>
+        <mat-label>Description</mat-label>
+        <textarea matInput [(ngModel)]="event.description" name="description"></textarea>
+      </mat-form-field>
+      <mat-form-field>
+        <mat-label>Category</mat-label>
+        <input matInput [(ngModel)]="event.category" name="category">
+      </mat-form-field>
+      <mat-form-field>
+        <mat-label>Max Participants</mat-label>
+        <input matInput type="number" [(ngModel)]="event.maxParticipants" name="maxParticipants">
+      </mat-form-field>
+      <mat-form-field>
+        <mat-label>Notes</mat-label>
+        <textarea matInput [(ngModel)]="event.notes" name="notes"></textarea>
+      </mat-form-field>
+      <mat-form-field>
+        <mat-label>Email du Destinataire</mat-label>
+        <input matInput type="email" [(ngModel)]="recipientEmail" name="recipientEmail" required>
+      </mat-form-field>
+      <div class="button-group">
+        <button mat-raised-button color="primary" type="submit">Save</button>
+        <button mat-button mat-dialog-close>Cancel</button>
+        <button mat-button color="accent" (click)="sendEmail(recipientEmail)">Envoyer Email</button>
+      </div>
+    </form>
+  </div>
+  <!-- Côté droit : Image et Titre -->
+  <div class="event-preview">
+    <div class="image-container">
+      <img [src]="event.imageUrl || 'assets/default-image.jpg'" alt="{{ event.title }}" class="event-image" />
+      <div class="custom-file">
+        <input type="file" class="custom-file-input" id="customFile" (change)="onFileChanged($event)">
+        <label class="custom-file-label" for="customFile">{{ selectedFile ? selectedFile.name : 'Choose image...' }}</label>
+      </div>
+    </div>
+    <div class="title-container">
+      <h3>{{ event.title }}</h3>
+    </div>
+  </div>
+</mat-dialog-content>
