@@ -6,11 +6,13 @@ import { AuthComponent } from './views/auth/auth/auth.component';
 
 import {RegisterComponent} from "./views/auth/register/register.component";
 import {ForgetPasswordComponent} from "./views/auth/forget-password/forget-password.component";
+import { FacilityBookingComponent } from './backoffice/facility-booking/facility-booking.component';
 
 const routes: Routes = [
   {
     path : "auth", component: AuthComponent
   },
+  {path:"home", redirectTo:"", pathMatch:"full"},
   {
     path : "signup", component: RegisterComponent
   },
@@ -20,9 +22,8 @@ const routes: Routes = [
 
   {path:'front',loadChildren:() => import('./frontoffice/frontoffice.module').then(m => m.FrontofficeModule)},
   {path:'admin',loadChildren:() => import('./backoffice/backoffice.module').then(m => m.BackofficeModule)},
-
-  {path:"", redirectTo:"/home", pathMatch:"full"},
-  {path:"**", redirectTo:"/home", pathMatch:"full"},
+ 
+ // {path:"**", redirectTo:"/home", pathMatch:"full"},
 ];
 
 @NgModule({

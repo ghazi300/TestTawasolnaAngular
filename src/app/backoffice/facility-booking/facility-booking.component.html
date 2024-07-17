@@ -1,0 +1,72 @@
+<div id="calendar-container">
+  <div id="cal-buttons">
+    <div id="cal-date-nav-buttons">
+      <button id="previous" mwlCalendarPreviousView [(viewDate)]="viewDate" [view]="view">Previous</button>
+      <button id="today" mwlCalendarToday [(viewDate)]="viewDate">Today</button>
+      <button id="next" mwlCalendarNextView [(viewDate)]="viewDate" [view]="view">Next</button>
+    </div>
+    <div id="cal-date-field">{{ viewDate | calendarDate:(view + 'ViewTitle') : 'en'}}</div>
+    <div id="cal-view-nav-buttons">
+      <button id="month" (click)="setView(CalendarView.Month)">Month</button>
+      <button id="week" (click)="setView(CalendarView.Week)">Week</button>
+      <button id="day" (click)="setView(CalendarView.Day)">Day</button>
+      <button id="addEventButton" (click)="showAddEventForm()">Add Event</button>
+    </div>
+  </div>
+  <span [ngSwitch]="view">
+    <mwl-calendar-month-view *ngSwitchCase="CalendarView.Month"
+      [viewDate]="viewDate"
+      [events]="events"
+      [activeDayIsOpen]="activeDayIsOpen"
+      (dayClicked)="dayClicked($event.day)"
+      (eventTimesChanged)="eventTimesChanged($event)"
+      (eventClicked)="handleEvent('Clicked', $event.event)">
+    </mwl-calendar-month-view>
+    <mwl-calendar-week-view *ngSwitchCase="CalendarView.Week"
+      [viewDate]="viewDate"
+      [events]="events"
+      (eventTimesChanged)="eventTimesChanged($event)"
+      (eventClicked)="handleEvent('Clicked', $event.event)">
+    </mwl-calendar-week-view>
+    <mwl-calendar-day-view *ngSwitchCase="CalendarView.Day"
+      [viewDate]="viewDate"
+      [events]="events"
+      (eventTimesChanged)="eventTimesChanged($event)"
+      (eventClicked)="handleEvent('Clicked', $event.event)">
+    </mwl-calendar-day-view>
+  </span>
+
+  <!-- Formulaire d'ajout d'événement -->
+  <div *ngIf="showForm">
+    <form (ngSubmit)="addEvent()">
+      <label for="title">Title</label>
+      <input type="text" id="title" name="title" [(ngModel)]="newEvent.title" required>
+
+      <label for="start">Start Date</label>
+      <input type="datetime-local" id="start" name="start" [(ngModel)]="newEvent.start" required>
+
+      <label for="end">End Date</label>
+      <input type="datetime-local" id="end" name="end" [(ngModel)]="newEvent.end" required>
+
+      <label for="location">Location</label>
+      <input type="text" id="location" name="location" [(ngModel)]="newEvent.location">
+
+      <label for="description">Description</label>
+      <textarea id="description" name="description" [(ngModel)]="newEvent.description"></textarea>
+
+      <label for="category">Category</label>
+      <input type="text" id="category" name="category" [(ngModel)]="newEvent.category">
+
+      <label for="imageUrl">Image URL</label>
+      <input type="text" id="imageUrl" name="imageUrl" [(ngModel)]="newEvent.imageUrl">
+
+      <label for="maxParticipants">Max Participants</label>
+      <input type="number" id="maxParticipants" name="maxParticipants" [(ngModel)]="newEvent.maxParticipants">
+
+      <label for="notes">Notes</label>
+      <textarea id="notes" name="notes" [(ngModel)]="newEvent.notes"></textarea>
+
+      <button type="submit">Save</button>
+    </form>
+  </div>
+</div>

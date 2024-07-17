@@ -1,0 +1,61 @@
+<div mat-dialog-content class="event-details">
+    <div *ngIf="data.imageUrl" class="image-container">
+      <img [src]="data.imageUrl" alt="{{ data.title }}" class="event-image" />
+    </div>
+    <div class="details-container">
+      <p><strong>Title:</strong>
+        <span *ngIf="!editMode">{{ data.title }}</span>
+        <input *ngIf="editMode" matInput name="title" [(ngModel)]="data.title" required>
+      </p>
+      <p><strong>Start:</strong>
+        <span *ngIf="!editMode">{{ data.start | date:'medium' }}</span>
+        <input *ngIf="editMode" matInput type="datetime-local" name="start" [(ngModel)]="data.start" required>
+      </p>
+      <p><strong>End:</strong>
+        <span *ngIf="!editMode">{{ data.end | date:'medium' }}</span>
+        <input *ngIf="editMode" matInput type="datetime-local" name="end" [(ngModel)]="data.end" required>
+      </p>
+      <p><strong>Location:</strong>
+        <span *ngIf="!editMode">{{ data.location }}</span>
+        <input *ngIf="editMode" matInput name="location" [(ngModel)]="data.location">
+      </p>
+      <p><strong>Description:</strong>
+        <span *ngIf="!editMode">{{ data.description }}</span>
+        <textarea *ngIf="editMode" matInput name="description" [(ngModel)]="data.description"></textarea>
+      </p>
+      <p><strong>Category:</strong>
+        <span *ngIf="!editMode">{{ data.category }}</span>
+        <input *ngIf="editMode" matInput name="category" [(ngModel)]="data.category">
+      </p>
+      <p><strong>Max Participants:</strong>
+        <span *ngIf="!editMode">{{ data.maxParticipants }}</span>
+        <input *ngIf="editMode" matInput type="number" name="maxParticipants" [(ngModel)]="data.maxParticipants">
+      </p>
+      <p><strong>Notes:</strong>
+        <span *ngIf="!editMode">{{ data.notes }}</span>
+        <textarea *ngIf="editMode" matInput name="notes" [(ngModel)]="data.notes"></textarea>
+      </p>
+      <p><strong>Participants:</strong></p>
+      <ul>
+        <li *ngFor="let participant of data.participants">{{ participant.name }}</li>
+      </ul>
+      <div *ngIf="editMode">
+        <mat-form-field>
+          <mat-label>Add Participants</mat-label>
+          <mat-select multiple [(ngModel)]="selectedParticipants">
+            <mat-option *ngFor="let participant of allParticipants" [value]="participant">
+              {{ participant.name }}
+            </mat-option>
+          </mat-select>
+        </mat-form-field>
+        <button mat-button (click)="addParticipants()">Add Participants</button>
+      </div>
+    </div>
+  </div>
+  <div mat-dialog-actions>
+    <button mat-button *ngIf="!editMode" (click)="editMode = true">Edit</button>
+    <button mat-button *ngIf="editMode" (click)="saveChanges()">Save</button>
+    <button mat-button *ngIf="editMode" (click)="cancelEdit()">Cancel</button>
+    <button mat-button (click)="onClose()">Close</button>
+  </div>
+  

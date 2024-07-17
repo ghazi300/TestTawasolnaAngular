@@ -11,12 +11,20 @@ import {MatMenuModule} from "@angular/material/menu";
 import {MatRippleModule} from "@angular/material/core";
 import {MatSidenavModule} from "@angular/material/sidenav";
 import {MatToolbarModule} from "@angular/material/toolbar";
+import { EventDetailsDialogComponent } from './event-details-dialog/event-details-dialog.component';
+import { FacilityBookingComponent } from './facility-booking/facility-booking.component';
+import { FormsModule } from '@angular/forms';
+import { CalendarModule } from 'angular-calendar';
+import { MatSelectModule } from '@angular/material/select';
+import { HttpClientModule } from '@angular/common/http';
 
 
 
 @NgModule({
   declarations: [
-    DashboardComponent
+    DashboardComponent,
+    EventDetailsDialogComponent,
+    FacilityBookingComponent
   ],
   imports: [
     CommonModule,
@@ -29,6 +37,11 @@ import {MatToolbarModule} from "@angular/material/toolbar";
     MatRippleModule,
     MatSidenavModule,
     MatToolbarModule,
+    FormsModule,
+    CalendarModule,
+    MatSelectModule,
+    HttpClientModule
+
 
   ]
 })

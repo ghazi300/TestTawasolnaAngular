@@ -1,0 +1,29 @@
+/* Example CSS styles */
+.event-details {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    padding: 20px;
+  }
+  
+  .image-container {
+    margin-bottom: 20px;
+  }
+  
+  .event-image {
+    max-width: 100%;
+    height: auto;
+    border-radius: 8px;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+  }
+  
+  .details-container {
+    width: 100%;
+    max-width: 600px; /* Adjust max-width as needed */
+  }
+  
+  .mat-dialog-actions {
+    justify-content: flex-end;
+    margin-top: 20px;
+  }
+  
