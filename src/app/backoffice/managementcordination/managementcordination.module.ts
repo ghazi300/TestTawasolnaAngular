@@ -5,6 +5,9 @@ import { ManagementcordinationRoutingModule } from './managementcordination-rout
 import { ManagementcordinationComponent } from './managementcordination/managementcordination.component';
 import { HttpClientModule } from '@angular/common/http';
 import { ReactiveFormsModule } from '@angular/forms';
+//import { NgChartsModule } from '@angular/common/charts';
+import { NgApexchartsModule } from 'ng-apexcharts';
+
 
 @NgModule({
   declarations: [
@@ -14,7 +17,9 @@ import { ReactiveFormsModule } from '@angular/forms';
     CommonModule,
     ManagementcordinationRoutingModule,
     HttpClientModule,
-    ReactiveFormsModule
+    ReactiveFormsModule,
+    NgApexchartsModule
+
   ]
 })
 export class ManagementcordinationModule { }

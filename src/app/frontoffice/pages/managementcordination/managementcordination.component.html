@@ -4,6 +4,10 @@
     
     <form [formGroup]="opinionForm" (ngSubmit)="submitOpinions()">
       <div class="form-group">
+        <label for="residentName">Resident Name:</label>
+        <input type="text" class="form-control" id="residentName" formControlName="residentName">
+      </div>
+      <div class="form-group">
         <label>Cleanliness:</label>
         <div class="d-flex align-items-center"> 
           <input type="radio" id="cleanlinessGood" formControlName="cleanliness" value="Good">
@@ -15,7 +19,7 @@
         </div>
         <div class="d-flex align-items-center"> 
           <input type="radio" id="cleanlinessHigh" formControlName="cleanliness" value="High">
-          <label for="cleanlinessHigh">High</label>
+          <label for="cleanlinessHigh">Excellent</label>
         </div>
       </div>
       
@@ -31,7 +35,7 @@
         </div>
         <div class="d-flex align-items-center"> 
           <input type="radio" id="securityHigh" formControlName="security" value="High">
-          <label for="securityHigh">High</label>
+          <label for="securityHigh">Excellent</label>
         </div>
       </div>
       
@@ -47,7 +51,7 @@
         </div>
         <div class="d-flex align-items-center"> 
           <input type="radio" id="amenitiesHigh" formControlName="amenities" value="High">
-          <label for="amenitiesHigh">High</label>
+          <label for="amenitiesHigh">Excellent</label>
         </div>
       </div>
       
@@ -63,7 +67,7 @@
         </div>
         <div class="d-flex align-items-center"> 
           <input type="radio" id="maintenanceHigh" formControlName="maintenance" value="High">
-          <label for="maintenanceHigh">High</label>
+          <label for="maintenanceHigh">Excellent</label>
         </div>
       </div>
       
@@ -79,11 +83,13 @@
         </div>
         <div class="d-flex align-items-center"> 
           <input type="radio" id="managementHigh" formControlName="management" value="High">
-          <label for="managementHigh">High</label>
+          <label for="managementHigh">Excellent</label>
         </div>
       </div>
       
       <button type="submit" [disabled]="!opinionForm.valid" class="btn btn-primary">Submit</button>
+      <p *ngIf="submitted" class="alert alert-success">Form submitted successfully!</p>
+
     </form>
   </div>
   
