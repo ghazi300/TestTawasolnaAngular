@@ -42,6 +42,12 @@ export class DashboardComponent implements OnInit{
       roles:["admin","user"]
     },
     {
+      link: "/admin/security",
+      icon: "users",
+      menu: "Security Agent" ,
+      roles:["admin","user"]
+    },
+    {
       link: "/admin/community",
       icon: "user",
       menu: "Community Engagment",

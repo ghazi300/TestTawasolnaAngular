@@ -10,6 +10,7 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 
 import { TawasalnaModule } from './tawasalna-module'
 
+import { HttpClientModule } from '@angular/common/http';
 
 import { AuthComponent } from './views/auth/auth/auth.component';
 

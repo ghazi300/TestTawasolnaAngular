@@ -1,5 +1,6 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
+import { NgApexchartsModule } from 'ng-apexcharts';
 
 import { BackofficeRoutingModule } from './backoffice-routing.module';
 import { DashboardComponent } from './dashboard.component';
@@ -32,6 +33,9 @@ import { NgApexchartsModule } from 'ng-apexcharts';
     MatToolbarModule,
     NgApexchartsModule,
    
+
+    NgApexchartsModule
+
   ]
 })
 export class BackofficeModule { }
