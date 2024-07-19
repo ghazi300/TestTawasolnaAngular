@@ -20,14 +20,21 @@ export class ParkingSpaceComponent implements OnInit, AfterViewInit{
     constructor(public dialog: MatDialog,private _parkinglotservice:ParkinnagentserviceService,private _snackBar: MatSnackBar){}
  
     getAll(): void {
+
      this._parkinglotservice.getAllParkingSpace().subscribe({
        next: (data) => {
-         this.dataSource = new MatTableDataSource(data);
-         console.log(data);
-         this.dataSource.paginator = this.paginator;
+        this.dataSource = new MatTableDataSource(data);
+          this.dataSource.paginator = this.paginator;
+    
+          if (!data || data.length === 0) {
+            this._snackBar.open('There is no data. Add one!', 'Close');
+          }
        },
-       error: (err) => console.log(err),
-     });
+       error: (err) => {
+        console.error('Error fetching data:', err);
+        this._snackBar.open('Failed to fetch data', 'Close');
+      }, 
+        });
    }
  
    ngOnInit(): void {

@@ -25,8 +25,15 @@ export class ParkingLotComponent implements OnInit, AfterViewInit{
       next: (data) => {
         this.dataSource = new MatTableDataSource(data);
         this.dataSource.paginator = this.paginator;
+  
+        if (!data || data.length === 0) {
+          this._snackBar.open('There is no data. Add one!', 'Close');
+        }
       },
-      error: (err) => console.log(err),
+      error: (err) => {
+        console.error('Error fetching data:', err);
+        this._snackBar.open('Failed to fetch data', 'Close');
+      },
     });
   }
 
@@ -34,11 +41,7 @@ export class ParkingLotComponent implements OnInit, AfterViewInit{
     this.getAll();
     console.log(this.dataSource);
 
-    setTimeout(() => {
-      if (!this.dataSource.data || this.dataSource.data.length === 0) {
-        this._snackBar.open('There is no data. Add one!', 'Close');
-      }
-    }, 1000);
+   
   }
 
   ngAfterViewInit(): void {

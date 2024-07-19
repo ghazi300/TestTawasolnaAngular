@@ -1,4 +1,4 @@
-import { Component, Inject } from '@angular/core';
+import { Component, Inject, OnInit } from '@angular/core';
 import { MAT_DIALOG_DATA, MatDialogRef } from '@angular/material/dialog';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { ParkinnagentserviceService } from 'src/app/service/parkinnagentservice.service';
@@ -8,8 +8,8 @@ import { ParkinnagentserviceService } from 'src/app/service/parkinnagentservice.
   templateUrl: './add-edit-parking-space.component.html',
   styleUrls: ['./add-edit-parking-space.component.scss']
 })
-export class AddEditParkingSpaceComponent {
-  parkingLots :{ parkinglotid: string | null; name: string  }[]=[];
+export class AddEditParkingSpaceComponent implements OnInit {
+  parkingLotId :{ parkinglotid: string | null; name: string  }[]=[];
   selectedParkingLot: string = '';
   locationNumber: string = '';
   capacity: number | null = null;
@@ -23,20 +23,28 @@ export class AddEditParkingSpaceComponent {
     private _snackBar: MatSnackBar
   ) {
     if (data) {
-      this.parkingLots = data.parkingLots;
-      this.selectedParkingLot = data.selectedParkingLot;
-      this.locationNumber = data.locationNumber;
-      this.capacity = data.capacity;
-      this.occupiedSpaces = data.occupiedSpaces;
-      this.subSpaces = data.subSpaces;
+      this.parkingLotId = data?.parkingLots || [];
+  this.selectedParkingLot = data?.selectedParkingLot || '';
+  this.locationNumber = data?.locationNumber || '';
+  this.capacity = data?.capacity || null;
+  this.occupiedSpaces = data?.occupiedSpaces ?? 0;
+    this.subSpaces = data?.subSpaces || [];
     }
+  }
+  ngOnInit(): void {
+    this._parkinglotservice.getAllParkingLot().subscribe(parkingLots => {
+      this.parkingLotId = parkingLots;
+    });
   }
 
   addSubSpace() {
+    if (!this.subSpaces) {
+      this.subSpaces = [];
+    }
     this.subSpaces.push({
-      subSpaceId: null,
+      subSpaceId:Math.random().toString(36).substr(2, 9),
       stationNumber: null,
-      status: null
+      status: 'AVAILABLE'  
     });
   }
 
@@ -44,24 +52,36 @@ export class AddEditParkingSpaceComponent {
     this.dialogRef.close();
   }
 
-  save() {
-    if (this.data && this.data.parkinglotid) {
-      // Update logic here
-      this._snackBar.open('Parking lot updated successfully', 'Close', {
-        duration: 3000,
+  save(): void {
+    const formData = this.getFormData();
+    if (!formData.parkingLotId) {
+      this._snackBar.open('Parking Lot selection is required', 'Close', {
+        duration: 3000
       });
-    } else {
-      // Save logic here
-      this._snackBar.open('Parking lot saved successfully', 'Close', {
-        duration: 3000,
-      });
+      return;
     }
-    this.dialogRef.close({ data: this.getFormData() });
+    console.log(formData);
+    this._parkinglotservice.addparkingspace(formData).subscribe({
+      next: () => {
+        this.dialogRef.close(formData);
+        this._snackBar.open('Parking Space added successfully', 'Close', {
+          duration: 3000
+        });
+      },
+      error: (err) => {
+        console.error('Failed to add parking space:', err);
+        this._snackBar.open('Failed to add parking space', 'Close', {
+          duration: 3000
+        });
+      }
+    });
+  
   }
-
   getFormData() {
+    const selectedLot = this.parkingLotId.find(lot => lot.parkinglotid === this.selectedParkingLot);
+
     return {
-      selectedParkingLot: this.selectedParkingLot,
+      parkingLotId: selectedLot,
       locationNumber: this.locationNumber,
       capacity: this.capacity,
       occupiedSpaces: this.occupiedSpaces,

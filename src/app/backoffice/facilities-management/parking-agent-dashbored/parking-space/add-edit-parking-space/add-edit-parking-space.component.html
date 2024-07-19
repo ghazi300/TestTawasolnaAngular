@@ -1,66 +1,11 @@
-<!-- <h4 mat-dialog-title fxLayout="row" fxLayoutAlign="center center" class="dialog-title">Manage Parking Lot</h4>
+
+<h4 mat-dialog-title fxLayout="row" fxLayoutAlign="center center" class="dialog-title">Manage Parking Space</h4>
 <div mat-dialog-content>
   <form #parkingLotForm="ngForm">
     <mat-form-field class="example-full-width">
       <mat-label>Select Parking Lot</mat-label>
       <mat-select [(ngModel)]="selectedParkingLot" name="parkingLot" required>
-        <mat-option *ngFor="let lot of parkingLots" [value]="lot.parkinglotid">
-          {{ lot.name }}
-        </mat-option>
-      </mat-select>
-      <mat-error *ngIf="parkingLotForm.controls['parkingLot']?.invalid && parkingLotForm.controls['parkingLot']?.touched">
-        <span *ngIf="parkingLotForm.controls['parkingLot']?.errors?.['required']">Parking lot selection is required.</span>
-      </mat-error>
-    </mat-form-field>
-
-    <mat-form-field class="example-full-width">
-      <mat-label>Location Number</mat-label>
-      <input matInput [(ngModel)]="locationNumber" name="locationNumber" required minlength="1">
-      <mat-error *ngIf="parkingLotForm.controls['locationNumber']?.invalid && parkingLotForm.controls['locationNumber']?.touched">
-        <span *ngIf="parkingLotForm.controls['locationNumber']?.errors?.['required']">Location Number is required.</span>
-        <span *ngIf="parkingLotForm.controls['locationNumber']?.errors?.['minlength']">Location Number must be at least 1 character long.</span>
-      </mat-error>
-    </mat-form-field>
-
-    <mat-form-field class="example-full-width">
-      <mat-label>Capacity</mat-label>
-      <input matInput type="number" [(ngModel)]="capacity" name="capacity" required min="1">
-      <mat-error *ngIf="parkingLotForm.controls['capacity']?.invalid && parkingLotForm.controls['capacity']?.touched">
-        <span *ngIf="parkingLotForm.controls['capacity']?.errors?.['required']">Capacity is required.</span>
-        <span *ngIf="parkingLotForm.controls['capacity']?.errors?.['min']">Capacity must be at least 1.</span>
-      </mat-error>
-    </mat-form-field>
-
-    <mat-form-field class="example-full-width">
-      <mat-label>Occupied Spaces</mat-label>
-      <input matInput type="number" [(ngModel)]="occupiedSpaces" name="occupiedSpaces" required min="0">
-      <mat-error *ngIf="parkingLotForm.controls['occupiedSpaces']?.invalid && parkingLotForm.controls['occupiedSpaces']?.touched">
-        <span *ngIf="parkingLotForm.controls['occupiedSpaces']?.errors?.['required']">Occupied Spaces is required.</span>
-        <span *ngIf="parkingLotForm.controls['occupiedSpaces']?.errors?.['min']">Occupied Spaces must be at least 0.</span>
-      </mat-error>
-    </mat-form-field>
-  </form>
-
-  <button mat-raised-button (click)="addSubSpace()" color="primary">Add Sub Space</button>
-
-  <div *ngFor="let subSpace of subSpaces">
-    <p>Sub Space ID: {{ subSpace.subSpaceId }}, Station Number: {{ subSpace.stationNumber }}, Status: {{ subSpace.status }}</p>
-  </div>
-</div>
-
-<div mat-dialog-actions>
-  <button mat-raised-button class="me-8 mb-8" (click)="cancel()">Cancel</button>
-  <button mat-raised-button class="me-8 mb-8" (click)="save()" color="primary" [disabled]="!parkingLotForm.form.valid">
-    {{ this.data && this.data.parkinglotid ? 'Update' : 'Save' }}
-  </button>
-</div> -->
-<!-- <h4 mat-dialog-title fxLayout="row" fxLayoutAlign="center center" class="dialog-title">Manage Parking Lot</h4>
-<div mat-dialog-content>
-  <form #parkingLotForm="ngForm">
-    <mat-form-field class="example-full-width">
-      <mat-label>Select Parking Lot</mat-label>
-      <mat-select [(ngModel)]="selectedParkingLot" name="parkingLot" required>
-        <mat-option *ngFor="let lot of parkingLots" [value]="lot.parkinglotid">
+        <mat-option *ngFor="let lot of parkingLotId" [value]="lot.parkinglotid">
           {{ lot.name }}
         </mat-option>
       </mat-select>
@@ -97,95 +42,25 @@
     </mat-form-field>
 
     <button mat-raised-button (click)="addSubSpace()" color="primary">Add Sub Space</button>
-
-    <div *ngFor="let subSpace of subSpaces; let i = index" [formGroup]="parkinglotform">
-      <mat-form-field class="example-full-width">
-        <mat-label>Sub Space ID</mat-label>
-        <input matInput [(ngModel)]="subSpace.subspaceid" name="subSpaceId-{{i}}">
-      </mat-form-field>
-      <mat-form-field class="example-full-width">
-        <mat-label>Station Number</mat-label>
-        <input matInput [(ngModel)]="subSpace.stationnumber" name="stationNumber-{{i}}">
-      </mat-form-field>
-      <mat-form-field class="example-full-width">
-        <mat-label>Status</mat-label>
-        <input matInput [(ngModel)]="subSpace.status" name="status-{{i}}">
-      </mat-form-field>
-    </div>
-  </form>
-</div>
-
-<div mat-dialog-actions>
-  <button mat-raised-button class="me-8 mb-8" (click)="cancel()">Cancel</button>
-  <button mat-raised-button class="me-8 mb-8" (click)="save()" color="primary" [disabled]="!parkingLotForm.form.valid">
-    {{ this.data && this.data.parkinglotid ? 'Update' : 'Save' }}
-  </button>
-</div> -->
-<h4 mat-dialog-title fxLayout="row" fxLayoutAlign="center center" class="dialog-title">Manage Parking Lot</h4>
-<div mat-dialog-content>
-  <form #parkingLotForm="ngForm">
-    <mat-form-field class="example-full-width">
-      <mat-label>Select Parking Lot</mat-label>
-      <mat-select [(ngModel)]="selectedParkingLot" name="parkingLot" required>
-        <mat-option *ngFor="let lot of parkingLots" [value]="lot.parkinglotid">
-          {{ lot.name }}
-        </mat-option>
-      </mat-select>
-      <mat-error *ngIf="parkingLotForm.controls['parkingLot']?.invalid && parkingLotForm.controls['parkingLot']?.touched">
-        <span *ngIf="parkingLotForm.controls['parkingLot']?.errors?.['required']">Parking lot selection is required.</span>
-      </mat-error>
-    </mat-form-field>
-
-    <mat-form-field class="example-full-width">
-      <mat-label>Location Number</mat-label>
-      <input matInput [(ngModel)]="locationNumber" name="locationNumber" required minlength="1">
-      <mat-error *ngIf="parkingLotForm.controls['locationNumber']?.invalid && parkingLotForm.controls['locationNumber']?.touched">
-        <span *ngIf="parkingLotForm.controls['locationNumber']?.errors?.['required']">Location Number is required.</span>
-        <span *ngIf="parkingLotForm.controls['locationNumber']?.errors?.['minlength']">Location Number must be at least 1 character long.</span>
-      </mat-error>
-    </mat-form-field>
-
-    <mat-form-field class="example-full-width">
-      <mat-label>Capacity</mat-label>
-      <input matInput type="number" [(ngModel)]="capacity" name="capacity" required min="1">
-      <mat-error *ngIf="parkingLotForm.controls['capacity']?.invalid && parkingLotForm.controls['capacity']?.touched">
-        <span *ngIf="parkingLotForm.controls['capacity']?.errors?.['required']">Capacity is required.</span>
-        <span *ngIf="parkingLotForm.controls['capacity']?.errors?.['min']">Capacity must be at least 1.</span>
-      </mat-error>
-    </mat-form-field>
-
-    <mat-form-field class="example-full-width">
-      <mat-label>Occupied Spaces</mat-label>
-      <input matInput type="number" [(ngModel)]="occupiedSpaces" name="occupiedSpaces" required min="0">
-      <mat-error *ngIf="parkingLotForm.controls['occupiedSpaces']?.invalid && parkingLotForm.controls['occupiedSpaces']?.touched">
-        <span *ngIf="parkingLotForm.controls['occupiedSpaces']?.errors?.['required']">Occupied Spaces is required.</span>
-        <span *ngIf="parkingLotForm.controls['occupiedSpaces']?.errors?.['min']">Occupied Spaces must be at least 0.</span>
-      </mat-error>
-    </mat-form-field>
-
-    <button mat-raised-button (click)="addSubSpace()" color="primary">Add Sub Space</button>
-
     <div *ngFor="let subSpace of subSpaces; let i = index">
-      <mat-form-field class="example-full-width">
-        <mat-label>Sub Space ID</mat-label>
-        <input matInput [(ngModel)]="subSpace.subSpaceId" name="subSpaceId-{{i}}">
-      </mat-form-field>
-      <mat-form-field class="example-full-width">
-        <mat-label>Station Number</mat-label>
-        <input matInput [(ngModel)]="subSpace.stationNumber" name="stationNumber-{{i}}">
-      </mat-form-field>
-      <mat-form-field class="example-full-width">
-        <mat-label>Status</mat-label>
-        <input matInput [(ngModel)]="subSpace.status" name="status-{{i}}">
-      </mat-form-field>
-    </div>
+        <input type="hidden" [(ngModel)]="subSpace.subSpaceId" [name]="'subSpaceId' + i">
+
+        <mat-form-field class="example-full-width">
+          <mat-label>Station Number</mat-label>
+          <input matInput [(ngModel)]="subSpace.stationNumber" [name]="'stationNumber' + i">
+        </mat-form-field>
+        <mat-form-field class="example-full-width">
+          <mat-label>Status</mat-label>
+          <input matInput [(ngModel)]="subSpace.status" [name]="'status' + i">
+        </mat-form-field>
+      </div>
   </form>
 </div>
 
 <div mat-dialog-actions>
   <button mat-raised-button class="me-8 mb-8" (click)="cancel()">Cancel</button>
   <button mat-raised-button class="me-8 mb-8" (click)="save()" color="primary" [disabled]="!parkingLotForm.form.valid">
-    {{ this.data && this.data.parkinglotid ? 'Update' : 'Save' }}
+  save
   </button>
 </div>
 

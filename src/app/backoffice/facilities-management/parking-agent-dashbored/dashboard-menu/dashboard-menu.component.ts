@@ -7,6 +7,7 @@ import {
   ChartComponent,
   ApexNonAxisChartSeries
 } from 'ng-apexcharts';
+import { ParkinnagentserviceService } from 'src/app/service/parkinnagentservice.service';
 
 interface cards {
     // icon: string;
@@ -40,7 +41,7 @@ export class DashboardMenuComponent {
 
  
   
-  constructor(private router: Router) {
+  constructor(private router: Router, private _parkinglotservice: ParkinnagentserviceService) {
     // Initial pie chart data
     this.activeusercardChartOptions = {
       series: [44, 55, 41, 17, 15],
@@ -121,7 +122,7 @@ export class DashboardMenuComponent {
     {
       // icon: "info",
       number: 20,
-      text: "Vehicule In ",
+      text: "Allocate Parking Space",
           link: "/vehiculelist"
     },
     {

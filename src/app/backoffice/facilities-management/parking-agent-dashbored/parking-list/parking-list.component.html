@@ -6,15 +6,15 @@
        
         <table mat-table [dataSource]="dataSource" class="text-nowrap w-100">
           <!-- Id Column -->
-          <ng-container matColumnDef="name">
+          <ng-container matColumnDef="stationNumber">
             <th mat-header-cell *matHeaderCellDef> name </th>
-            <td mat-cell class="fw-medium" *matCellDef="let element"> {{element.name}} </td>
+            <td mat-cell class="fw-medium" *matCellDef="let element"> {{element.stationNumber}} </td>
           </ng-container>
   
           <ng-container matColumnDef="status">
             <th mat-header-cell *matHeaderCellDef> status </th>
             <td mat-cell *matCellDef="let element">
-              <span [ngClass]="['badge', 'rounded-pill', element.badgeClass]">{{element.status}}</span>
+             {{element.status}}
             </td>
           </ng-container>
           

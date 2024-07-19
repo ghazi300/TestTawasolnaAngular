@@ -35,7 +35,9 @@ export class ParkinnagentserviceService {
     return this.http.get<any[]>(`${this.apiUrl2}/getparkingspace`);
   }
 
-
+  getAllParkingSubSpace() {
+    return this.http.get<any[]>(`${this.apiUrl2}/getparkingSubspace`);
+  }
 
 
 

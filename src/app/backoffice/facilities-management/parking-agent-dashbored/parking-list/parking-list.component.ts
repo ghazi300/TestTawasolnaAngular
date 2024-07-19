@@ -1,6 +1,8 @@
 import { Component, ViewChild } from '@angular/core';
 import { MatTableDataSource } from '@angular/material/table';
 import { MatPaginator } from '@angular/material/paginator';
+import { ParkinnagentserviceService } from 'src/app/service/parkinnagentservice.service';
+import { MatSnackBar } from '@angular/material/snack-bar';
 export interface PeriodicElement {
   name: string;
   status: string;
@@ -22,15 +24,36 @@ const ELEMENT_DATA: PeriodicElement[] = [
   styleUrls: ['./parking-list.component.scss']
 })
 export class ParkingListComponent {
-  displayedColumns: string[] = [ 'name', 'status'];
+  displayedColumns: string[] = [ 'stationNumber', 'status'];
   dataSource = new MatTableDataSource<PeriodicElement>(ELEMENT_DATA);
 
   @ViewChild(MatPaginator) paginator!: MatPaginator;
 
-  constructor() { }
+  constructor( private _parkinglotservice: ParkinnagentserviceService,private _snackBar: MatSnackBar) { }
 
-  ngOnInit(): void {}
+  getAll(): void {
+    this._parkinglotservice.getAllParkingSubSpace().subscribe({
+      next: (data) => {
+        this.dataSource = new MatTableDataSource(data);
+        this.dataSource.paginator = this.paginator;
+  
+        if (!data || data.length === 0) {
+          this._snackBar.open('There is no data. Add one!', 'Close');
+        }
+      },
+      error: (err) => {
+        console.error('Error fetching data:', err);
+        this._snackBar.open('Failed to fetch data', 'Close');
+      },
+    });
+  }
 
+  ngOnInit(): void {
+    this.getAll();
+    console.log(this.dataSource);
+
+   
+  }
   ngAfterViewInit(): void {
     this.dataSource.paginator = this.paginator;
   }
