@@ -1,0 +1,54 @@
+<h4 mat-dialog-title fxLayout="row" fxLayoutAlign="center center" class="dialog-title">Manage Parking Lot</h4>
+<div mat-dialog-content>
+  <form #parkingLotForm="ngForm">
+    <mat-form-field class="example-full-width">
+      <mat-label>Name</mat-label>
+      <input matInput [(ngModel)]="name" name="name" required minlength="3">
+      <mat-error *ngIf="parkingLotForm.controls['name']?.invalid && parkingLotForm.controls['name']?.touched">
+        <span *ngIf="parkingLotForm.controls['name']?.errors?.['required']">Name is required.</span>
+        <span *ngIf="parkingLotForm.controls['name']?.errors?.['minlength']">Name must be at least 3 characters long.</span>
+      </mat-error>
+    </mat-form-field>
+
+    <mat-form-field class="example-full-width">
+      <mat-label>Location</mat-label>
+      <input matInput [(ngModel)]="loacation" name="loacation" required minlength="3">
+      <mat-error *ngIf="parkingLotForm.controls['loacation']?.invalid && parkingLotForm.controls['loacation']?.touched">
+        <span *ngIf="parkingLotForm.controls['loacation']?.errors?.['required']">Location is required.</span>
+        <span *ngIf="parkingLotForm.controls['loacation']?.errors?.['minlength']">Location must be at least 3 characters long.</span>
+      </mat-error>
+    </mat-form-field>
+
+    <mat-form-field class="example-full-width">
+      <mat-label>Total Space</mat-label>
+      <input matInput type="number" [(ngModel)]="totalspace" name="totalspace" required min="1">
+      <mat-error *ngIf="parkingLotForm.controls['totalspace']?.invalid && parkingLotForm.controls['totalspace']?.touched">
+        <span *ngIf="parkingLotForm.controls['totalspace']?.errors?.['required']">Total Space is required.</span>
+        <span *ngIf="parkingLotForm.controls['totalspace']?.errors?.['min']">Total Space must be at least 1.</span>
+      </mat-error>
+    </mat-form-field>
+  </form>
+</div>
+<div mat-dialog-actions>
+  <button mat-raised-button class="me-8 mb-8" (click)="cancel()">Cancel</button>
+ <!-- Bouton pour l'opération de mise à jour -->
+ <!-- <button mat-raised-button *ngIf="this.data.parkinglotid" class="me-8 mb-8" (click)="update()">Update</button> -->
+
+ <!-- Bouton principal pour l'ajout ou la sauvegarde -->
+ <!-- <button mat-raised-button class="me-8 mb-8" (click)="save()" color="primary" [disabled]="!parkingLotForm.form.valid">
+   {{ this.data&& this.data.parkinglotid ? 'update' : 'Save' }}
+ </button> -->
+
+   <!-- Bouton pour la mise à jour -->
+<!-- <button mat-raised-button *ngIf="this.data && this.data.parkinglotid" class="me-8 mb-8" (click)="update()">Update</button> -->
+
+<!-- Bouton principal pour l'ajout ou la sauvegarde -->
+<!-- <button mat-raised-button class="me-8 mb-8" (click)="save()" color="primary" [disabled]="!parkingLotForm.form.valid">
+  {{ this.data && this.data.parkinglotid ? 'Update' : 'Save' }}
+</button> -->
+  
+<button mat-raised-button class="me-8 mb-8" (click)="Click()" color="primary" [disabled]="!parkingLotForm.form.valid">
+    {{ this.data && this.data.parkinglotid ? 'Update' : 'Save' }}
+  </button>
+
+</div>

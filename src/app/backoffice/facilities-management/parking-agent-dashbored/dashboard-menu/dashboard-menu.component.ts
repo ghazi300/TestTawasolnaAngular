@@ -10,7 +10,7 @@ import {
 
 interface cards {
     // icon: string;
-    number: number;
+    number?: number;
     text: string;
     link?: string;
   }
@@ -129,6 +129,11 @@ export class DashboardMenuComponent {
       number: 30,
       text: "Vehicule Out ",
     },
+    {
+      // icon: "info",
+      text: "Manage ParkingLot ",
+          link: "/parkingLot"
+    },
   
   ];
 
@@ -161,7 +166,6 @@ export class DashboardMenuComponent {
 
   onCardClick(card: cards): void {
     console.log('Card clicked:', card);
-    // Vous pouvez ajouter ici la logique supplémentaire avant de naviguer vers une autre page
     if (card.link) {
       this.router.navigateByUrl('/admin/facilityManagement/parkingagentdashbored'+card.link);
     }

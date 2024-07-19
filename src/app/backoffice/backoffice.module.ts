@@ -32,7 +32,6 @@ import { NgApexchartsModule } from 'ng-apexcharts';
     MatToolbarModule,
     NgApexchartsModule,
    
-
   ]
 })
 export class BackofficeModule { }
