@@ -1,5 +1,7 @@
 import { Component, Inject, OnInit } from '@angular/core';
 import { MAT_DIALOG_DATA, MatDialogRef } from '@angular/material/dialog';
+import { MatSnackBar } from '@angular/material/snack-bar';
+import { ParkinnagentserviceService } from 'src/app/service/parkinnagentservice.service';
 
 @Component({
   selector: 'app-entry-vehicule-form',
@@ -7,74 +9,94 @@ import { MAT_DIALOG_DATA, MatDialogRef } from '@angular/material/dialog';
   styleUrls: ['./entry-vehicule-form.component.scss']
 })
 export class EntryVehiculeFormComponent implements OnInit{
-  Registrationnumber: string = '';
-  Vcategory: string = '';
-  ownerfullname: string = '';
-  ownercontact: string = '';
-  stationnumber: string = '';
-  entrydatetime: string = '';
-  outdatetime:string='';
-  stationOptions = [
-    { value: 'A1', viewValue: 'Station A1' },
-    { value: 'A2', viewValue: 'Station A2' },
-    { value: 'B1', viewValue: 'Station B1' },
-    { value: 'B2', viewValue: 'Station B2' },
-    { value: 'C1', viewValue: 'Station C1' },
-    { value: 'C2', viewValue: 'Station C2' },
-  ];
-  constructor(public dialogRef: MatDialogRef<EntryVehiculeFormComponent>,
-              @Inject(MAT_DIALOG_DATA) public data: any) {
+  parkingsubSpace: { subSpaceId: string | null; stationNumber: string; status: string }[] = [];
+  selectedParkingsub: string = '';
+  vehiculecategory: string = '';
+  status: string = '';
+  vehicleNumber: string = '';
+  startTime: string = '';
+  endTime: string = '';
+
+  constructor(
+    private _parkinglotservice: ParkinnagentserviceService,
+    public dialogRef: MatDialogRef<EntryVehiculeFormComponent>,
+    @Inject(MAT_DIALOG_DATA) public data: any,
+    private _snackBar: MatSnackBar
+  ) {
     if (data) {
-      this.Registrationnumber = data.Registrationnumber || '';
-      this.Vcategory = data.Vcategory || '';
-      this.ownerfullname = data.ownerfullname || '';
-      this.ownercontact = data.ownercontact || '';
-      this.stationnumber = data.stationnumber || '';
-      this.entrydatetime = data.entrydatetime || '';
-      this.outdatetime = data.outdatetime || '';
+      this.parkingsubSpace = data.parkingsubSpace || [];
+      this.vehiculecategory = data.Vcategory || '';
+      this.vehicleNumber = data.Registrationnumber || '';
+      this.startTime = data.entrydatetime || '';
+      this.endTime = data.outdatetime || '';
     }
+  }
+
+  ngOnInit(): void {
+    if (!this.startTime) {
+      const now = new Date();
+      this.startTime = now.toISOString().slice(0, 16);
+      now.setHours(now.getHours() + 2);
+      this.endTime = now.toISOString().slice(0, 16);
+    }
+    this._parkinglotservice.getAllParkingSubSpace().subscribe(parkingsubSpace => {
+      this.parkingsubSpace = parkingsubSpace.filter(subSpace => subSpace.status === 'AVAILABLE');
+    });
   }
 
   cancel(): void {
     this.dialogRef.close();
   }
-  ngOnInit(): void {
-    if (!this.entrydatetime) {
-      const now = new Date();
-      this.entrydatetime = now.toISOString().slice(0, 16);
-      now.setHours(now.getHours() + 2);
-      this.outdatetime = now.toISOString().slice(0, 16);
-    }
-  }
-  save(): void {
-    this.dialogRef.close({ 
-      Registrationnumber: this.Registrationnumber, 
-      Vcategory: this.Vcategory, 
-      ownerfullname: this.ownerfullname, 
-      ownercontact: this.ownercontact,
-      stationnumber: this.stationnumber,
-      entrydatetime: this.entrydatetime ,
-      outdatetime: this.outdatetime 
 
+  save(): void {
+    const selectedSubSpace = this.parkingsubSpace.find(lot => lot.subSpaceId === this.selectedParkingsub);
+    console.log(selectedSubSpace)
+    if (!selectedSubSpace) {
+      this._snackBar.open('Parking sub space selection is required', 'Close', {
+        duration: 3000
+      });
+      return;
+    }
+
+    this.data.selectedSubSpace = selectedSubSpace;
+    this.data.vehiculecategory = this.vehiculecategory;
+    this.data.vehicleNumber = this.vehicleNumber;
+    this.data.startTime = this.startTime;
+    this.data.endTime = this.endTime;
+
+    this._parkinglotservice.addparkingspaceallocations(this.data).subscribe({
+      
+      next: () => {
+        this.dialogRef.close(this.data);
+        this._snackBar.open('Parking Space added successfully', 'Close', {
+          duration: 3000
+        });
+      },
+      error: (err) => {
+        console.error('Failed to add parking space:', err);
+        this._snackBar.open('Failed to add parking space', 'Close', {
+          duration: 3000
+        });
+      }
     });
   }
+
   getStatus(): string {
-    // Determine status based on entrydatetime and outdatetime
     const now = new Date();
-    const entryDate = new Date(this.entrydatetime);
-    const outDate = new Date(this.outdatetime);
+    const entryDate = new Date(this.startTime);
+    const outDate = new Date(this.endTime);
 
     if (now >= entryDate && now <= outDate) {
-      return 'In';
+      return 'ACTIVE';
     } else {
-      return 'Out';
+      return 'EXPIRED';
     }
   }
+
   getStatusStyle(): object {
-    // Set color based on status
     const status = this.getStatus();
     return {
-      'color': status === 'In' ? 'green' : 'red'
+      'color': status === 'ACTIVE' ? 'green' : 'red'
     };
   }
 }

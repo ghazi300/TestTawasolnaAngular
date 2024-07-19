@@ -7,6 +7,7 @@ import { Injectable } from '@angular/core';
 export class ParkinnagentserviceService {
   private apiUrl = `http://localhost:8555/tawasalna-facilities-management/parkinglot`;
   private apiUrl2 = `http://localhost:8555/tawasalna-facilities-management/parkingspace`;
+  private apiUrl3='http://localhost:8555/tawasalna-facilities-management/parkingAllocation'
   constructor(private http: HttpClient) { }
 
   addparkinglot(body: any) {
@@ -40,7 +41,12 @@ export class ParkinnagentserviceService {
   }
 
 
-
+  getAllParkingAllocation() {
+    return this.http.get<any[]>(`${this.apiUrl3}/getparkingAllocations`);
+  }
+  addparkingspaceallocations(body: any) {
+    return this.http.post(`${this.apiUrl3}/addparkingspaceallocations`, body);
+  }
 
   // getParkingLotById(id: String) {
   //   return this.http.get<any>(`${this.apiUrl}/${id}`);

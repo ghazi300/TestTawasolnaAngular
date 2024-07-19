@@ -1,42 +1,45 @@
 <h4 mat-dialog-title fxLayout="row" fxLayoutAlign="center center" class="dialog-title">Vehicule Entry</h4>
 <div mat-dialog-content>
   <form>
-    <mat-form-field>
-      <mat-label>Registration number</mat-label>
-      <input matInput [(ngModel)]="Registrationnumber" name="Registrationnumber">
+   
+    <mat-form-field class="example-full-width">
+      <mat-label>Select Parking sub space</mat-label>
+      <mat-select [(ngModel)]="selectedParkingsub" name="parkingsubSpace" required>
+        <mat-option *ngFor="let sub of parkingsubSpace" [value]="sub.subSpaceId">
+          {{ sub.stationNumber }}
+        </mat-option>
+      </mat-select>
+     
     </mat-form-field>
+
+
+
     <mat-form-field>
       <mat-label>Vehicule's category</mat-label>
-      <input matInput [(ngModel)]="Vcategory" name="Vcategory">
+      <input matInput [(ngModel)]="vehiculecategory" name="vehiculecategory">
     </mat-form-field>
+  
+
+
     <mat-form-field>
-      <mat-label>Owner's Full name</mat-label>
-      <input matInput [(ngModel)]="ownerfullname" name="ownerfullname">
+      <mat-label>Vehicule number</mat-label>
+      <input matInput [(ngModel)]="vehicleNumber" name="vehicleNumber">
     </mat-form-field>
-    <mat-form-field>
-      <mat-label>Owner's contact</mat-label>
-      <input matInput [(ngModel)]="ownercontact" name="ownercontact">
-    </mat-form-field>
-    <mat-form-field>
-        <mat-label>Station number</mat-label>
-        <mat-select [(ngModel)]="stationnumber" name="stationnumber">
-          <mat-option *ngFor="let station of stationOptions" [value]="station.value">
-            {{ station.viewValue }}
-          </mat-option>
-        </mat-select>
-      </mat-form-field>
+
+
+
     <mat-form-field>
       <mat-label>Entry Date-Time</mat-label>
-      <input matInput [(ngModel)]="entrydatetime" name="entrydatetime" type="datetime-local" readonly>
+      <input matInput [(ngModel)]="startTime" name="startTime" type="datetime-local" readonly>
     </mat-form-field>
     <mat-form-field>
         <mat-label>out  Date-Time</mat-label>
-        <input matInput [(ngModel)]="outdatetime" name="outdatetime" type="datetime-local" readonly>
+        <input matInput [(ngModel)]="endTime" name="endTime" type="datetime-local" readonly>
       </mat-form-field> 
        <!-- Status Input -->
     <mat-form-field>
         <mat-label>Status</mat-label>
-        <input matInput [ngStyle]="getStatusStyle()" [value]="getStatus()" readonly>
+        <input matInput [ngStyle]="getStatusStyle()" [value]="getStatus()" readonly name="status">
       </mat-form-field>
   </form>
 </div>
