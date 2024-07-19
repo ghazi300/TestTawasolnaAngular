@@ -17,6 +17,7 @@ import { AuthComponent } from './views/auth/auth/auth.component';
 import { RegisterComponent } from './views/auth/register/register.component';
 import { ForgetPasswordComponent } from './views/auth/forget-password/forget-password.component';
 import {BackofficeModule} from "./backoffice/backoffice.module";
+import { HttpClientModule } from '@angular/common/http';
 
 @NgModule({
   declarations: [

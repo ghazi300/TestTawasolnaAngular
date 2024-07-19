@@ -6,6 +6,7 @@ import { IncidentComponent } from './incident/incident.component';
 import {TawasalnaModule} from "../../../tawasalna-module";
 import { IncidentDetailsComponent } from './incident-details/incident-details.component';
 import { WidgetComponent } from './widget/widget.component';
+import { IncidentRecentComponent } from './incident-recent/incident-recent.component';
 
 
 
@@ -14,6 +15,7 @@ import { WidgetComponent } from './widget/widget.component';
     IncidentComponent,
     IncidentDetailsComponent,
     WidgetComponent,
+    IncidentRecentComponent,
 
   ],
     imports: [

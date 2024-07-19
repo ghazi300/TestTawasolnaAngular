@@ -1,43 +1,45 @@
 .dashboard-container {
-    display: flex;
-    flex-wrap: wrap;
-    margin: 16px;
-  
-    .card-column {
-      padding: 8px;
-      max-width: 100%;
-      flex: 1 1 auto;
-      box-sizing: border-box;
-  
-      @media (min-width: 600px) {
-        flex: 0 1 calc(33.33% - 16px); // 3 cards per row with spacing
-      }
-      @media (min-width: 960px) {
-        flex: 0 1 calc(25% - 16px); // 4 cards per row with spacing
-      }
+  display: flex;
+  flex-wrap: wrap;
+  margin: 16px;
+
+  .card-column {
+    padding: 8px;
+    max-width: 100%;
+    box-sizing: border-box;
+
+    @media (min-width: 600px) {
+      flex: 0 1 calc(50% - 16px); // 2 cards per row for small screens
     }
-  
-    .menu-card {
-      background-color: #ffffff; // Light background for cards
-      border-radius: 12px;
-      box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
-      transition: transform 0.3s, box-shadow 0.3s;
-      padding: 16px;
-  
-      mat-card-content {
-        h4 {
-          margin: 0 0 16px;
-          color: #333; // Dark text for visibility
-        }
-  
-        button {
-          margin-top: 16px;
-        }
-      }
-  
-      &:hover {
-        transform: translateY(-5px);
-        box-shadow: 0 8px 16px rgba(0, 0, 0, 0.2);
-      }
+    @media (min-width: 960px) {
+      flex: 0 1 calc(33.33% - 16px); // 3 cards per row for medium screens
+    }
+    @media (min-width: 1280px) {
+      flex: 0 1 calc(25% - 16px); // 4 cards per row for large screens
     }
   }
+
+  .menu-card {
+    background-color: #ffffff; // Light background for cards
+    border-radius: 12px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    transition: transform 0.3s, box-shadow 0.3s;
+    padding: 16px;
+
+    mat-card-content {
+      h4 {
+        margin: 0 0 16px;
+        color: #333; // Dark text for visibility
+      }
+
+      button {
+        margin-top: 16px;
+      }
+    }
+
+    &:hover {
+      transform: translateY(-5px);
+      box-shadow: 0 8px 16px rgba(0, 0, 0, 0.2);
+    }
+  }
+}
