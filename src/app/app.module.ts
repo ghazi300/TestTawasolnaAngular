@@ -10,6 +10,7 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 
 import { TawasalnaModule } from './tawasalna-module'
 
+import { HttpClientModule } from '@angular/common/http';
 
 import { AuthComponent } from './views/auth/auth/auth.component';
 
@@ -34,7 +35,8 @@ import {BackofficeModule} from "./backoffice/backoffice.module";
     FeatherModule.pick(allIcons),
     TawasalnaModule,
     BackofficeModule,
-    FormsModule
+    FormsModule,
+    HttpClientModule
   ],
   providers: [],
   bootstrap: [AppComponent]

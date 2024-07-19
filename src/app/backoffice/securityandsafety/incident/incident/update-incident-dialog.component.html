@@ -1,0 +1,29 @@
+<h4 mat-dialog-title fxLayout="row" fxLayoutAlign="center center" class="dialog-title">Update Incident</h4>
+<div mat-dialog-content style="height: 100%;">
+    <form style="height: 100%;" fxLayout="column" fxLayoutAlign="start stretch">
+        <mat-form-field>
+            <mat-label>Description</mat-label>
+            <input matInput [(ngModel)]="incident.description" name="description">
+        </mat-form-field>
+        <mat-form-field>
+            <mat-label>Location</mat-label>
+            <input matInput [(ngModel)]="incident.location" name="location">
+        </mat-form-field>
+        <mat-form-field>
+            <mat-label>Time</mat-label>
+            <input matInput [(ngModel)]="incident.time" name="time" type="datetime-local">
+        </mat-form-field>
+        <mat-form-field>
+            <mat-label>Category</mat-label>
+            <input matInput [(ngModel)]="incident.category" name="category">
+        </mat-form-field>
+        <mat-form-field>
+            <mat-label>Status</mat-label>
+            <input matInput [(ngModel)]="incident.status" name="status">
+        </mat-form-field>
+    </form>
+</div>
+<div mat-dialog-actions>
+    <button mat-raised-button class="me-8 mb-8" (click)="onCancel()">Cancel</button>
+    <button mat-raised-button class="me-8 mb-8" (click)="onSave()" color="warn">Save</button>
+</div>

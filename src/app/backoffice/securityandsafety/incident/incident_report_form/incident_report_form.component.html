@@ -1,0 +1,44 @@
+<mat-card class="w-100">
+    <mat-card>
+        <img src="assets/images/secrityandsafety/isometric-view-3d-rendering-neon-city.jpg" alt=""  style="border-radius: 10px;">
+    </mat-card>
+    <mat-card-content>
+        <h4 class="mb-56">Add Incident</h4>
+        <form [formGroup]="incidentForm" (ngSubmit)="onSubmit()">
+            <mat-form-field class="w-100">
+                <mat-label>Description</mat-label>
+                <input matInput formControlName="description">
+                <mat-error *ngIf="incidentForm.get('description')?.invalid">Description is required and cannot exceed 500 characters.</mat-error>
+            </mat-form-field>
+
+            <mat-form-field class="w-100">
+                <mat-label>Location</mat-label>
+                <input matInput formControlName="location">
+                <mat-error *ngIf="incidentForm.get('location')?.invalid">Location is required and cannot exceed 200 characters.</mat-error>
+            </mat-form-field>
+
+            <mat-form-field class="w-100">
+                <mat-label>Time</mat-label>
+                <input matInput formControlName="time" type="datetime-local">
+                <mat-error *ngIf="incidentForm.get('time')?.invalid">Time is required.</mat-error>
+            </mat-form-field>
+
+            <mat-form-field class="w-100">
+                <mat-label>Category</mat-label>
+                <input matInput formControlName="category">
+                <mat-error *ngIf="incidentForm.get('category')?.invalid">Category is required.</mat-error>
+            </mat-form-field>
+
+            <mat-form-field class="w-100">
+                <mat-label>Status</mat-label>
+                <input matInput formControlName="status">
+                <mat-error *ngIf="incidentForm.get('status')?.invalid">Status is required.</mat-error>
+            </mat-form-field>
+
+            <div class="text-end">
+                <button mat-raised-button color="primary" type="submit" [disabled]="incidentForm.invalid">Submit</button>
+                <button mat-button (click)="onBack()">Cancel</button>
+            </div>
+        </form>
+    </mat-card-content>
+</mat-card>

@@ -67,7 +67,6 @@
          MatDatepickerModule,
          MatDialogModule,
          MatExpansionModule,
-         MatFormFieldModule,
          MatGridListModule,
          MatIconModule,
          MatInputModule,
@@ -99,7 +98,8 @@
          PlatformModule,
          PortalModule,
          FlexLayoutModule,
+         MatFormFieldModule,
+
      ]
  })
  export class TawasalnaModule { }
- 
