@@ -7,6 +7,7 @@ interface SidebarMenu {
   icon: string;
   menu: string;
   roles: string[];
+  children?: SidebarMenu[];
 }
 
 @Component({
@@ -41,6 +42,12 @@ export class DashboardComponent implements OnInit{
       roles:["admin","user"]
     },
     {
+      link: "/admin/security",
+      icon: "users",
+      menu: "Security Agent" ,
+      roles:["admin","user"]
+    },
+    {
       link: "/admin/community",
       icon: "user",
       menu: "Community Engagment",
@@ -51,8 +58,20 @@ export class DashboardComponent implements OnInit{
       link: "/admin/managment",
       icon: "user",
       menu: "managment",
-      roles:["admin","user"]
+      roles:["admin","user"] } ,
 
+     { link: "/admin/facilityManagement",
+      icon: "store",
+      menu: "facility Management",
+      roles: ["admin", "user"],
+      children: [
+        {
+          link: "/admin/facilityManagement/parkingagentdashbored",
+          icon: "local_parking",
+          menu: "Parking Management",
+          roles: ["admin", "user"]
+        }
+      ]
     },
     {
       link: "/dashboard/stock",

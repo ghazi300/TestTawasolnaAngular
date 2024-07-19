@@ -1,0 +1,47 @@
+<div class="card">
+    <mat-card>
+        <img src="assets/images/secrityandsafety/isometric-view-3d-rendering-neon-city (2).jpg" alt="" style="border-radius: 10px;">
+    </mat-card>
+    <div class="card-body">
+        <h4 class="mb-32">Access Log Form</h4>
+        <form [formGroup]="logForm" (ngSubmit)="onSubmit()">
+            <mat-form-field class="w-100 fs-16" appearance="outline">
+                <mat-label>Name</mat-label>
+                <input matInput formControlName="personName" required>
+                <mat-error *ngIf="f['personName'].invalid && (f['personName'].dirty || f['personName'].touched)">
+                    Name is required
+                </mat-error>
+            </mat-form-field>
+            <mat-form-field class="w-100 fs-16" appearance="outline">
+                <mat-label>Location</mat-label>
+                <input matInput formControlName="location" required>
+                <mat-error *ngIf="f['location'].invalid && (f['location'].dirty || f['location'].touched)">
+                    Location is required
+                </mat-error>
+            </mat-form-field>
+            <mat-form-field class="w-100 fs-16" appearance="outline">
+                <mat-label>Time</mat-label>
+                <input matInput type="datetime-local" formControlName="time" required>
+                <mat-error *ngIf="f['time'].invalid && (f['time'].dirty || f['time'].touched)">
+                    Time is required
+                </mat-error>
+            </mat-form-field>
+            <mat-form-field class="w-100 fs-16" appearance="outline">
+                <mat-label>Entry Type</mat-label>
+                <select matNativeControl formControlName="entryType" required>
+                    <option value="">Select Entry Type</option>
+                    <option value="entry">Entry</option>
+                    <option value="exit">Exit</option>
+                </select>
+                <mat-error *ngIf="f['entryType'].invalid && (f['entryType'].dirty || f['entryType'].touched)">
+                    Entry Type is required
+                </mat-error>
+            </mat-form-field>
+
+            <div class="text-end">
+                <button mat-raised-button color="primary" type="submit" [disabled]="logForm.invalid">Submit</button>
+                <button mat-button (click)="onBack()">Cancel</button>
+            </div>
+        </form>
+    </div>
+</div>

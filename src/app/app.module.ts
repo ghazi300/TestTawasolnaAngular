@@ -11,12 +11,13 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { TawasalnaModule } from './tawasalna-module'
 
 
-import { AuthComponent } from './views/auth/auth/auth.component';
+import { AuthComponent } from './views/auth/auth/auth.component'; 
 
 import { RegisterComponent } from './views/auth/register/register.component';
 import { ForgetPasswordComponent } from './views/auth/forget-password/forget-password.component';
 import {BackofficeModule} from "./backoffice/backoffice.module";
 import { CommonModule } from '@angular/common';
+import { HttpClientModule } from '@angular/common/http';
 
 @NgModule({
   declarations: [
@@ -35,7 +36,8 @@ import { CommonModule } from '@angular/common';
     FormsModule,
     CommonModule,
     FormsModule,
-    ReactiveFormsModule
+    ReactiveFormsModule,
+    HttpClientModule
   ],
   providers: [],
   bootstrap: [AppComponent]

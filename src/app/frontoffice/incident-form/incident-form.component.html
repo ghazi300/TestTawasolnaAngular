@@ -1,36 +1,42 @@
-<form [formGroup]="incidentForm" (ngSubmit)="onSubmit()">
-  <label for="title">Title:</label>
-  <input id="title" formControlName="title" type="text" required>
+<mat-dialog-content>
+  <form [formGroup]="incidentForm" (ngSubmit)="onSubmit()">
+    <mat-form-field appearance="fill">
+      <mat-label>Title</mat-label>
+      <input matInput id="title" formControlName="title" required>
+      <mat-error *ngIf="incidentForm.get('title')?.hasError('required')">Title is required.</mat-error>
+    </mat-form-field>
 
-  <label for="description">Description:</label>
-  <textarea id="description" formControlName="description" required></textarea>
+    <mat-form-field appearance="fill">
+      <mat-label>Description</mat-label>
+      <textarea matInput id="description" formControlName="description" required></textarea>
+      <mat-error *ngIf="incidentForm.get('description')?.hasError('required')">Description is required.</mat-error>
+    </mat-form-field>
 
-  <label for="location">Location:</label>
-  <input id="location" formControlName="location" type="text" required>
+    <mat-form-field appearance="fill">
+      <mat-label>Location</mat-label>
+      <input matInput id="location" formControlName="location" required>
+      <mat-error *ngIf="incidentForm.get('location')?.hasError('required')">Location is required.</mat-error>
+    </mat-form-field>
 
-  <label for="date">Date:</label>
-  <input id="date" formControlName="date" type="datetime-local" required>
+    <mat-form-field appearance="fill">
+      <mat-label>Date</mat-label>
+      <input matInput id="date" formControlName="date" type="datetime-local" required>
+      <mat-error *ngIf="incidentForm.get('date')?.hasError('required')">Date is required.</mat-error>
+    </mat-form-field>
 
-  <label for="fileUpload">Upload Photos/Documents:</label>
-  <input id="fileUpload" type="file" (change)="onFileChange($event)" multiple>
+    <mat-form-field appearance="fill">
+      <mat-label>Severity</mat-label>
+      <mat-select id="gravite" formControlName="gravite" required>
+        <mat-option *ngFor="let option of graviteOptions" [value]="option">
+          {{ option }}
+        </mat-option>
+      </mat-select>
+      <mat-error *ngIf="incidentForm.get('gravite')?.hasError('required')">Severity is required.</mat-error>
+    </mat-form-field>
 
-  <div class="uploaded-files">
-    <div *ngFor="let file of uploadedFiles" class="uploaded-file">
-      <ng-container *ngIf="isImage(file); else otherFile">
-        <img [src]="filePreviewUrls[file.name]" alt="file preview">
-      </ng-container>
-      <ng-template #otherFile>
-        <div class="file-content">
-          <p *ngIf="fileContents[file.name]">{{ fileContents[file.name] }}</p>
-          <p *ngIf="!fileContents[file.name]">{{ file.name }}</p>
-        </div>
-      </ng-template>
-      <button type="button" (click)="removeFile(file)">X</button>
+    <div class="form-actions">
+      <button mat-raised-button color="primary" type="submit">Submit</button>
+      <button mat-button type="button" (click)="onCancel()">Cancel</button>
     </div>
-  </div>
-
-  <div class="form-actions">
-    <button type="submit" class="btn btn-success">Submit</button>
-    <button type="button" class="btn btn-secondary" (click)="onCancel()">Cancel</button>
-  </div>
-</form>
+  </form>
+</mat-dialog-content>

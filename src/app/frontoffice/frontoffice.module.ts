@@ -11,6 +11,8 @@ import { IncidentFormComponent } from './incident-form/incident-form.component';
 import { ManagementcordinationComponent } from './pages/managementcordination/managementcordination.component';
 import { HttpClientModule } from '@angular/common/http';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
+import { TawasalnaModule } from '../tawasalna-module';
+import { MatDialogModule } from '@angular/material/dialog';
 
 
 @NgModule({
@@ -22,14 +24,16 @@ import { FormsModule, ReactiveFormsModule } from '@angular/forms';
     MainComponent,
     IncidentFormComponent,
     ManagementcordinationComponent
+
   ],
   imports: [
     CommonModule,
     FrontofficeRoutingModule,
     FormsModule,
-      ReactiveFormsModule,
-    HttpClientModule
-
+    ReactiveFormsModule,
+    HttpClientModule, 
+    TawasalnaModule,
+    MatDialogModule
   ]
 })
 export class FrontofficeModule { }

@@ -1,0 +1,196 @@
+.dashboard-container {
+  display: flex;
+  flex-wrap: wrap;
+  margin: 16px;
+
+  .card-column {
+    padding: 8px;
+    max-width: 100%;
+    flex: 1 1 auto;
+    box-sizing: border-box;
+
+    @media (min-width: 600px) {
+      flex: 0 1 calc(33.33% - 16px); // 3 cards per row with spacing
+    }
+    @media (min-width: 960px) {
+      flex: 0 1 calc(25% - 16px); // 4 cards per row with spacing
+    }
+  }
+
+  .menu-card {
+    background-color: #ffffff; // Light background for cards
+    border-radius: 12px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    transition: transform 0.3s, box-shadow 0.3s;
+    padding: 16px;
+
+    mat-card-content {
+      h4 {
+        margin: 0 0 16px;
+        color: #333; // Dark text for visibility
+      }
+
+      button {
+        margin-top: 16px;
+      }
+    }
+
+    &:hover {
+      transform: translateY(-5px);
+      box-shadow: 0 8px 16px rgba(0, 0, 0, 0.2);
+    }
+  }
+}
+.small-text, .title,.desc {
+  margin-top: 20px; /* Adds 20px space above container 2 */
+
+  font-weight: 600;
+}
+
+.title,.desc {
+  margin: 8px 0;
+}
+
+.small-text {
+  color: #488aec;
+  font-size: 14px;
+}
+
+.title {
+  color: #fff;
+  font-size: 26px;
+  line-height: 26px;
+}
+
+.desc {
+  color: rgb(151 153 167);
+  font-size: 20px;
+
+}
+
+.buttons {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 10px;
+  margin-top: 10px;
+}
+
+.button {
+  margin-top: 90px; /* Adds 20px space above container 2 */
+
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  border-radius: 10px;
+  padding: 6px;
+  text-decoration: none;
+  padding: 20px 30px; /* Increased padding for a bigger button */
+
+}
+
+.button:first-child {
+  box-shadow: 0 4px 6px -1px #488aec31, 0 2px 4px -1px #488aec17;
+  background-color: #488aec;
+}
+
+.button:last-child {
+  box-shadow: 0 4px 6px -1px #0b162531, 0 2px 4px -1px #0e192b17;
+  background-color: #fff;
+}
+
+.icon {
+  height: 25px;
+  width: 25px;
+}
+
+.icon svg {
+  width: 100%;
+  height: 100%;
+}
+
+.icon svg:last-child {
+  fill: #000
+}
+
+.button-text {
+  display: flex;
+  flex-direction: column;
+  margin-left: 8px;
+}
+.card-title {
+  font-size: 15px;
+  font-weight: 600;
+
+
+}
+
+.button-text span:first-child {
+  font-size: 12px;
+  font-weight: 600;
+}
+
+.google span:first-child {
+  color: rgb(219 206 253);
+}
+
+.apple span:first-child {
+  color: rgb(81 87 108);
+}
+
+.google span:last-child {
+  color: #fff;
+  font-weight: 800;
+}
+
+.apple span:last-child {
+  color: #000;
+  font-weight: 800;
+}
+
+.card {
+  height: 250px;
+  background-color: rgb(87, 117, 216);
+  background: linear-gradient(to top right, rgb(202, 118, 170), rgb(174, 106, 175));
+  background: -webkit-linear-gradient(to top right, rgb(7 16 45), rgb(58 60 84));
+  display: flex;
+  flex-direction: column;
+  padding: 20px;
+  border-radius: 20px;
+  border: 1px solid rgb(84 90 106);
+}
+.card-link {
+  text-decoration: none; /* Remove default link underline */
+  color: inherit; /* Inherit text color */
+  display: block; /* Make the link block-level */
+}
+
+.card-link:hover {
+  text-decoration: none; /* Remove underline on hover */
+}
+.small-card {
+  height: auto; /* Adjust as necessary */
+  padding: 10px; /* Reduce padding if needed */
+}
+
+.small-card .card-body {
+  display: flex;
+  flex-direction: column; /* Arrange children in a column */
+  justify-content: space-between; /* Space out children */
+  height: 100%;
+}
+
+.small-card .icon {
+  width: 30px; /* Adjust icon size */
+  height: 30px; /* Adjust icon size */
+  line-height: 30px; /* Center icon vertically */
+  font-size: 1rem; /* Adjust icon font size */
+}
+
+.small-card h4 {
+  margin: 0; /* Ensure no extra margin around the heading */
+}
+
+.small-card button {
+  width: 30%; /* Make the button take full width if desired */
+}

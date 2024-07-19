@@ -1,0 +1,43 @@
+.resource-allocation-container {
+    width: 100%;
+    padding: 16px;
+    box-sizing: border-box;
+  }
+  
+  .allocation-card {
+    width: 100%;
+    max-width: 800px;
+  }
+  
+  .form-group {
+    width: 100%;
+    margin-bottom: 16px;
+  }
+  
+  .incident-selection {
+    width: 100%;
+  }
+  
+  .resource-list {
+    width: 100%;
+    overflow-x: auto;
+  }
+  
+  .resource-table {
+    width: 100%;
+  }
+  
+  .available {
+    color: green;
+  }
+  
+  .unavailable {
+    color: red;
+  }
+  
+  .submit-button {
+    margin-top: 16px;
+    display: flex;
+    justify-content: flex-end;
+  }
+  
