@@ -11,11 +11,14 @@ import {FormsModule} from "@angular/forms";
 
 
 @NgModule({
-  declarations: [
-    FitnessUsageStatisticsComponent,
-    EquipmentListComponent,
-    AddEquipmentFormComponent
-  ],
+    declarations: [
+        FitnessUsageStatisticsComponent,
+        EquipmentListComponent,
+        AddEquipmentFormComponent
+    ],
+    exports: [
+        FitnessUsageStatisticsComponent
+    ],
     imports: [
         CommonModule,
         FitnessDashboardRoutingModule,

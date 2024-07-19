@@ -2,7 +2,7 @@ import { NgModule } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
 import { FeatherModule } from 'angular-feather';
 import { allIcons } from 'angular-feather/icons';
-import { FormsModule } from '@angular/forms'
+import { FormsModule, ReactiveFormsModule } from '@angular/forms'
 
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
@@ -11,20 +11,18 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { TawasalnaModule } from './tawasalna-module'
 
 
-import { AuthComponent } from './views/auth/auth/auth.component';
+import { AuthComponent } from './views/auth/auth/auth.component'; 
 
 import { RegisterComponent } from './views/auth/register/register.component';
 import { ForgetPasswordComponent } from './views/auth/forget-password/forget-password.component';
 import {BackofficeModule} from "./backoffice/backoffice.module";
+import { CommonModule } from '@angular/common';
 import { HttpClientModule } from '@angular/common/http';
 
 @NgModule({
   declarations: [
     AppComponent,
-
     AuthComponent,
-
-
     RegisterComponent,
     ForgetPasswordComponent
   ],
@@ -36,6 +34,9 @@ import { HttpClientModule } from '@angular/common/http';
     TawasalnaModule,
     BackofficeModule,
     FormsModule,
+    CommonModule,
+    FormsModule,
+    ReactiveFormsModule,
     HttpClientModule
   ],
   providers: [],

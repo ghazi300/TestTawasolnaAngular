@@ -1,0 +1,79 @@
+<mat-card class="w-100">
+  <mat-card-content>
+    <h4 class="mb-56">Parked Vehicles List</h4>
+
+    <div class="table-responsive">
+      <div class="button-container">
+        <button mat-fab class="mb-2 me-2" color="primary" (click)="addentryvehiculedialog()">
+          <mat-icon>add</mat-icon>
+        </button>
+      </div>
+
+      <table mat-table [dataSource]="dataSource" class="text-nowrap w-100">
+        <ng-container matColumnDef="stationNumber">
+          <th mat-header-cell *matHeaderCellDef> parking<br>sub<br>Space<br> number</th>
+          <td mat-cell *matCellDef="let element"> {{element.parkingsubSpace.stationNumber}} </td>
+        </ng-container>
+
+        <!-- Registration Number Column -->
+        <ng-container matColumnDef="vehiculecategory">
+          <th mat-header-cell *matHeaderCellDef>vehicule <br>category </th>
+          <td mat-cell *matCellDef="let element"> {{element.vehiculecategory}} </td>
+        </ng-container>
+
+
+        <!-- Owner Full Name Column -->
+
+
+        <!-- Out Date-Time Column -->
+        <ng-container matColumnDef="endTime">
+          <th mat-header-cell *matHeaderCellDef> Out<br> Date-Time </th>
+          <td mat-cell *matCellDef="let element"> {{element.endTime}} </td>
+        </ng-container>
+
+
+
+        <!-- Entry Date-Time Column -->
+        <ng-container matColumnDef="startTime">
+          <th mat-header-cell *matHeaderCellDef> Entry<br> Date-Time </th>
+          <td mat-cell *matCellDef="let element"> {{element.startTime}} </td>
+        </ng-container>
+
+
+
+        <!-- Status Column -->
+        <ng-container matColumnDef="status">
+          <th mat-header-cell *matHeaderCellDef> Status </th>
+          <td mat-cell *matCellDef="let element"> {{element.status}} </td>
+        </ng-container>
+        <!-- Vehicle Category Column -->
+        <ng-container matColumnDef="vehicleNumber">
+          <th mat-header-cell *matHeaderCellDef> Vehicle <br> number </th>
+          <td mat-cell *matCellDef="let element"> {{element.vehicleNumber}} </td>
+        </ng-container>
+
+        <!-- Action Column -->
+        <ng-container matColumnDef="action">
+          <th mat-header-cell *matHeaderCellDef> Action </th>
+          <td mat-cell *matCellDef="let element">
+            <button mat-icon-button color="primary" (click)="updateVehicle(element)">
+              <mat-icon>edit</mat-icon>
+            </button>
+            <button mat-icon-button color="warn" (click)="deleteVehicle(element)">
+              <mat-icon>delete</mat-icon>
+            </button>
+            <button mat-icon-button color="accent" (click)="assignVehicle(element)">
+              <mat-icon>assignment</mat-icon>
+            </button>
+          </td>
+        </ng-container>
+
+        <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+        <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
+      </table>
+      <mat-paginator [length]="dataSource.data.length" [pageSize]="3" [pageSizeOptions]="[3,5, 10, 25, 100]"
+        aria-label="Select page">
+      </mat-paginator>
+    </div>
+  </mat-card-content>
+</mat-card>
