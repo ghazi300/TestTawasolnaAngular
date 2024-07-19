@@ -59,28 +59,15 @@ export class VehiculeManagementComponent implements OnInit{
       data: {}
     });
 
-    // dialogRef.afterClosed().subscribe(result => {
-    //   console.log('The dialog was closed');
-    //   if (result) {
-    //     const now = new Date();
-    //     const entryDate = new Date(result.entrydatetime);
-    //     const outDate = new Date(result.outdatetime);
-    //     const status = (now >= entryDate && now <= outDate) ? 'In' : 'Out';
-
-    //     this.dataSource.data.push({
-    //       Registrationnumber: result.Registrationnumber,
-    //       Vcategory: result.Vcategory,
-    //       ownerfullname: result.ownerfullname,
-    //       ownercontact: result.ownercontact,
-    //       stationnumber: result.stationnumber,
-    //       entrydatetime: result.entrydatetime,
-    //       outdatetime: result.outdatetime,
-    //       status: status 
-    //     });
-
-    //     this.dataSource.paginator = this.paginator;
-    //   }
-    // });
+    dialogRef.afterClosed().subscribe(result => {
+      console.log('The dialog was closed');
+      if (result) {
+        this.dataSource.data.push(result);
+        this.dataSource.paginator = this.paginator;
+  
+        this.getAll();
+      }
+    });
     
   }
   getStatusStyle(element: any): object {

@@ -25,6 +25,8 @@ export class EntryVehiculeFormComponent implements OnInit{
   ) {
     if (data) {
       this.parkingsubSpace = data.parkingsubSpace || [];
+      this.selectedParkingsub = data?.selectedParkingsub || '';
+
       this.vehiculecategory = data.Vcategory || '';
       this.vehicleNumber = data.Registrationnumber || '';
       this.startTime = data.entrydatetime || '';
@@ -49,36 +51,26 @@ export class EntryVehiculeFormComponent implements OnInit{
   }
 
   save(): void {
-    const selectedSubSpace = this.parkingsubSpace.find(lot => lot.subSpaceId === this.selectedParkingsub);
-    console.log(selectedSubSpace)
-    if (!selectedSubSpace) {
-      this._snackBar.open('Parking sub space selection is required', 'Close', {
-        duration: 3000
-      });
-      return;
+    const formData = this.getFormData();
+
+  if (!formData.parkingsubSpace) {
+    this._snackBar.open('Parking Lot selection is required', 'Close', { duration: 3000 });
+    return;
+  }
+  
+  this._parkinglotservice.addparkingspaceallocations(formData).subscribe({
+    next: () => {
+      this.dialogRef.close(formData);
+      this._snackBar.open('Parking Space added successfully', 'Close', { duration: 3000 });
+    },
+    error: (err) => {
+      console.error('Failed to add parking space:', err);
+      this._snackBar.open('Failed to add parking space', 'Close', { duration: 3000 });
     }
+  });
 
-    this.data.selectedSubSpace = selectedSubSpace;
-    this.data.vehiculecategory = this.vehiculecategory;
-    this.data.vehicleNumber = this.vehicleNumber;
-    this.data.startTime = this.startTime;
-    this.data.endTime = this.endTime;
-
-    this._parkinglotservice.addparkingspaceallocations(this.data).subscribe({
-      
-      next: () => {
-        this.dialogRef.close(this.data);
-        this._snackBar.open('Parking Space added successfully', 'Close', {
-          duration: 3000
-        });
-      },
-      error: (err) => {
-        console.error('Failed to add parking space:', err);
-        this._snackBar.open('Failed to add parking space', 'Close', {
-          duration: 3000
-        });
-      }
-    });
+  console.log('Selected SubSpace:', this.selectedParkingsub);
+  console.log('Form Data:', formData);
   }
 
   getStatus(): string {
@@ -99,4 +91,21 @@ export class EntryVehiculeFormComponent implements OnInit{
       'color': status === 'ACTIVE' ? 'green' : 'red'
     };
   }
+  getFormData() {
+    const selectedSubSpace = this.parkingsubSpace.find(lot => lot.subSpaceId === this.selectedParkingsub);
+  
+    return {
+      parkingsubSpace: {
+        subSpaceId: selectedSubSpace ? selectedSubSpace.subSpaceId : null
+      },
+      vehiculecategory: this.vehiculecategory,
+      status: this.getStatus(),
+      vehicleNumber: this.vehicleNumber,
+      startTime: this.startTime,
+      endTime: this.endTime
+    };
+  }
+
+
+
 }

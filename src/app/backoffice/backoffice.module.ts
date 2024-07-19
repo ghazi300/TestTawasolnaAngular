@@ -12,7 +12,6 @@ import {MatMenuModule} from "@angular/material/menu";
 import {MatRippleModule} from "@angular/material/core";
 import {MatSidenavModule} from "@angular/material/sidenav";
 import {MatToolbarModule} from "@angular/material/toolbar";
-import { NgApexchartsModule } from 'ng-apexcharts';
 
 
 
