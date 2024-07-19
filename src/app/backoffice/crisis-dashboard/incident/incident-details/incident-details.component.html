@@ -1,42 +1,65 @@
 <mat-card class="w-100">
-    <mat-card-content>
-      <h2>Incident Details</h2>
-  
-      <mat-accordion>
-        <mat-expansion-panel [expanded]="true">
-          <mat-expansion-panel-header>
-            <mat-panel-title> Incident Information </mat-panel-title>
-          </mat-expansion-panel-header>
-          <div>
-            <mat-form-field>
-              <input matInput placeholder="Title" [value]="incident?.title" readonly>
-            </mat-form-field>
-            <mat-form-field>
-              <textarea matInput placeholder="Description" [value]="incident?.description" readonly></textarea>
-            </mat-form-field>
-            <mat-form-field>
-              <input matInput placeholder="Location" [value]="incident?.location" readonly>
-            </mat-form-field>
-            <mat-form-field>
-              <input matInput placeholder="Date" [value]="incident?.date" readonly>
-            </mat-form-field>
-            <mat-form-field>
-              <input matInput placeholder="Severity" [value]="incident?.gravite" readonly>
-            </mat-form-field>
-          </div>
-        </mat-expansion-panel>
-      </mat-accordion>
-  
-      <div class="image-preview">
-        <div *ngFor="let file of incident?.files">
-          <img [src]="file" (click)="openImage(file)">
+  <mat-card-content>
+    <h2>Incident Details</h2>
+
+    <mat-accordion>
+      <mat-expansion-panel [expanded]="true">
+        <mat-expansion-panel-header>
+          <mat-panel-title>{{ incident?.title }}</mat-panel-title>
+        </mat-expansion-panel-header>
+        <div>
+          <mat-form-field>
+            <textarea matInput placeholder="Description" [value]="incident?.description" readonly></textarea>
+          </mat-form-field>
+          <mat-form-field>
+            <input matInput placeholder="Location" [value]="incident?.location" readonly>
+          </mat-form-field>
+          <mat-form-field>
+            <input matInput placeholder="Date" [value]="incident?.date | date" readonly>
+          </mat-form-field>
+          <mat-form-field>
+            <input matInput placeholder="Severity" [value]="incident?.gravite" readonly>
+          </mat-form-field>
         </div>
+      </mat-expansion-panel>
+    </mat-accordion>
+
+    <div class="image-preview">
+      <div *ngFor="let file of files">
+        <img [src]="file" (click)="openImage(file)">
       </div>
-  
-      <div *ngIf="selectedImage" class="overlay" (click)="closeImage()"></div>
-      <div *ngIf="selectedImage" class="image-modal">
-        <span class="close" (click)="closeImage()">&times;</span>
-        <img [src]="selectedImage">
+    </div>
+
+    <div *ngIf="selectedImage" class="overlay" (click)="closeImage()"></div>
+    <div *ngIf="selectedImage" class="image-modal">
+      <span class="close" (click)="closeImage()">&times;</span>
+      <img [src]="selectedImage">
+    </div>
+
+    <br>
+
+    <h3>Resources</h3>
+
+    <mat-accordion *ngIf="incident?.resources?.length > 0; else noResources">
+      <mat-expansion-panel *ngFor="let resource of incident?.resources">
+        <mat-expansion-panel-header>
+          <mat-panel-title>
+            {{ resource.name }} ({{ resource.type }})
+          </mat-panel-title>
+        </mat-expansion-panel-header>
+        <div>
+          <mat-form-field>
+            <input matInput placeholder="Location" [value]="resource.location" readonly>
+          </mat-form-field>
+        </div>
+      </mat-expansion-panel>
+    </mat-accordion>
+
+    <ng-template #noResources>
+      <div class="no-resources">
+        <mat-icon>info</mat-icon>
+        <p>No resources available for this incident.</p>
       </div>
-    </mat-card-content>
-  </mat-card>
+    </ng-template>
+  </mat-card-content>
+</mat-card>

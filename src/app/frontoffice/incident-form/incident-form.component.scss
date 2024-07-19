@@ -1,20 +1,76 @@
-/* Basic styles for the modal content */
-mat-dialog-content {
-  padding: 20px;
-}
+$modal-bg: rgba(0, 0, 0, 0.5);
+$modal-content-bg: #fff;
 
-/* Style for form fields */
-mat-form-field {
+.modal {
+  display: none;
+  position: fixed;
+  top: 0;
+  left: 0;
   width: 100%;
-  margin-bottom: 16px;
+  height: 100%;
+  background: $modal-bg;
+  z-index: 1000; // Assurez-vous que le modal est en dessous du panneau sélecteur
+  overflow: auto; // Ajoutez un défilement si nécessaire
+
+  &.show {
+    display: block;
+  }
+
+  .modal-content {
+    background: $modal-content-bg;
+    margin: 10% auto;
+    padding: 20px;
+    width: 50%;
+    position: relative;
+    z-index: 1010; // Assurez-vous que le contenu du modal est en dessous du panneau sélecteur
+
+    .modal-header {
+      display: flex;
+      justify-content: space-between;
+
+      .close {
+        cursor: pointer;
+      }
+    }
+  }
 }
 
-mat-select {
-  width: 100%;
-}
-
+/* Augmentez le z-index des panneaux de sélection pour qu'ils apparaissent au-dessus du modal */
 .mat-select-panel {
-  z-index: 2000 !important; /* Ensure it's above the modal */
+  z-index: 2000 !important; // Assurez-vous qu'il est au-dessus du modal
+}
+
+/* Style pour le contenu du dialog */
+mat-dialog-content {
+  padding: 20px; // Ajoutez du padding autour du contenu du dialog
+  max-width: 600px; // Définir une largeur maximale pour une meilleure lisibilité
+  margin: 0 auto; // Centrer le dialog horizontalement
+}
+
+/* Style pour les champs de formulaire */
+mat-form-field {
+  width: 100%; // Assurez-vous que les champs de formulaire prennent toute la largeur
+  margin-bottom: 16px; // Espace entre les champs de formulaire
+}
+
+mat-form-field mat-label {
+  color: #333; // Couleur des labels
+}
+
+mat-form-field mat-input {
+  width: 100%; // Assurez-vous que les champs de saisie et les sélecteurs prennent toute la largeur
+  padding: 8px; // Ajouter du padding à l'intérieur des champs de formulaire
+  border-radius: 4px; // Arrondir les coins des champs de formulaire
+}
+
+mat-form-field textarea {
+  resize: vertical; // Permet le redimensionnement vertical du textarea
+}
+
+/* Style pour les éléments select */
+mat-select {
+  width: 100%; // Assurez-vous que le sélect prend toute la largeur
+  padding: 8px; // Ajouter du padding à l'intérieur de l'élément select
 }
 
 .mat-select-trigger {
@@ -26,23 +82,35 @@ mat-select {
   font-size: 14px;
 }
 
-/* Styles for the form actions */
+/* Style pour les actions du formulaire */
 .form-actions {
   display: flex;
   justify-content: flex-end;
-  margin-top: 20px;
+  margin-top: 20px; // Espace au-dessus des actions du formulaire
 }
 
 .form-actions button {
-  margin-left: 10px;
+  margin-left: 10px; // Espace entre les boutons
 }
 
-/* Error message styling */
-mat-error {
-  color: red;
+/* Style pour les boutons à l'intérieur du formulaire */
+mat-raised-button,
+mat-button {
+  margin-right: 10px; // Espace entre les boutons
 }
 
-/* General button styles */
+/* Assurez-vous que les boutons sont bien affichés */
 mat-raised-button {
-  margin-right: 10px;
+  color: #fff; // Couleur du texte des boutons
+  background-color: #007bff; // Couleur de fond des boutons
+  &:hover {
+    background-color: #0056b3; // Couleur de fond au survol
+  }
+}
+
+mat-button {
+  color: #007bff; // Couleur du texte des boutons
+  &:hover {
+    background-color: rgba(0, 123, 255, 0.1); // Couleur de fond au survol
+  }
 }

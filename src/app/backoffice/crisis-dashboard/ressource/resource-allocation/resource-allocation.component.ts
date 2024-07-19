@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
-import { IncidentService } from 'src/app/service/incident.service'; // Adjust the path as needed
-import { ResourceService } from 'src/app/service/resource.service'; // Adjust the path as needed
+import { IncidentService } from 'src/app/service/incident.service';
+import { ResourceService } from 'src/app/service/resource.service';
 import { MatSnackBar } from '@angular/material/snack-bar';
 
 @Component({
@@ -11,7 +11,7 @@ import { MatSnackBar } from '@angular/material/snack-bar';
 export class ResourceAllocationComponent implements OnInit {
   incidents: any[] = [];
   resources: any[] = [];
-  displayedColumns: string[] = ['name', 'type', 'status', 'select'];
+  displayedColumns: string[] = ['name', 'type', 'availability', 'select'];
 
   selectedIncident: string | null = null;
   selectedResourceIds: string[] = [];
@@ -76,7 +76,7 @@ export class ResourceAllocationComponent implements OnInit {
           // Clear the selection
           this.selectedIncident = null;
           this.selectedResourceIds = [];
-          this.loadResources(); 
+          this.loadResources(); // Reload resources after allocation
         },
         (error) => {
           this.snackBar.open('Failed to allocate resources. Please try again.', 'Close', {

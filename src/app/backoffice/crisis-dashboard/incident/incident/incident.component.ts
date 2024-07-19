@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, ViewEncapsulation } from '@angular/core';
 import { Router } from '@angular/router';
 import { IncidentService } from 'src/app/service/incident.service';
 
@@ -8,7 +8,7 @@ import { IncidentService } from 'src/app/service/incident.service';
   styleUrls: ['./incident.component.scss']
 })
 export class IncidentComponent implements OnInit {
-  displayedColumns: string[] = ['title', 'description', 'gravite', 'status', 'date', 'actions'];
+  displayedColumns: string[] = ['title', 'gravite', 'status', 'date', 'actions'];
   dataSource: any[] = [];
 
   constructor(private router: Router, private incidentService: IncidentService) { }

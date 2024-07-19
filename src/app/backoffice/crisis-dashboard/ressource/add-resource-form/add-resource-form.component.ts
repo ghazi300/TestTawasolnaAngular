@@ -1,7 +1,7 @@
 import { Component, EventEmitter, Output } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { AlertService } from 'src/app/service/alert.service';
-import { ResourceService } from 'src/app/service/resource.service'; // Adjust the path as needed
+import { ResourceService } from 'src/app/service/resource.service';
 
 @Component({
   selector: 'app-add-resource-form',
@@ -13,12 +13,25 @@ export class AddResourceFormComponent {
   @Output() formCancel = new EventEmitter<void>();
 
   resourceForm: FormGroup;
+  typeOptions: string[] = [
+    'FIRE',
+    'MEDICAL_EMERGENCY',
+    'NATURAL_DISASTER',
+    'SECURITY_BREACH',
+    'TRAFFIC_ACCIDENT',
+    'EQUIPMENT_FAILURE',
+    'HAZARDOUS_SPILL',
+    'POWER_OUTAGE',
+    'CYBER_ATTACK',
+    'GAS_LEAK'
+  ];
+  availabilityOptions: string[] = ['AVAILABLE', 'UNAVAILABLE'];
 
-  constructor(private fb: FormBuilder, private resourceService: ResourceService,private as:AlertService) {
+  constructor(private fb: FormBuilder, private resourceService: ResourceService, private as: AlertService) {
     this.resourceForm = this.fb.group({
       name: ['', Validators.required],
       type: ['', Validators.required],
-      status: ['', Validators.required],
+      availability: ['', Validators.required],
       location: ['', Validators.required]
     });
   }
