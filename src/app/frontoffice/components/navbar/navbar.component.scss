@@ -1,31 +1,4 @@
-$modal-bg: rgba(0, 0, 0, 0.5);
-$modal-content-bg: #fff;
-.modal {
-  display: none;
-  position: fixed;
-  top: 0;
-  left: 0;
-  width: 100%;
-  height: 100%;
-  background: $modal-bg;
-
-  &.show {
-    display: block;
-  }
-
-  .modal-content {
-    background: $modal-content-bg;
-    margin: 10% auto;
-    padding: 20px;
-    width: 50%;
-
-    .modal-header {
-      display: flex;
-      justify-content: space-between;
-
-      .close {
-        cursor: pointer;
-      }
-    }
-  }
+/* Exemple de styles pour le modal */
+.mat-dialog-container {
+  z-index: 1050; /* Assurez-vous que la boîte de dialogue est au-dessus des autres éléments */
 }

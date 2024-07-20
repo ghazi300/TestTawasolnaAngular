@@ -1,0 +1,12 @@
+<div class="recent-incidents-widget">
+  <h2>Recent Incidents</h2>
+  <div class="incident-card" *ngFor="let incident of recentIncidents">
+    <div class="incident-info">
+      <h3>{{ incident.title }}</h3>
+      <p>Status: <span [ngClass]="incident.status">{{ incident.status }}</span></p>
+    </div>
+    <div class="details-button">
+      <button mat-button color="primary" (click)="viewDetails(incident.id)">View Details</button>
+    </div>
+  </div>
+</div>

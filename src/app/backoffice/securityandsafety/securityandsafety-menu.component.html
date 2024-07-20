@@ -1,0 +1,105 @@
+
+<div class="dashboard-container" fxLayout="row wrap" fxLayoutAlign="start">
+    <mat-card>
+        <img src="assets/images/secrityandsafety/isometric-view-3d-rendering-neon-city%20(4).jpg" alt=""  style="border-radius: 10px;">
+    </mat-card>
+    <div class="row">
+        <div class="col-xl-3 col-lg-6">
+            <div class="card card-stats mb-4 mb-xl-0 small-card">
+                <div class="card-body">
+                    <div class="row align-items-center">
+                        <div class="col">
+                            <h4>Incident reporting</h4>
+                        </div>
+                        <div class="col-auto">
+                            <div class="icon icon-shape bg-yellow text-white rounded-circle shadow">
+                                <i class="fas fa-fire"></i>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row mt-3">
+                        <div class="col">
+                            <button mat-raised-button color="primary" [routerLink]="['./incident']">View</button>
+                            <span style="margin-right: 10px;"></span>
+                            <button mat-raised-button color="primary" [routerLink]="['.incident-report-form/incident-report-form']">Add</button>
+
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="col-xl-3 col-lg-6">
+            <div class="card card-stats mb-4 mb-xl-0 small-card">
+                <div class="card-body">
+                    <div class="row align-items-center">
+                        <div class="col">
+                            <h4>Patrols</h4>
+                        </div>
+                        <div class="col-auto">
+                            <div class="icon icon-shape bg-yellow text-white rounded-circle shadow">
+                                <i class="fas fa-fire"></i>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row mt-3">
+                        <div class="col">
+                            <button mat-raised-button color="primary" [routerLink]="['./patrolroute/patrolroute']">View</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="col-xl-3 col-lg-6">
+            <div class="card card-stats mb-4 mb-xl-0 small-card">
+                <div class="card-body">
+                    <div class="row align-items-center">
+                        <div class="col">
+                            <h4>Access Logs</h4>
+                        </div>
+                        <div class="col-auto">
+                            <div class="icon icon-shape bg-yellow text-white rounded-circle shadow">
+                                <i class="fas fa-fire"></i>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row mt-3">
+                        <div class="col">
+                            <button mat-raised-button color="primary" [routerLink]="['./logslist/logslist']">View</button>
+                            <span style="margin-right: 10px;"></span>
+                            <button mat-raised-button color="primary" [routerLink]="['./logsform/logsform']">Add</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="col-xl-3 col-lg-6">
+            <div class="card card-stats mb-4 mb-xl-0 small-card">
+                <div class="card-body">
+                    <div class="row align-items-center">
+                        <div class="col">
+                            <h4>Emergency Protocols</h4>
+                        </div>
+                        <div class="col-auto">
+                            <div class="icon icon-shape bg-yellow text-white rounded-circle shadow">
+                                <i class="fas fa-fire"></i>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row mt-3">
+                        <div class="col">
+                            <button mat-raised-button color="primary" [routerLink]="['./protocols/protocols']">View</button>
+                            <span style="margin-right: 10px;"></span>
+                            <button mat-raised-button color="primary" [routerLink]="['./protocolsform/protocolsform']">Add</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+</div>
+<div mat-card-content>
+    <div style="width: 100%"><iframe width="100%" height="400" frameborder="0" scrolling="no" marginheight="0" marginwidth="0" src="https://maps.google.com/maps?width=100%25&amp;height=600&amp;hl=en&amp;q=1%20Grafton%20Street,%20Dublin,%20Ireland+(My%20Business%20Name)&amp;t=&amp;z=14&amp;ie=UTF8&amp;iwloc=B&amp;output=embed"><a href="https://www.gps.ie/">gps vehicle tracker</a></iframe></div>
+</div>
+<app-incident-statistics></app-incident-statistics>
+

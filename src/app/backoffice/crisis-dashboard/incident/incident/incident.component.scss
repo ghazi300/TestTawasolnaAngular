@@ -19,3 +19,12 @@ th.mat-header-cell {
 .mat-header-cell {
   font-size: 14px;
 }
+
+.details-button {
+  display: flex;
+  align-items: center;
+
+  button {
+    margin-left: 16px;
+  }
+}

@@ -10,7 +10,6 @@ import {FormsModule} from "@angular/forms";
 import {TawasalnaModule} from "../../../tawasalna-module";
 
 
-
 @NgModule({
   declarations: [
     EventPlannerCalendarComponent,

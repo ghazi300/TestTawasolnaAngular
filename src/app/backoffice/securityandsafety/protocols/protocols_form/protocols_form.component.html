@@ -1,0 +1,44 @@
+
+<div class="card">
+    <mat-card>
+        <img src="assets/images/secrityandsafety/isometric-view-3d-rendering-neon-city.jpg" alt=""  style="border-radius: 10px;">
+    </mat-card>
+    <div class="card-body">
+        <h4 class="mb-32">Create Protocol</h4>
+        <form [formGroup]="protocolForm" (ngSubmit)="onSubmit()">
+            <mat-form-field class="w-100 fs-16" appearance="outline">
+                <mat-label>Title</mat-label>
+                <input matInput formControlName="title" required>
+                <mat-error *ngIf="protocolForm.get('title')?.invalid && (protocolForm.get('title')?.dirty || protocolForm.get('title')?.touched)">
+                    Title is required
+                </mat-error>
+            </mat-form-field>
+            <mat-form-field class="w-100 fs-16" appearance="outline">
+                <mat-label>Description</mat-label>
+                <textarea matInput formControlName="description" rows="6" required></textarea>
+                <mat-error *ngIf="protocolForm.get('description')?.invalid && (protocolForm.get('description')?.dirty || protocolForm.get('description')?.touched)">
+                    Description is required
+                </mat-error>
+            </mat-form-field>
+            <mat-form-field class="w-100 fs-16" appearance="outline">
+                <mat-label>Steps</mat-label>
+                <textarea matInput formControlName="steps" rows="6" required></textarea>
+                <mat-error *ngIf="protocolForm.get('steps')?.invalid && (protocolForm.get('steps')?.dirty || protocolForm.get('steps')?.touched)">
+                    Steps are required
+                </mat-error>
+            </mat-form-field>
+            <mat-form-field class="w-100 fs-16" appearance="outline">
+                <mat-label>Responsible Person</mat-label>
+                <input matInput formControlName="responsiblePerson" required>
+                <mat-error *ngIf="protocolForm.get('responsiblePerson')?.invalid && (protocolForm.get('responsiblePerson')?.dirty || protocolForm.get('responsiblePerson')?.touched)">
+                    Responsible Person is required
+                </mat-error>
+            </mat-form-field>
+            <div class="text-end">
+
+                <button mat-raised-button color="primary" type="submit" [disabled]="protocolForm.invalid">Submit</button>
+            <button mat-button type="button" (click)="onBack()">Cancel</button>
+            </div>
+        </form>
+    </div>
+</div>

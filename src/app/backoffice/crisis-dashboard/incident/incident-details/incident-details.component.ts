@@ -1,50 +1,62 @@
-import {Component, OnInit} from '@angular/core';
-import {ActivatedRoute} from "@angular/router";
-interface Incident {
-  id: number;
-  title: string;
-  description: string;
-  location: string;
-  date: string;
-  time: string;
-  severity: string;
-  files?: string[];
-}
+// incident-details.component.ts
+import { Component, OnInit } from '@angular/core';
+import { ActivatedRoute } from '@angular/router';
+import { IncidentService } from 'src/app/service/incident.service';
 
 @Component({
   selector: 'app-incident-details',
   templateUrl: './incident-details.component.html',
   styleUrls: ['./incident-details.component.scss']
 })
-export class IncidentDetailsComponent implements OnInit{
-  incident: Incident | null = null;
-  panelOpenState = false;
+export class IncidentDetailsComponent implements OnInit {
+  incident: any | null = null;
   selectedImage: string | null = null;
+  files: string[] = [];
 
-  constructor(private route: ActivatedRoute) {}
+  constructor(
+    private route: ActivatedRoute, 
+    private incidentService: IncidentService
+  ) { }
 
   ngOnInit(): void {
-    const incidentId = +this.route.snapshot.paramMap.get('id')!;
-    // Remplacez cette ligne par la logique pour récupérer les détails de l'incident depuis votre source de données
-    this.incident = this.getIncidentDetails(incidentId);
+    const incidentId = this.route.snapshot.paramMap.get('id');
+    if (incidentId) {
+      this.incidentService.getIncidentById(incidentId).subscribe(
+        (data: any) => {
+          this.incident = data;
+          if (this.incident?.images) {
+            this.loadImages(this.incident.images);
+          }
+        },
+        (error) => {
+          console.error('Error fetching incident details:', error);
+        }
+      );
+    }
   }
 
-  getIncidentDetails(id: number): Incident {
-    // Exemple de données (à remplacer par vos données réelles)
-    const INCIDENT_DATA = [
-      { id: 1, title: 'Incident 1', description: 'Description 1', location: 'Location 1', date: '2024-07-01', time: '10:00', severity: 'High', files: [] },
-      { id: 2, title: 'Incident 2', description: 'Description 2', location: 'Location 2', date: '2024-07-02', time: '11:00', severity: 'Medium', files: [] },
-      // ... plus de données ici
-    ];
-    return INCIDENT_DATA.find(incident => incident.id === id)!;
+  loadImages(imageIds: string[]): void {
+    imageIds.forEach(id => {
+      this.incidentService.getImageById(id).subscribe(
+        (blob: Blob) => {
+          const reader = new FileReader();
+          reader.onloadend = () => {
+            this.files.push(reader.result as string);
+          };
+          reader.readAsDataURL(blob);
+        },
+        (error) => {
+          console.error('Error fetching image:', error);
+        }
+      );
+    });
   }
 
-  openImage(image: string) {
+  openImage(image: string): void {
     this.selectedImage = image;
   }
 
-  closeImage() {
+  closeImage(): void {
     this.selectedImage = null;
   }
-
 }
