@@ -1,0 +1,18 @@
+<mat-card class="w-100">
+    <mat-card-content>
+        <h4 class="mb-56">Resource Usage Analytics</h4>
+        <ngx-charts-bar-vertical
+                [view]="view"
+                [scheme]="colorScheme"
+                [results]="resourceUsageData"
+                [gradient]="gradient"
+                [xAxis]="showXAxis"
+                [yAxis]="showYAxis"
+                [legend]="showLegend"
+                [showXAxisLabel]="showXAxisLabel"
+                [showYAxisLabel]="showYAxisLabel"
+                [xAxisLabel]="xAxisLabel"
+                [yAxisLabel]="yAxisLabel">
+        </ngx-charts-bar-vertical>
+    </mat-card-content>
+</mat-card>

@@ -1,0 +1,62 @@
+<h1 mat-dialog-title>Add Diversity Initiative</h1>
+<form [formGroup]="initiativeForm">
+    <div mat-dialog-content>
+        <mat-form-field appearance="fill">
+            <mat-label>Title</mat-label>
+            <input matInput formControlName="title">
+            <mat-error *ngIf="initiativeForm.get('title')?.hasError('required')">
+                Title is <strong>required</strong>
+            </mat-error>
+        </mat-form-field>
+
+        <mat-form-field appearance="fill">
+            <mat-label>Description</mat-label>
+            <textarea matInput formControlName="description"></textarea>
+            <mat-error *ngIf="initiativeForm.get('description')?.hasError('required')">
+                Description is <strong>required</strong>
+            </mat-error>
+        </mat-form-field>
+
+        <mat-form-field appearance="fill">
+            <mat-label>Lead</mat-label>
+            <input matInput formControlName="lead">
+            <mat-error *ngIf="initiativeForm.get('lead')?.hasError('required')">
+                Lead is <strong>required</strong>
+            </mat-error>
+        </mat-form-field>
+
+        <mat-form-field appearance="fill">
+            <mat-label>Start Date</mat-label>
+            <input matInput [matDatepicker]="startDatePicker" formControlName="startDate">
+            <mat-datepicker-toggle matSuffix [for]="startDatePicker"></mat-datepicker-toggle>
+            <mat-datepicker #startDatePicker></mat-datepicker>
+            <mat-error *ngIf="initiativeForm.get('startDate')?.hasError('required')">
+                Start Date is <strong>required</strong>
+            </mat-error>
+        </mat-form-field>
+
+        <mat-form-field appearance="fill">
+            <mat-label>End Date</mat-label>
+            <input matInput [matDatepicker]="endDatePicker" formControlName="endDate">
+            <mat-datepicker-toggle matSuffix [for]="endDatePicker"></mat-datepicker-toggle>
+            <mat-datepicker #endDatePicker></mat-datepicker>
+            <mat-error *ngIf="initiativeForm.get('endDate')?.hasError('required')">
+                End Date is <strong>required</strong>
+            </mat-error>
+        </mat-form-field>
+
+        <mat-form-field appearance="fill">
+            <mat-label>Status</mat-label>
+            <mat-select formControlName="status">
+                <mat-option *ngFor="let status of statusOptions" [value]="status">{{ status }}</mat-option>
+            </mat-select>
+            <mat-error *ngIf="initiativeForm.get('status')?.hasError('required')">
+                Status is <strong>required</strong>
+            </mat-error>
+        </mat-form-field>
+    </div>
+    <div mat-dialog-actions>
+        <button mat-button (click)="onNoClick()">Cancel</button>
+        <button mat-button color="primary" (click)="save()" [disabled]="!initiativeForm.valid">Save</button>
+    </div>
+</form>

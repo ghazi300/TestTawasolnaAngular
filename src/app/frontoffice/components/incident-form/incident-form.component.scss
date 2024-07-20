@@ -1,0 +1,73 @@
+$form-padding: 8px;
+$form-max-width: 100%;
+$form-gap: 10px;
+
+form {
+  display: flex;
+  flex-direction: column;
+  gap: $form-gap;
+
+  label {
+    font-weight: bold;
+  }
+
+  input, textarea {
+    padding: $form-padding;
+    width: 100%;
+    max-width: $form-max-width;
+    box-sizing: border-box;
+  }
+
+  .uploaded-files {
+    display: flex;
+    flex-wrap: wrap;
+    gap: $form-gap;
+
+    .uploaded-file {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 5px;
+      border: 1px solid #ddd;
+      padding: 10px;
+      border-radius: 5px;
+      position: relative;
+
+      img {
+        max-width: 100px;
+        max-height: 100px;
+        object-fit: cover;
+      }
+
+      .file-content {
+        max-width: 100px;
+        max-height: 100px;
+        overflow: hidden;
+        text-overflow: ellipsis;
+        white-space: nowrap;
+        text-align: center;
+      }
+
+      button {
+        margin-top: 5px;
+        background: #f44336;
+        color: white;
+        border: none;
+        padding: 5px 10px;
+        cursor: pointer;
+        border-radius: 5px;
+      }
+    }
+  }
+
+  .form-actions {
+    display: flex;
+    justify-content: flex-end;
+    gap: $form-gap;
+
+    .btn {
+      padding: 10px 20px;
+      cursor: pointer;
+    }
+  }
+}

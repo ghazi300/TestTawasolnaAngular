@@ -1,0 +1,34 @@
+<mat-card class="w-100">
+    <mat-card-content>
+        <h4 class="mb-32">Add Equipment</h4>
+
+        <form [formGroup]="equipmentForm" (ngSubmit)="saveEquipment()">
+            <mat-form-field class="w-100">
+                <mat-label>Name</mat-label>
+                <input matInput formControlName="name">
+                <mat-error *ngIf="equipmentForm.get('name')?.hasError('required')">
+                    Name is required
+                </mat-error>
+            </mat-form-field>
+
+            <mat-form-field class="w-100">
+                <mat-label>Description</mat-label>
+                <input matInput formControlName="description">
+                <mat-error *ngIf="equipmentForm.get('description')?.hasError('required')">
+                    Description is required
+                </mat-error>
+            </mat-form-field>
+
+            <mat-form-field class="w-100">
+                <mat-label>Location</mat-label>
+                <input matInput formControlName="location">
+                <mat-error *ngIf="equipmentForm.get('location')?.hasError('required')">
+                    Location is required
+                </mat-error>
+            </mat-form-field>
+
+            <button mat-raised-button color="primary"  [disabled]="equipmentForm.invalid">Save</button>
+            <button mat-button type="button" (click)="closeDialog()">Cancel</button>
+        </form>
+    </mat-card-content>
+</mat-card>

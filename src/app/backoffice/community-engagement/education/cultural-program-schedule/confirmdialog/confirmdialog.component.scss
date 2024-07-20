@@ -1,0 +1,41 @@
+:host {
+  display: block;
+}
+
+mat-dialog-title {
+  text-align: center;
+  font-weight: bold;
+}
+
+mat-dialog-content {
+  text-align: center;
+  padding: 20px;
+}
+
+mat-dialog-actions {
+  display: flex;
+  justify-content: center;
+  margin-top: 20px;
+}
+
+button {
+  margin: 0 10px;
+  font-weight: bold;
+}
+
+.cancel-button {
+  color: #f44336; // Red color for cancel
+  border: 1px solid #f44336;
+  &:hover {
+    background-color: #f44336;
+    color: white;
+  }
+}
+
+.confirm-button {
+  background-color: #4caf50; // Green color for confirm
+  color: white;
+  &:hover {
+    background-color: #388e3c;
+  }
+}

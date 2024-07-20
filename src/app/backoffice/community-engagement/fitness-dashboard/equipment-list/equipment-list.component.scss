@@ -1,0 +1,50 @@
+/* equipment-list.component.scss */
+
+.table-responsive {
+  overflow-x: auto;
+}
+
+td.mat-cell {
+  padding: 16px;
+}
+
+th.mat-header-cell:first-of-type,
+td.mat-cell:first-of-type,
+td.mat-footer-cell:first-of-type {
+  padding: 16px;
+}
+
+th.mat-header-cell {
+  padding: 16px;
+}
+
+.mat-header-cell {
+  font-size: 14px;
+}
+
+/* Styles spécifiques pour les badges */
+.badge {
+  padding: 5px 10px;
+  border-radius: 20px;
+  font-size: 12px;
+  text-transform: uppercase;
+  display: inline-block;
+  width: auto;
+  white-space: nowrap;
+  &.badge-info {
+    background-color: #17a2b8;
+    color: #fff;
+  }
+  &.badge-primary {
+    background-color: #007bff;
+    color: #fff;
+  }
+  &.badge-danger {
+    background-color: #dc3545;
+    color: #fff;
+  }
+  &.badge-success {
+    background-color: #28a745;
+    color: #fff;
+  }
+}

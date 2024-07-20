@@ -1,0 +1,38 @@
+<div class="dashboard-container" fxLayout="row" fxLayoutWrap="wrap">
+    <!-- Card column -->
+    <div fxFlex="33%" fxFlex.gt-sm="25%" class="card-column">
+        <mat-card class="menu-card">
+            <mat-card-content>
+                <h4>Incident Reporting</h4>
+                <button mat-raised-button color="primary" [routerLink]="['/report-incident']">Report Incident</button>
+            </mat-card-content>
+        </mat-card>
+    </div>
+
+    <div fxFlex="33%" fxFlex.gt-sm="25%" class="card-column">
+        <mat-card class="menu-card">
+            <mat-card-content>
+                <h4>Incident Dashboard</h4>
+                <button mat-raised-button color="accent" [routerLink]="['./incident']">View Dashboard</button>
+            </mat-card-content>
+        </mat-card>
+    </div>
+
+    <div fxFlex="33%" fxFlex.gt-sm="25%" class="card-column">
+        <mat-card class="menu-card">
+            <mat-card-content>
+                <h4>Manage Resources</h4>
+                <button mat-raised-button color="warn" [routerLink]="['/manage-resources']">Manage Resources</button>
+            </mat-card-content>
+        </mat-card>
+    </div>
+
+    <div fxFlex="33%" fxFlex.gt-sm="25%" class="card-column">
+        <mat-card class="menu-card">
+            <mat-card-content>
+                <h4>Emergency Contacts</h4>
+                <button mat-raised-button color="primary" [routerLink]="['/contacts']">Contact List</button>
+            </mat-card-content>
+        </mat-card>
+    </div>
+</div>
