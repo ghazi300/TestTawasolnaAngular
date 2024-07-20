@@ -2,18 +2,41 @@
 <div mat-dialog-content>
     <mat-form-field>
         <mat-label>Title</mat-label>
-        <input matInput [(ngModel)]="title">
+        <input matInput [(ngModel)]="eventRequest.title">
     </mat-form-field>
     <mat-form-field>
         <mat-label>Start Date</mat-label>
-        <input matInput [(ngModel)]="start" type="datetime-local">
+        <input matInput [(ngModel)]="eventRequest.startDate" type="datetime-local">
     </mat-form-field>
     <mat-form-field>
         <mat-label>End Date</mat-label>
-        <input matInput [(ngModel)]="end" type="datetime-local">
+        <input matInput [(ngModel)]="eventRequest.endDate" type="datetime-local">
+    </mat-form-field>
+    <mat-form-field>
+        <mat-label>Location</mat-label>
+        <input matInput [(ngModel)]="eventRequest.location">
+    </mat-form-field>
+    <mat-form-field>
+        <mat-label>Description</mat-label>
+        <textarea matInput [(ngModel)]="eventRequest.description"></textarea>
+    </mat-form-field>
+    <mat-form-field>
+        <mat-label>Category</mat-label>
+        <mat-select [(ngModel)]="eventRequest.category">
+            <mat-option value="meeting">Meeting</mat-option>
+            <mat-option value="conference">Conference</mat-option>
+            <mat-option value="workshop">Workshop</mat-option>
+        </mat-select>
+    </mat-form-field>
+    <mat-form-field>
+        <mat-label>Status</mat-label>
+        <mat-select [(ngModel)]="eventRequest.status">
+            <mat-option value="planned">Planned</mat-option>
+            <mat-option value="completed">Completed</mat-option>
+            <mat-option value="cancelled">Cancelled</mat-option>
+        </mat-select>
     </mat-form-field>
     <mat-checkbox [(ngModel)]="allDay">All Day</mat-checkbox>
-
 </div>
 <div mat-dialog-actions>
     <button mat-button (click)="onNoClick()">Cancel</button>

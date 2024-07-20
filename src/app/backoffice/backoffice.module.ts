@@ -1,5 +1,6 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
+import { NgApexchartsModule } from 'ng-apexcharts';
 
 import { BackofficeRoutingModule } from './backoffice-routing.module';
 import { DashboardComponent } from './dashboard.component';
@@ -53,8 +54,14 @@ import { ShowParticpantComponent } from './show-particpant/show-particpant.compo
     MatIconModule,
     ReactiveFormsModule,
     MatCheckboxModule,
-    
+    NgApexchartsModule
   ],
-  entryComponents: [AddEventDialogComponent] // Si vous utilisez Angular < 9
+  entryComponents: [AddEventDialogComponent] 
+   
+   
+
+    
+
+  
 })
 export class BackofficeModule { }

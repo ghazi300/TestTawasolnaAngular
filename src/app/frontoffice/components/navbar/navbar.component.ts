@@ -1,4 +1,6 @@
 import { Component } from '@angular/core';
+import { MatDialog } from '@angular/material/dialog';
+import { IncidentFormComponent } from '../../incident-form/incident-form.component';
 
 @Component({
   selector: 'app-navbar',
@@ -6,14 +8,16 @@ import { Component } from '@angular/core';
   styleUrls: ['./navbar.component.scss']
 })
 export class NavbarComponent {
-  showModal = false;
+  constructor(public dialog: MatDialog) {}
 
-  openModal() {
-    this.showModal = true;
+  openModal(): void {
+    const dialogRef = this.dialog.open(IncidentFormComponent, {
+      width: '50%',
+      data: {} 
+    });
+
+    dialogRef.afterClosed().subscribe(result => {
+      console.log('Dialog was closed', result);
+    });
   }
-
-  closeModal() {
-    this.showModal = false;
-  }
-
 }

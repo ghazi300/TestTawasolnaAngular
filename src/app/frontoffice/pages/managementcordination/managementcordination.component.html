@@ -1,0 +1,95 @@
+
+<div class="container">
+    <h2>Community  satisfaction survey</h2>
+    
+    <form [formGroup]="opinionForm" (ngSubmit)="submitOpinions()">
+      <div class="form-group">
+        <label for="residentName">Resident Name:</label>
+        <input type="text" class="form-control" id="residentName" formControlName="residentName">
+      </div>
+      <div class="form-group">
+        <label>Cleanliness:</label>
+        <div class="d-flex align-items-center"> 
+          <input type="radio" id="cleanlinessGood" formControlName="cleanliness" value="Good">
+          <label for="cleanlinessGood">Good</label>
+        </div>
+        <div class="d-flex align-items-center"> 
+          <input type="radio" id="cleanlinessMedium" formControlName="cleanliness" value="Medium">
+          <label for="cleanlinessMedium">Medium</label>
+        </div>
+        <div class="d-flex align-items-center"> 
+          <input type="radio" id="cleanlinessHigh" formControlName="cleanliness" value="High">
+          <label for="cleanlinessHigh">Excellent</label>
+        </div>
+      </div>
+      
+      <div class="form-group">
+        <label>Security:</label>
+        <div class="d-flex align-items-center"> 
+          <input type="radio" id="securityGood" formControlName="security" value="Good">
+          <label for="securityGood">Good</label>
+        </div>
+        <div class="d-flex align-items-center"> 
+          <input type="radio" id="securityMedium" formControlName="security" value="Medium">
+          <label for="securityMedium">Medium</label>
+        </div>
+        <div class="d-flex align-items-center"> 
+          <input type="radio" id="securityHigh" formControlName="security" value="High">
+          <label for="securityHigh">Excellent</label>
+        </div>
+      </div>
+      
+      <div class="form-group">
+        <label>Amenities:</label>
+        <div class="d-flex align-items-center"> 
+          <input type="radio" id="amenitiesGood" formControlName="amenities" value="Good">
+          <label for="amenitiesGood">Good</label>
+        </div>
+        <div class="d-flex align-items-center"> 
+          <input type="radio" id="amenitiesMedium" formControlName="amenities" value="Medium">
+          <label for="amenitiesMedium">Medium</label>
+        </div>
+        <div class="d-flex align-items-center"> 
+          <input type="radio" id="amenitiesHigh" formControlName="amenities" value="High">
+          <label for="amenitiesHigh">Excellent</label>
+        </div>
+      </div>
+      
+      <div class="form-group">
+        <label>Maintenance:</label>
+        <div class="d-flex align-items-center"> 
+          <input type="radio" id="maintenanceGood" formControlName="maintenance" value="Good">
+          <label for="maintenanceGood">Good</label>
+        </div>
+        <div class="d-flex align-items-center"> 
+          <input type="radio" id="maintenanceMedium" formControlName="maintenance" value="Medium">
+          <label for="maintenanceMedium">Medium</label>
+        </div>
+        <div class="d-flex align-items-center"> 
+          <input type="radio" id="maintenanceHigh" formControlName="maintenance" value="High">
+          <label for="maintenanceHigh">Excellent</label>
+        </div>
+      </div>
+      
+      <div class="form-group">
+        <label>Management:</label>
+        <div class="d-flex align-items-center"> 
+          <input type="radio" id="managementGood" formControlName="management" value="Good">
+          <label for="managementGood">Good</label>
+        </div>
+        <div class="d-flex align-items-center"> 
+          <input type="radio" id="managementMedium" formControlName="management" value="Medium">
+          <label for="managementMedium">Medium</label>
+        </div>
+        <div class="d-flex align-items-center"> 
+          <input type="radio" id="managementHigh" formControlName="management" value="High">
+          <label for="managementHigh">Excellent</label>
+        </div>
+      </div>
+      
+      <button type="submit" [disabled]="!opinionForm.valid" class="btn btn-primary">Submit</button>
+      <p *ngIf="submitted" class="alert alert-success">Form submitted successfully!</p>
+
+    </form>
+  </div>
+  

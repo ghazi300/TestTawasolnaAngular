@@ -1,22 +1,16 @@
 import {Component, OnInit} from '@angular/core';
 import {MatDialog} from "@angular/material/dialog";
 import {AddEquipmentFormComponent} from "../add-equipment-form/add-equipment-form.component";
+import {MatSnackBar} from "@angular/material/snack-bar";
+import {EquipementService} from "../../../../services/services/equipement.service";
 export interface Equipment {
-  id: number;
+  id: string;
   name: string;
-  work: string;
-  project: string;
-  priority: string;
-  badge: string;
-  budget: string;
+  description: string;
+  location: string;
 }
 
-const ELEMENT_DATA: Equipment[] = [
-  { id: 1, name: 'Equipment 1', work: 'Work 1', project: 'Project 1', priority: 'Low', badge: 'badge-info', budget: '$3.9k' },
-  { id: 2, name: 'Equipment 2', work: 'Work 2', project: 'Project 2', priority: 'Medium', badge: 'badge-primary', budget: '$24.5k' },
-  { id: 3, name: 'Equipment 3', work: 'Work 3', project: 'Project 3', priority: 'High', badge: 'badge-danger', budget: '$12.8k' },
-  { id: 4, name: 'Equipment 4', work: 'Work 4', project: 'Project 4', priority: 'Critical', badge: 'badge-success', budget: '$2.4k' },
-];
+
 
 @Component({
   selector: 'app-equipment-list',
@@ -24,12 +18,15 @@ const ELEMENT_DATA: Equipment[] = [
   styleUrls: ['./equipment-list.component.scss']
 })
 export class EquipmentListComponent implements OnInit{
-  displayedColumns: string[] = ['id', 'name', 'work', 'project', 'priority', 'budget', 'actions'];
-  dataSource = ELEMENT_DATA;
+  displayedColumns: string[] = ['id', 'name', 'description', 'location', 'actions'];
+  dataSource: Equipment[] = [];
 
-  constructor(public dialog: MatDialog ) { }
+  constructor( public dialog: MatDialog,
+               private equipmentService: EquipementService,
+               private snackBar: MatSnackBar ) { }
 
   ngOnInit(): void {
+    this.loadEquipment();
   }
 
   openAddEquipmentDialog() {
@@ -39,8 +36,29 @@ export class EquipmentListComponent implements OnInit{
     });
 
     dialogRef.afterClosed().subscribe(result => {
-      console.log('The dialog was closed');
+      if (result) {
 
+        this.loadEquipment();
+          this.snackBar.open('Equipment added successfully', 'Close', { duration: 3000 });
+
+      }
     });
+  }
+  deleteEquipment(id: string): void {
+    this.equipmentService.deleteEquipment(id).subscribe(() => {
+      this.dataSource = this.dataSource.filter(equipment => equipment.id !== id);
+      this.snackBar.open('Equipment deleted successfully', 'Close', { duration: 3000 });
+    });
+  }
+
+  private loadEquipment() {
+    this.equipmentService.getAllEquipment().subscribe(
+        (equipment: Equipment[]) => {
+          this.dataSource = equipment;
+        },
+        error => {
+          console.error('Error loading equipment', error);
+        }
+    );
   }
 }

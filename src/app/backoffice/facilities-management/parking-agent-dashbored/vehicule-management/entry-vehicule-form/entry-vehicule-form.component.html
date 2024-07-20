@@ -1,0 +1,49 @@
+<h4 mat-dialog-title fxLayout="row" fxLayoutAlign="center center" class="dialog-title">Vehicule Entry</h4>
+<div mat-dialog-content>
+  <form>
+   
+    <mat-form-field class="example-full-width">
+      <mat-label>Select Parking sub space</mat-label>
+      <mat-select [(ngModel)]="selectedParkingsub" name="parkingsubSpace" required>
+        <mat-option *ngFor="let sub of parkingsubSpace" [value]="sub.subSpaceId">
+          {{ sub.stationNumber }}
+        </mat-option>
+      </mat-select>
+   
+    </mat-form-field>
+
+
+
+    <mat-form-field>
+      <mat-label>Vehicule's category</mat-label>
+      <input matInput [(ngModel)]="vehiculecategory" name="vehiculecategory">
+    </mat-form-field>
+  
+
+
+    <mat-form-field>
+      <mat-label>Vehicule number</mat-label>
+      <input matInput [(ngModel)]="vehicleNumber" name="vehicleNumber">
+    </mat-form-field>
+
+
+
+    <mat-form-field>
+      <mat-label>Entry Date-Time</mat-label>
+      <input matInput [(ngModel)]="startTime" name="startTime" type="datetime-local" readonly>
+    </mat-form-field>
+    <mat-form-field>
+        <mat-label>out  Date-Time</mat-label>
+        <input matInput [(ngModel)]="endTime" name="endTime" type="datetime-local" readonly>
+      </mat-form-field> 
+       <!-- Status Input -->
+    <mat-form-field>
+        <mat-label>Status</mat-label>
+        <input matInput  [ngStyle]="getStatusStyle()" [value]="getStatus()" readonly name="status">
+      </mat-form-field>
+  </form>
+</div>
+<div mat-dialog-actions>
+  <button   mat-raised-button class="me-8 mb-8" (click)="cancel()">Cancel</button>
+  <button  mat-raised-button class="me-8 mb-8" (click)="save()" color="warn">Save</button>
+</div>

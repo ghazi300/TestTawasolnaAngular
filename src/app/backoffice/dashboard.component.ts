@@ -1,12 +1,13 @@
 import {Component, OnInit} from '@angular/core';
 import {map, Observable, shareReplay} from "rxjs";
 import {BreakpointObserver, Breakpoints} from "@angular/cdk/layout";
-import { AuthService } from 'src/app/service/auth.service';
+import {AuthService} from "../service/auth.service";
 interface SidebarMenu {
   link: string;
   icon: string;
   menu: string;
   roles: string[];
+  children?: SidebarMenu[];
 }
 
 @Component({
@@ -41,11 +42,36 @@ export class DashboardComponent implements OnInit{
       roles:["admin","user"]
     },
     {
+      link: "/admin/security",
+      icon: "users",
+      menu: "Security Agent" ,
+      roles:["admin","user"]
+    },
+    {
       link: "/admin/community",
       icon: "user",
       menu: "Community Engagment",
       roles:["admin","user"]
 
+    },
+    {
+      link: "/admin/managment",
+      icon: "user",
+      menu: "managment",
+      roles:["admin","user"] } ,
+
+     { link: "/admin/facilityManagement",
+      icon: "store",
+      menu: "facility Management",
+      roles: ["admin", "user"],
+      children: [
+        {
+          link: "/admin/facilityManagement/parkingagentdashbored",
+          icon: "local_parking",
+          menu: "Parking Management",
+          roles: ["admin", "user"]
+        }
+      ]
     },
     {
       link: "/dashboard/stock",

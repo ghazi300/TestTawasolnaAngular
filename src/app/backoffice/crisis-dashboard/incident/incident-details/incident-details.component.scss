@@ -83,3 +83,27 @@ mat-card {
     background-color: rgba(0, 0, 0, 0.5);
     z-index: 999;
   }
+  .no-resources {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 16px;
+    background-color: #f1f1f1;
+    border: 1px solid #e0e0e0;
+    border-radius: 4px;
+    margin-top: 16px;
+    text-align: center;
+  }
+  
+  .no-resources mat-icon {
+    margin-right: 8px;
+    font-size: 24px;
+    color: #757575;
+  }
+  
+  .no-resources p {
+    margin: 0;
+    font-size: 16px;
+    color: #757575;
+  }
+  

@@ -8,11 +8,19 @@
       </mat-form-field>
       <mat-form-field class="w-100 fs-16" appearance="outline">
         <mat-label>Resource Type</mat-label>
-        <input matInput formControlName="type" placeholder="Enter resource type">
+        <mat-select formControlName="type" placeholder="Select resource type">
+          <mat-option *ngFor="let option of typeOptions" [value]="option">
+            {{ option }}
+          </mat-option>
+        </mat-select>
       </mat-form-field>
       <mat-form-field class="w-100 fs-16" appearance="outline">
-        <mat-label>Availability Status</mat-label>
-        <input matInput formControlName="status" placeholder="Enter availability status">
+        <mat-label>Availability</mat-label>
+        <mat-select formControlName="availability" placeholder="Select availability">
+          <mat-option *ngFor="let option of availabilityOptions" [value]="option">
+            {{ option }}
+          </mat-option>
+        </mat-select>
       </mat-form-field>
       <mat-form-field class="w-100 fs-16" appearance="outline">
         <mat-label>Location</mat-label>

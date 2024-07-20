@@ -21,7 +21,8 @@ import {TawasalnaModule} from "../../../tawasalna-module";
         FullCalendarModule,
         MatInputModule,
         FormsModule,
-        TawasalnaModule
+        TawasalnaModule,
+
     ]
 })
 export class EventModule { }

@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import {Component, OnInit} from '@angular/core';
 import {
   ApexChart,
   ApexDataLabels,
@@ -11,6 +11,8 @@ import {
   ApexXAxis,
   ApexGrid
 } from 'ng-apexcharts';
+import {FitnessCenterUsageService} from "../../../../services/services/fitness-center-usage.service";
+
 
 export interface FitnessUsageStatsChartOptions {
   series: ApexAxisChartSeries;
@@ -30,21 +32,22 @@ export interface FitnessUsageStatsChartOptions {
   templateUrl: './fitness-usage-statistics.component.html',
   styleUrls: ['./fitness-usage-statistics.component.scss']
 })
-export class FitnessUsageStatisticsComponent {
+export class FitnessUsageStatisticsComponent implements OnInit{
   public chartOptions: any;
 
-  constructor() {
+  constructor(private fitnessCenterUsageService: FitnessCenterUsageService) {
+
 
       this.chartOptions = {
         series: [
           {
             name: 'Fitness Center Usage',
-            data: [280, 250, 325, 215, 250, 310, 280, 250, 325, 215, 250, 310],
+            data: [],
             color: "#62AEC6",
           }
         ],
         xaxis: {
-          categories: ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec'],
+          categories: [],
         },
         chart: {
           type: 'bar',
@@ -79,5 +82,32 @@ export class FitnessUsageStatisticsComponent {
       };
     }
 
+  ngOnInit(): void {
+    this.loadUsageData();
+  }
 
+
+  private loadUsageData() {
+    this.fitnessCenterUsageService.getAllEquipmentUsageStats().subscribe((data: any) => {
+      this.updateChartOptions(data);
+    },(error: any) => {
+      console.log(error)
+    });
+
+  }
+  updateChartOptions(data: any) {
+    const categories = data.map((e: { equipmentName: any; }) => e.equipmentName);
+    const seriesData = data.map((e: { totalUsageDuration: number; }) => e.totalUsageDuration / 1000 / 60); // Converting milliseconds to minutes
+
+    this.chartOptions = {
+      ...this.chartOptions,
+      series: [{
+        name: 'Fitness Center Usage',
+        data: seriesData
+      }],
+      xaxis: {
+        categories: categories
+      }
+    };
+  }
 }

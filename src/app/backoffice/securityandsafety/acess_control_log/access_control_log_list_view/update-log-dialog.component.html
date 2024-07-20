@@ -1,0 +1,25 @@
+<h4 mat-dialog-title fxLayout="row" fxLayoutAlign="center center" class="dialog-title">Update Log</h4>
+<div mat-dialog-content fxLayout="column">
+    <form fxLayout="column" fxLayoutGap="10px">
+        <mat-form-field>
+            <mat-label>Entry Type</mat-label>
+            <input matInput [(ngModel)]="data.entryType" name="entryType">
+        </mat-form-field>
+        <mat-form-field>
+            <mat-label>Person Name</mat-label>
+            <input matInput [(ngModel)]="data.personName" name="personName">
+        </mat-form-field>
+        <mat-form-field>
+            <mat-label>Location</mat-label>
+            <input matInput [(ngModel)]="data.location" name="location">
+        </mat-form-field>
+        <mat-form-field>
+            <mat-label>Time</mat-label>
+            <input matInput [(ngModel)]="data.time" name="time" type="datetime-local">
+        </mat-form-field>
+    </form>
+</div>
+<div mat-dialog-actions fxLayoutAlign="end">
+    <button mat-raised-button class="me-8 mb-8" (click)="onCancel()">Cancel</button>
+    <button mat-raised-button class="me-8 mb-8" (click)="onSave()" color="warn">Save</button>
+</div>

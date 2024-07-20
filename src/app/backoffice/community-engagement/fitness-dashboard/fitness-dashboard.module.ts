@@ -7,7 +7,7 @@ import {TawasalnaModule} from "../../../tawasalna-module";
 import {NgApexchartsModule} from "ng-apexcharts";
 import { EquipmentListComponent } from './equipment-list/equipment-list.component';
 import { AddEquipmentFormComponent } from './add-equipment-form/add-equipment-form.component';
-import {FormsModule} from "@angular/forms";
+import {FormsModule, ReactiveFormsModule} from "@angular/forms";
 
 
 @NgModule({
@@ -21,7 +21,8 @@ import {FormsModule} from "@angular/forms";
         FitnessDashboardRoutingModule,
         TawasalnaModule,
         NgApexchartsModule,
-        FormsModule
+        FormsModule,
+        ReactiveFormsModule
     ]
 })
 export class FitnessDashboardModule { }

@@ -1,0 +1,36 @@
+<form [formGroup]="incidentForm" (ngSubmit)="onSubmit()">
+    <label for="title">Title:</label>
+    <input id="title" formControlName="title" type="text" required>
+
+    <label for="description">Description:</label>
+    <textarea id="description" formControlName="description" required></textarea>
+
+    <label for="location">Location:</label>
+    <input id="location" formControlName="location" type="text" required>
+
+    <label for="date">Date:</label>
+    <input id="date" formControlName="date" type="datetime-local" required>
+
+    <label for="fileUpload">Upload Photos/Documents:</label>
+    <input id="fileUpload" type="file" (change)="onFileChange($event)" multiple>
+
+    <div class="uploaded-files">
+        <div *ngFor="let file of uploadedFiles" class="uploaded-file">
+            <ng-container *ngIf="isImage(file); else otherFile">
+                <img [src]="filePreviewUrls[file.name]" alt="file preview">
+            </ng-container>
+            <ng-template #otherFile>
+                <div class="file-content">
+                    <p *ngIf="fileContents[file.name]">{{ fileContents[file.name] }}</p>
+                    <p *ngIf="!fileContents[file.name]">{{ file.name }}</p>
+                </div>
+            </ng-template>
+            <button type="button" (click)="removeFile(file)">X</button>
+        </div>
+    </div>
+
+    <div class="form-actions">
+        <button type="submit" class="btn btn-success">Submit</button>
+        <button type="button" class="btn btn-secondary" (click)="onCancel()">Cancel</button>
+    </div>
+</form>
