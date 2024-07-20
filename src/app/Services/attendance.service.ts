@@ -1,8 +1,7 @@
 import { Injectable } from '@angular/core';
-import { HttpClient } from '@angular/common/http';
-import { Observable } from 'rxjs';
-import { Event } from '../models/event';
-import { Participant } from 'src/app/models/Participant'; 
+import { HttpClient, HttpErrorResponse } from '@angular/common/http';
+import { Observable, throwError } from 'rxjs';
+import { catchError } from 'rxjs/operators';
 import { Attendance } from '../models/Attendance';
 
 @Injectable({
@@ -10,32 +9,38 @@ import { Attendance } from '../models/Attendance';
 })
 export class AttendanceService {
   private apiUrl = 'http://localhost:9002/Resident-Support-Services/api/attendances';
-  private eventsUrl = 'http://localhost:9002/Resident-Support-Services/api/events';
-  private participantsUrl = 'http://localhost:9002/Resident-Support-Services/api/participants';
 
-  constructor(private http: HttpClient) {}
+  constructor(private http: HttpClient) { }
 
-  getAttendances(): Observable<Attendance[]> {
-    return this.http.get<Attendance[]>(this.apiUrl);
+  // Get attendances for a specific event
+  getAttendancesForEvent(eventId: string): Observable<Attendance[]> {
+    return this.http.get<Attendance[]>(`${this.apiUrl}?eventId=${eventId}`)
+      .pipe(
+        catchError(this.handleError)
+      );
   }
 
-  addAttendance(attendance: Attendance): Observable<Attendance> {
-    return this.http.post<Attendance>(this.apiUrl, attendance);
+  // Mark attendance for a participant in an event
+  markAttendance(eventId: string, participantId: string, attended: boolean): Observable<void> {
+    const body = { event: { id: eventId }, participantName: { id: participantId }, attended };
+    return this.http.post<void>(`${this.apiUrl}/mark`, body)
+      .pipe(
+        catchError(this.handleError)
+      );
   }
 
-  updateAttendance(attendance: Attendance): Observable<void> {
-    return this.http.put<void>(`${this.apiUrl}/${attendance.id}`, attendance);
+  // Add attendance for a participant in an event
+  addAttendance(eventId: string, participantId: string, attended: boolean): Observable<void> {
+    const body = { event: { id: eventId }, participantName: { id: participantId }, attended };
+    return this.http.post<void>(this.apiUrl, body)
+      .pipe(
+        catchError(this.handleError)
+      );
   }
 
-  getEvents(): Observable<Event[]> {
-    return this.http.get<Event[]>(this.eventsUrl);
-  }
-
-  getParticipants(): Observable<Participant[]> {
-    return this.http.get<Participant[]>(this.participantsUrl);
-  }
-
-  updateEvent(event: Event): Observable<Event> {
-    return this.http.put<Event>(`${this.eventsUrl}/${event.id}`, event);
+  // Handle HTTP errors
+  private handleError(error: HttpErrorResponse): Observable<never> {
+    console.error('An error occurred:', error.message);
+    return throwError(() => new Error('Something went wrong with the request.'));
   }
 }

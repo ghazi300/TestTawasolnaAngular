@@ -13,14 +13,16 @@ import {MatSidenavModule} from "@angular/material/sidenav";
 import {MatToolbarModule} from "@angular/material/toolbar";
 import { EventDetailsDialogComponent } from './event-details-dialog/event-details-dialog.component';
 import { FacilityBookingComponent } from './facility-booking/facility-booking.component';
-import { FormsModule } from '@angular/forms';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { CalendarModule } from 'angular-calendar';
 import { MatSelectModule } from '@angular/material/select';
 import { HttpClientModule } from '@angular/common/http';
 import { AddEventDialogComponent } from './add-event-dialog/add-event-dialog.component';
 import { MatDialogModule } from '@angular/material/dialog';
 import { MatIconModule } from '@angular/material/icon';
-
+import { MatCheckboxModule } from '@angular/material/checkbox';
+import { AddParticipantComponent } from './add-participant/add-participant.component';
+import { ShowParticpantComponent } from './show-particpant/show-particpant.component';
 
 
 @NgModule({
@@ -28,10 +30,11 @@ import { MatIconModule } from '@angular/material/icon';
     DashboardComponent,
     EventDetailsDialogComponent,
     FacilityBookingComponent,
-    AddEventDialogComponent
+    AddEventDialogComponent,
+    AddParticipantComponent,
+    ShowParticpantComponent
   ],
   imports: [
-    MatIconModule,
     CommonModule,
     BackofficeRoutingModule,
     FeatherModule,
@@ -46,10 +49,12 @@ import { MatIconModule } from '@angular/material/icon';
     CalendarModule,
     MatSelectModule,
     HttpClientModule,
-    MatInputModule,
     MatDialogModule,
+    MatIconModule,
+    ReactiveFormsModule,
+    MatCheckboxModule,
     
-
-  ]
+  ],
+  entryComponents: [AddEventDialogComponent] // Si vous utilisez Angular < 9
 })
 export class BackofficeModule { }

@@ -16,6 +16,7 @@ import { CalendarModule, DateAdapter } from 'angular-calendar';
 import { adapterFactory } from 'angular-calendar/date-adapters/date-fns';
 import { MatSelectModule } from '@angular/material/select';
 import { AddEventDialogComponent } from './backoffice/add-event-dialog/add-event-dialog.component';
+import { MatDialogModule } from '@angular/material/dialog';
 
 @NgModule({
   declarations: [
@@ -37,10 +38,12 @@ import { AddEventDialogComponent } from './backoffice/add-event-dialog/add-event
     MatSelectModule,
     TawasalnaModule,
     BackofficeModule,
+    MatDialogModule,
     
   ],
   providers: [],
   bootstrap: [AppComponent],
+  
   entryComponents: [AddEventDialogComponent] // Ajoutez ceci pour les composants de dialogue
 
 })

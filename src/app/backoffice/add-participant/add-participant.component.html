@@ -1,0 +1,31 @@
+<div class="container">
+    <h2>Add Participant</h2>
+    <form (ngSubmit)="onSubmit()" #participantForm="ngForm">
+      <div class="form-group">
+        <label for="name">Name:</label>
+        <input type="text" id="name" required [(ngModel)]="participant.name" name="name" #name="ngModel" placeholder="Enter participant's name">
+      </div>
+      <div class="form-group">
+        <label for="age">Age:</label>
+        <input type="number" id="age" required [(ngModel)]="participant.age" name="age" #age="ngModel" placeholder="Enter participant's age">
+      </div>
+      <div class="form-group">
+        <label for="email">Email:</label>
+        <input type="email" id="email" required [(ngModel)]="participant.email" name="email" #email="ngModel" placeholder="Enter participant's email">
+      </div>
+      <div class="form-group">
+        <label for="phone">Phone:</label>
+        <input type="text" id="phone" required [(ngModel)]="participant.phone" name="phone" #phone="ngModel" placeholder="Enter participant's phone number">
+      </div>
+      <div class="form-group">
+        <label for="address">Address:</label>
+        <input type="text" id="address" required [(ngModel)]="participant.address" name="address" #address="ngModel" placeholder="Enter participant's address">
+      </div>
+      <div class="form-group">
+        <label for="specialNeeds">Special Needs:</label>
+        <textarea id="specialNeeds" [(ngModel)]="participant.specialNeeds" name="specialNeeds" #specialNeeds="ngModel" placeholder="Enter any special needs or requirements"></textarea>
+      </div>
+      <button type="submit" [disabled]="!participantForm.form.valid">Add Participant</button>
+    </form>
+  </div>
+  

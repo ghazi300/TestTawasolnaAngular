@@ -1,8 +1,8 @@
-import { Component } from '@angular/core';
+import { Component, ViewChild, ElementRef } from '@angular/core';
 import { MatDialogRef } from '@angular/material/dialog';
-import { HttpClient } from '@angular/common/http';
+import { HttpClient, HttpEventType } from '@angular/common/http';
 import { Event } from 'src/app/models/event';
-import { EmailService } from 'src/app/Services/EmailService';// Importez votre service EmailService
+import { EmailService } from 'src/app/Services/EmailService';
 
 @Component({
   selector: 'app-add-event-dialog',
@@ -12,22 +12,36 @@ import { EmailService } from 'src/app/Services/EmailService';// Importez votre s
 export class AddEventDialogComponent {
   event: Partial<Event> = {};
   selectedFile: File | null = null;
-  recipientEmail: string = ''; // Ajoutez une variable pour stocker l'e-mail du destinataire
+  recipientEmail: string = ''; // Variable to store recipient email
+
+  @ViewChild('fileInput') fileInput!: ElementRef;  // Use non-null assertion operator here
 
   constructor(
     public dialogRef: MatDialogRef<AddEventDialogComponent>,
-    private http: HttpClient, // Injectez HttpClient ici
-    private emailService: EmailService // Injectez EmailService ici
+    private http: HttpClient, // Inject HttpClient here
+    private emailService: EmailService // Inject EmailService here
   ) { }
 
   onSubmit(): void {
-    // Logique de sauvegarde ici
-    this.dialogRef.close(this.event);
+    if (this.selectedFile) {
+      this.uploadFile(this.selectedFile).subscribe(
+        (event: any) => {
+          if (event.type === HttpEventType.Response) {
+            this.event.imageUrl = event.body.filePath; // Assuming the server returns the file path
+            this.dialogRef.close(this.event);
+          }
+        },
+        error => {
+          console.error('File upload failed:', error);
+        }
+      );
+    } else {
+      this.dialogRef.close(this.event);
+    }
   }
 
   onFileChanged(event: any): void {
     this.selectedFile = event.target.files[0];
-    // Logique de téléchargement de fichier ici, par exemple, prévisualiser l'image ou télécharger sur le serveur
     if (this.selectedFile) {
       const reader = new FileReader();
       reader.readAsDataURL(this.selectedFile);
@@ -37,21 +51,30 @@ export class AddEventDialogComponent {
     }
   }
 
+  uploadFile(file: File) {
+    const formData = new FormData();
+    formData.append('file', file, file.name);
+    return this.http.post('http://localhost:9002/Resident-Support-Services/api/upload', formData, {
+      reportProgress: true,
+      observe: 'events'
+    });
+  }
+
   sendEmail(recipientEmail: string): void {
-    // Vérifiez si l'e-mail du destinataire est défini et que l'événement est valide
     if (recipientEmail && this.event) {
-      // Appelez le service EmailService pour envoyer l'e-mail
       this.emailService.sendEventDetailsEmail(recipientEmail, this.event)
         .subscribe(
           () => {
             console.log('E-mail sent successfully!');
-            // Gérez la réponse ou affichez un message de confirmation à l'utilisateur
           },
           error => {
             console.error('Error sending e-mail: ', error);
-            // Gérez les erreurs d'envoi d'e-mail
           }
         );
     }
+  }
+
+  triggerFileInput(): void {
+    this.fileInput.nativeElement.click();
   }
 }

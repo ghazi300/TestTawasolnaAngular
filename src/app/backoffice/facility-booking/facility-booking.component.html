@@ -13,6 +13,7 @@
       <button id="addEventButton" (click)="showAddEventForm()">Add Event</button>
     </div>
   </div>
+
   <span [ngSwitch]="view">
     <mwl-calendar-month-view *ngSwitchCase="CalendarView.Month"
       [viewDate]="viewDate"

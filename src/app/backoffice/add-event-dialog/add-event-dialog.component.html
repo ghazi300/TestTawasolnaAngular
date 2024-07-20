@@ -1,7 +1,7 @@
 <h2 mat-dialog-title>Add Event</h2>
 <mat-dialog-content class="event-dialog-content">
   <div class="event-details">
-    <!-- Côté gauche : Autres informations -->
+    <!-- Left side: Other information -->
     <form (ngSubmit)="onSubmit()" class="event-form">
       <mat-form-field>
         <mat-label>Title</mat-label>
@@ -36,7 +36,7 @@
         <textarea matInput [(ngModel)]="event.notes" name="notes"></textarea>
       </mat-form-field>
       <mat-form-field>
-        <mat-label>Email du Destinataire</mat-label>
+        <mat-label>Email</mat-label>
         <input matInput type="email" [(ngModel)]="recipientEmail" name="recipientEmail" required>
       </mat-form-field>
       <div class="button-group">
@@ -44,16 +44,16 @@
         <button mat-button mat-dialog-close>Cancel</button>
         <button mat-button color="accent" (click)="sendEmail(recipientEmail)">Envoyer Email</button>
       </div>
+      <!-- Button to trigger file input -->
+      <input type="file" #fileInput class="custom-file-input" id="customFile" (change)="onFileChanged($event)" hidden>
     </form>
   </div>
-  <!-- Côté droit : Image et Titre -->
+  <!-- Right side: Image and Title -->
   <div class="event-preview">
+    <button mat-button type="button" (click)="triggerFileInput()">Upload Image</button>
     <div class="image-container">
-      <img [src]="event.imageUrl || 'assets/default-image.jpg'" alt="{{ event.title }}" class="event-image" />
-      <div class="custom-file">
-        <input type="file" class="custom-file-input" id="customFile" (change)="onFileChanged($event)">
-        <label class="custom-file-label" for="customFile">{{ selectedFile ? selectedFile.name : 'Choose image...' }}</label>
-      </div>
+      <img [src]="event.imageUrl || 'assets/images/default-image.png'" alt="{{ event.title }}" class="event-image" />
+      <label class="custom-file-label" for="customFile">{{ selectedFile ? selectedFile.name : 'Choose image...' }}</label>
     </div>
     <div class="title-container">
       <h3>{{ event.title }}</h3>

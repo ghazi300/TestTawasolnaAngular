@@ -2,10 +2,10 @@ import { Component, OnInit } from '@angular/core';
 import { MatDialog } from '@angular/material/dialog';
 import { CalendarEvent, CalendarView, CalendarEventTimesChangedEvent } from 'angular-calendar';
 import { isSameDay, isSameMonth } from 'date-fns';
-import { Event } from 'src/app/models/event'; 
-import { EventService } from 'src/app/Services/event.service'; 
-import { EventDetailsDialogComponent } from '../event-details-dialog/event-details-dialog.component'; 
-import { AddEventDialogComponent } from '../add-event-dialog/add-event-dialog.component'; // Importer le composant de dialogue
+import { Event } from 'src/app/models/event';
+import { EventService } from 'src/app/Services/event.service';
+import { EventDetailsDialogComponent } from '../event-details-dialog/event-details-dialog.component';
+import { AddEventDialogComponent } from '../add-event-dialog/add-event-dialog.component';
 
 @Component({
   selector: 'app-facility-booking',
@@ -13,11 +13,14 @@ import { AddEventDialogComponent } from '../add-event-dialog/add-event-dialog.co
   styleUrls: ['./facility-booking.component.scss']
 })
 export class FacilityBookingComponent implements OnInit {
+
   viewDate: Date = new Date();
   view: CalendarView = CalendarView.Week;
   CalendarView = CalendarView;
   activeDayIsOpen = false;
   events: CalendarEvent[] = [];
+  private clickTimeout: any = null; // Timer for detecting double-click
+  private clickDelay: number = 300; // Time in milliseconds for double-click detection
 
   constructor(private eventService: EventService, public dialog: MatDialog) { }
 
@@ -76,14 +79,29 @@ export class FacilityBookingComponent implements OnInit {
 
   handleEvent(action: string, event: CalendarEvent): void {
     const selectedEvent = this.events.find(e => e.id === event.id) as Event;
-    this.dialog.open(EventDetailsDialogComponent, {
-      data: selectedEvent
-    });
+
+    if (this.clickTimeout) {
+      clearTimeout(this.clickTimeout);
+      this.clickTimeout = null;
+
+      // Handle double-click
+    
+    } else {
+      this.clickTimeout = setTimeout(() => {
+        // Handle single click
+        this.dialog.open(EventDetailsDialogComponent, {
+          data: selectedEvent
+        });
+        this.clickTimeout = null;
+      }, this.clickDelay);
+    }
   }
+  
+
 
   showAddEventForm(): void {
     const dialogRef = this.dialog.open(AddEventDialogComponent);
-
+  
     dialogRef.afterClosed().subscribe(result => {
       if (result) {
         const newEvent: Event = {
@@ -98,7 +116,7 @@ export class FacilityBookingComponent implements OnInit {
           notes: result.notes || '',
           participants: []
         };
-
+  
         this.eventService.createEvent(newEvent).subscribe(
           createdEvent => {
             this.events = [
@@ -121,6 +139,8 @@ export class FacilityBookingComponent implements OnInit {
                 }
               }
             ];
+  
+          
           },
           error => {
             console.error('Error adding event:', error);
@@ -129,7 +149,7 @@ export class FacilityBookingComponent implements OnInit {
       }
     });
   }
-
+  
   saveEventDates(event: CalendarEvent<any>): void {
     const eventData: Partial<Event> = {
       id: event.id as number,
