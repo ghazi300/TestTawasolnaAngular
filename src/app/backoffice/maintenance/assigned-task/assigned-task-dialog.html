@@ -1,0 +1,81 @@
+
+
+
+
+
+
+
+
+
+<h1 mat-dialog-title>Add Assigned Task</h1>
+<div mat-dialog-content>
+  <form [formGroup]="assignedTaskForm" style="display: flex; flex-direction: column; gap: 20px;">
+    <mat-form-field style="width: 100%;">
+      <mat-label>Task Description</mat-label>
+      <mat-select formControlName="description" required>
+        <mat-option *ngFor="let task of tasks" [value]="task.description">
+          {{ task.description }}
+        </mat-option>
+      </mat-select>
+      <mat-error *ngIf="assignedTaskForm.get('description')?.hasError('required')">Task Description is required</mat-error>
+    </mat-form-field>
+
+    <mat-form-field style="width: 100%;">
+      <mat-label>Technicians</mat-label>
+      <mat-select formControlName="technicienNames" multiple required>
+        <mat-option *ngFor="let technicien of techniciens" [value]="technicien.name">
+          {{ technicien.name }}
+        </mat-option>
+      </mat-select>
+      <mat-error *ngIf="assignedTaskForm.get('technicienNames')?.hasError('required')">Technicians are required</mat-error>
+    </mat-form-field>
+    <mat-form-field appearance="fill">
+      <mat-label>Status</mat-label>
+      <mat-select formControlName="taskStatus">
+        <mat-option *ngFor="let status of taskStatuses" [value]="status">
+          {{ status }}
+        </mat-option>
+      </mat-select>
+    </mat-form-field>
+
+    <mat-form-field style="width: 100%;">
+      <mat-label>Start Date</mat-label>
+      <input matInput [matDatepicker]="startDatePicker" formControlName="dateDebut" required>
+      <mat-datepicker-toggle matSuffix [for]="startDatePicker"></mat-datepicker-toggle>
+      <mat-datepicker #startDatePicker></mat-datepicker>
+      <mat-error *ngIf="assignedTaskForm.get('dateDebut')?.hasError('required')">Start Date is required</mat-error>
+    </mat-form-field>
+
+    <mat-form-field style="width: 100%;">
+      <mat-label>End Date</mat-label>
+      <input matInput [matDatepicker]="endDatePicker" formControlName="dateFin" required>
+      <mat-datepicker-toggle matSuffix [for]="endDatePicker"></mat-datepicker-toggle>
+      <mat-datepicker #endDatePicker></mat-datepicker>
+      <mat-error *ngIf="assignedTaskForm.get('dateFin')?.hasError('required')">End Date is required</mat-error>
+    </mat-form-field>
+
+    <mat-form-field style="width: 100%;">
+      <mat-label>Equipments</mat-label>
+      <input matInput formControlName="equipements" required>
+      <mat-error *ngIf="assignedTaskForm.get('equipements')?.hasError('required')">Equipments are required</mat-error>
+    </mat-form-field>
+  </form>
+</div>
+<mat-checkbox formControlName="periodConflict" [checked]="periodConflict">Conflict in dates?</mat-checkbox>
+
+<div mat-dialog-actions>
+  <button mat-button (click)="onCancel()">Cancel</button>
+  <button mat-button (click)="submit()">Add</button>
+</div>
+
+<style>
+  /* SCSS styles */
+  .mat-form-field {
+    width: 100%;
+  }
+
+  .mat-error {
+    font-size: 12px;
+    color: red;
+  }
+</style>

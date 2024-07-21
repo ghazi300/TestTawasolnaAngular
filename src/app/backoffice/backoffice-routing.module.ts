@@ -1,6 +1,6 @@
 import { NgModule } from '@angular/core';
-import { RouterModule, Routes } from '@angular/router';
 import { DashboardComponent } from './dashboard.component';
+import { RouterModule, Routes } from '@angular/router';
 
 const routes: Routes = [
   {path:'',component:DashboardComponent,children:[
@@ -10,6 +10,7 @@ const routes: Routes = [
           {path:'managment',loadChildren:() => import('./managementcordination/managementcordination.module').then(m => m.ManagementcordinationModule)},
           {path:'community',loadChildren:() => import('./community-engagement/community-engagement.module').then(m => m.CommunityEngagementModule)},
           {path:'security',loadChildren:() => import('./securityandsafety/securityandsafety.module').then(m => m.SecurityAndSafetyModule)},
+          {path:'maintenance',loadChildren:() => import('./maintenance/maintenance.module').then(m => m.MaintenanceModule)},
 
       ]},
 

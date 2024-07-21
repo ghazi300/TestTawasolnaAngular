@@ -1,0 +1,107 @@
+<style>
+.custom-card {
+  position: relative;
+  overflow: hidden;
+}
+
+.custom-card::before {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 90px; /* Height of the colored band */
+  background-color: #c89df8; /* Your choice of color */
+  z-index: 0; /* Lower z-index to place the band under the content */
+}
+
+.card-header {
+  position: relative; /* Ensure the card title is above the band */
+  z-index: 1; /* Increase z-index to place the title above the band */
+  margin-top: 20px; /* Add extra space above the card title */
+  display: flex;
+  justify-content: space-between; /* Align title and buttons to opposite sides */
+  align-items: center; /* Vertically center the content */
+}
+
+.card-header .button-group {
+  display: flex;
+  gap: 5px; /* Space between the buttons */
+}
+
+.card-header .btn {
+  width: 150px; /* Button width */
+  height: 50px; /* Button height */
+  background-color: #9e71d1;
+}
+
+.card-header .btn.btn-success {
+  background-color: #28a745; /* Your choice of color for the Download Excel button */
+}
+
+.table th,
+.table td {
+  font-family: 'Arial', sans-serif; /* Default font for displayed information */
+}
+
+.table th {
+  font-family: 'Pretty', sans-serif; /* Different font for column headers */
+  font-weight: bold; /* Ensure headers are bold */
+}
+
+.table th.scope-row {
+  font-family: 'ArialA', sans-serif; /* Default font for IDs */
+  font-weight: normal; /* Ensure IDs are not bold */
+}
+
+</style>
+
+<div class="container">
+  <div class="card custom-card">
+    <div class="card-header">
+      <h5 class="card-title font-weight-light" style="font-size: 20px; font-family: 'Lucida Console',Courier New ,monospace;">Assigned Tasks</h5>
+      <div class="button-group">
+        <button type="button" class="btn btn-success btn-lg" (click)="downloadExcel()">Download </button>
+        <button type="button" class="btn btn-primary btn-lg" (click)="openDialog()">Ajouter</button>
+      </div>
+    </div>
+    <div class="card-body">
+      <div class="table-responsive">
+        <table class="table mb-0 bg-white">
+          <thead class="bg-light">
+            <tr>
+              <th>ID</th>
+              <th>Task Description</th>
+              <th>Technicians</th>
+              <th>Status</th>
+              <th>Start Date</th>
+              <th>End Date</th>
+              <th>Equipments</th>
+            </tr>
+          </thead>
+          <tbody>
+            <!-- Angular ngFor loop for task rows -->
+            <tr *ngFor="let task of assignedTasks; let i = index">
+              <td class="scope-row">{{ i + 1 }}</td>
+              <td>{{ getTaskDescription(task.maintenanceTaskId) }}</td>
+              <td>{{ getTechnicienNames(task.technicienId).join(', ') }}</td>
+              <td>{{task.taskStatus}}</td>
+
+              
+              <td>{{ task.dateDebut | date }}</td>
+              <td>{{ task.dateFin | date }}</td>
+              <td>{{ task.equipements ? task.equipements.join(', ') : '' }}</td>
+              <td>
+                <!-- Example of Edit button -->
+                <button type="button" class="btn btn-link btn-sm btn-rounded" (click)="openDialog()">
+                  Edit
+                </button>
+              </td>
+            </tr>
+            <!-- End of ngFor loop -->
+          </tbody>
+        </table>
+      </div>
+    </div>
+  </div>
+</div>
