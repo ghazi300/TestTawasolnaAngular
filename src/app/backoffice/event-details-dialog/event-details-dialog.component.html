@@ -7,6 +7,11 @@
         <span *ngIf="!editMode">{{ data.title }}</span>
         <input *ngIf="editMode" matInput name="title" [(ngModel)]="data.title" required>
       </p>
+
+      <div *ngIf="editMode">
+        <input type="file" (change)="onFileChanged($event)" />
+      </div>
+
       <p><strong>Start:</strong>
         <span *ngIf="!editMode">{{ data.start | date:'medium' }}</span>
         <input *ngIf="editMode" matInput type="datetime-local" name="start" [(ngModel)]="data.start" required>

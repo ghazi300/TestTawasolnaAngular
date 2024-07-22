@@ -5,6 +5,7 @@ import { EventService } from 'src/app/Services/event.service';
 import { Participant } from 'src/app/models/Participant';
 import { ParticipantService } from 'src/app/Services/participant.service';
 import Swal from 'sweetalert2';
+import { HttpClient, HttpEventType } from '@angular/common/http';
 
 @Component({
   selector: 'app-event-details-dialog',
@@ -14,6 +15,7 @@ import Swal from 'sweetalert2';
 export class EventDetailsDialogComponent implements OnInit {
   // Déclaration des propriétés et initialisation des données
   editMode = false;
+  selectedFile: File | null = null;
   originalEvent: Event;
   allParticipants: Participant[] = [];
   availableParticipants: Participant[] = [];
@@ -23,13 +25,19 @@ export class EventDetailsDialogComponent implements OnInit {
     public dialogRef: MatDialogRef<EventDetailsDialogComponent>,
     @Inject(MAT_DIALOG_DATA) public data: Event,
     private eventService: EventService,
-    private participantService: ParticipantService
+    private participantService: ParticipantService,
+    private http: HttpClient
   ) {
     this.originalEvent = { ...data };
   }
 
   ngOnInit(): void {
     this.loadEventDetails();
+  }
+
+  // Gestion de la sélection de fichier
+  onFileChanged(event: any): void {
+    this.selectedFile = event.target.files[0];
   }
 
   // Chargement des détails de l'événement
@@ -82,20 +90,45 @@ export class EventDetailsDialogComponent implements OnInit {
   // Sauvegarde des changements apportés à l'événement
   saveChanges(): void {
     if (this.data.id !== undefined) {
+      if (this.selectedFile) {
+        this.uploadFile(this.selectedFile).subscribe(
+          (event: any) => {
+            if (event.type === HttpEventType.Response) {
+              this.data.imageUrl = event.body.filePath; // Mise à jour du chemin de l'image
+              this.updateEvent();
+            }
+          },
+          error => {
+            console.error('Échec de l\'upload du fichier :', error);
+          }
+        );
+      } else {
+        this.updateEvent();
+      }
+    } else {
+      console.error('Impossible de mettre à jour l\'événement : ID de l\'événement est undefined.');
+    }
+  }
+  
+  // Mise à jour de l'événement
+  updateEvent(): void {
+    // Vérifier que l'ID de l'événement est défini
+    if (this.data.id !== undefined) {
       this.eventService.updateEvent(this.data.id, this.data).subscribe(
         updatedEvent => {
-          console.log('Event updated:', updatedEvent);
+          console.log('Événement mis à jour :', updatedEvent);
           this.editMode = false;
         },
         error => {
-          console.error('Error updating event:', error);
+          console.error('Erreur lors de la mise à jour de l\'événement :', error);
         }
       );
     } else {
-      console.error('Cannot update event: Event ID is undefined.');
+      console.error('Impossible de mettre à jour l\'événement : ID de l\'événement est undefined.');
     }
   }
-
+  
+  
   // Annulation des modifications en cours
   cancelEdit(): void {
     this.data = { ...this.originalEvent };
@@ -108,6 +141,16 @@ export class EventDetailsDialogComponent implements OnInit {
     this.dialogRef.close();
   }
 
+  // Téléchargement du fichier
+  uploadFile(file: File) {
+    const formData = new FormData();
+    formData.append('file', file, file.name);
+    return this.http.post('http://localhost:9002/Resident-Support-Services/api/upload', formData, {
+      reportProgress: true,
+      observe: 'events'
+    });
+  }
+  
   // Suppression de l'événement
   deleteEvent(eventId: number | undefined, eventTitle: string): void {
     if (eventId === undefined) {
@@ -152,9 +195,7 @@ export class EventDetailsDialogComponent implements OnInit {
 
   // Méthode pour envoyer un email à un participant
   sendEmail(email: string): void {
-    // Ici, vous pouvez ajouter la logique pour envoyer un email à l'adresse spécifiée
     console.log('Sending email to:', email);
-    // Exemple simple avec une fenêtre de confirmation
     Swal.fire({
       title: 'Envoyer un email',
       text: `Souhaitez-vous envoyer un email à ${email} ?`,

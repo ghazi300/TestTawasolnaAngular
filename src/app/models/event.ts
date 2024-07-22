@@ -1,11 +1,11 @@
-import { Participant } from "./Participant";
+import { CalendarEvent as AngularCalendarEvent } from 'angular-calendar'; // Importez depuis 'angular-calendar'
+import { Participant } from './Participant';
 
-// src/app/models/event.ts
 export interface Event {
     id?: number;
     title: string;
-    start:  Date;
-    end:  Date;
+    start: Date;
+    end: Date;
     participants: Participant[];
     location: string;
     description: string;
@@ -13,5 +13,15 @@ export interface Event {
     imageUrl: string;
     maxParticipants: number;
     notes: string;
-  }
-  
+}
+
+export interface CalendarEvent<MetaType = any> extends AngularCalendarEvent<MetaType> {
+    id?: number;
+    participants?: Participant[];
+    location?: string;
+    description?: string;
+    category?: string;
+    imageUrl?: string;
+    maxParticipants?: number;
+    notes?: string;
+}

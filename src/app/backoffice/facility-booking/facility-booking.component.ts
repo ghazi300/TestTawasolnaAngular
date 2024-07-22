@@ -18,7 +18,7 @@ export class FacilityBookingComponent implements OnInit {
   view: CalendarView = CalendarView.Week;
   CalendarView = CalendarView;
   activeDayIsOpen = false;
-  events: CalendarEvent[] = [];
+  events: Event[] = [];
   private clickTimeout: any = null; // Timer for detecting double-click
   private clickDelay: number = 300; // Time in milliseconds for double-click detection
 
@@ -36,17 +36,15 @@ export class FacilityBookingComponent implements OnInit {
           title: event.title,
           start: new Date(event.start),
           end: new Date(event.end),
-          location: event.location || '',
-          description: event.description || '',
-          category: event.category || '',
-          imageUrl: event.imageUrl || '',
-          maxParticipants: event.maxParticipants || 0,
-          notes: event.notes || '',
-          draggable: true,
-          resizable: {
-            beforeStart: true,
-            afterEnd: true
-          }
+          location: event.location ,
+          description: event.description ,
+          category: event.category,
+          imageUrl: event.imageUrl ,
+          maxParticipants: event.maxParticipants ,
+          notes: event.notes,
+          participants : event.participants
+         
+          
         }));
       },
       error => {
@@ -68,14 +66,21 @@ export class FacilityBookingComponent implements OnInit {
 
   eventTimesChanged({ event, newStart, newEnd }: CalendarEventTimesChangedEvent): void {
     this.events = this.events.map((iEvent) => {
-      if (iEvent === event) {
-        const updatedEvent = { ...event, start: newStart, end: newEnd };
+      if (iEvent.id === event.id) {
+        const updatedEvent: Event = {
+          ...iEvent,
+          start: newStart,
+          end: newEnd || iEvent.end
+        };
         this.saveEventDates(updatedEvent); 
         return updatedEvent;
       }
       return iEvent;
     });
   }
+  
+  
+  
 
   handleEvent(action: string, event: CalendarEvent): void {
     const selectedEvent = this.events.find(e => e.id === event.id) as Event;
@@ -114,11 +119,12 @@ export class FacilityBookingComponent implements OnInit {
           imageUrl: result.imageUrl || '',
           maxParticipants: result.maxParticipants || 0,
           notes: result.notes || '',
-          participants: []
+          participants: [] // Ensure participants are initialized if needed
         };
   
         this.eventService.createEvent(newEvent).subscribe(
           createdEvent => {
+            // Ensure createdEvent contains all required fields
             this.events = [
               ...this.events,
               {
@@ -126,21 +132,15 @@ export class FacilityBookingComponent implements OnInit {
                 title: createdEvent.title,
                 start: new Date(createdEvent.start),
                 end: new Date(createdEvent.end),
-                location: createdEvent.location || '',
-                description: createdEvent.description || '',
-                category: createdEvent.category || '',
-                imageUrl: createdEvent.imageUrl || '',
-                maxParticipants: createdEvent.maxParticipants || 0,
-                notes: createdEvent.notes || '',
-                draggable: true,
-                resizable: {
-                  beforeStart: true,
-                  afterEnd: true,
-                }
+                location: createdEvent.location,
+                description: createdEvent.description,
+                category: createdEvent.category,
+                imageUrl: createdEvent.imageUrl,
+                maxParticipants: createdEvent.maxParticipants,
+                notes: createdEvent.notes,
+                participants: createdEvent.participants // Include participants if needed
               }
             ];
-  
-          
           },
           error => {
             console.error('Error adding event:', error);
@@ -150,18 +150,13 @@ export class FacilityBookingComponent implements OnInit {
     });
   }
   
+  
   saveEventDates(event: CalendarEvent<any>): void {
     const eventData: Partial<Event> = {
       id: event.id as number,
       title: event.title,
       start: event.start,
       end: event.end || event.start,
-      location: event.location || '',
-      description: event.description || '',
-      category: event.category || '',
-      imageUrl: event.imageUrl || '',
-      maxParticipants: event.maxParticipants || 0,
-      notes: event.notes || ''
     };
 
     if (eventData.id !== undefined) {
