@@ -1,0 +1,14 @@
+.pointer {
+    cursor: pointer;
+}
+
+.hover-list {
+    display: none;
+    z-index: 1000;
+}
+.pointer:hover .hover-list {
+    cursor: pointer;
+    color: #930b75;
+    transition: 2s;
+    display: block;
+}

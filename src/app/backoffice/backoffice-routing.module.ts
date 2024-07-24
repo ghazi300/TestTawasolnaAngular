@@ -1,6 +1,7 @@
 import { NgModule } from '@angular/core';
 import { DashboardComponent } from './dashboard.component';
 import { RouterModule, Routes } from '@angular/router';
+import { IndexResidentServicesComponent } from './resident-services/index-resident-services/index-resident-services.component';
 
 const routes: Routes = [
   {path:'',component:DashboardComponent,children:[
@@ -11,7 +12,13 @@ const routes: Routes = [
           {path:'community',loadChildren:() => import('./community-engagement/community-engagement.module').then(m => m.CommunityEngagementModule)},
           {path:'security',loadChildren:() => import('./securityandsafety/securityandsafety.module').then(m => m.SecurityAndSafetyModule)},
           {path:'maintenance',loadChildren:() => import('./maintenance/maintenance.module').then(m => m.MaintenanceModule)},
-
+          {
+            path: 'resident-services', component:IndexResidentServicesComponent,children:
+            [
+              {path: 'dashboard',loadChildren: () => import('./resident-services/resident-services.module').then(m => m.ResidentServicesModule)},
+            ]
+            
+          },
       ]},
 
 ];
