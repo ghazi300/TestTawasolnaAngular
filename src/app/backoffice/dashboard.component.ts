@@ -30,9 +30,15 @@ export class DashboardComponent implements OnInit{
 
   sidebarMenu: SidebarMenu[] = [
     {
-      link: "/dashboard/home",
-      icon: "home",
-      menu: "Dashboard",
+      link: "/admin/maintenance",
+      icon: "user",
+      menu: "Maintenance",
+      roles:["admin","user"]
+    },
+    {
+      link: "/admin/resident-services/dashboard",
+      icon: "user",
+      menu: "Resident S&S",
       roles:["admin","user"]
     },
     {

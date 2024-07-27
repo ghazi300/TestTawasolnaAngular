@@ -1,0 +1,83 @@
+<head>
+  <!-- Autres balises head -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+</head>
+
+<div class="container">
+  <div class="card custom-card">
+    <div class="card-header">
+      <h5 class="card-title">Effectif</h5>
+      <button type="button" class="btn btn-primary"(click)="openDialog()">Ajouter</button>
+    </div>
+
+    <div class="card-body">
+      <div class="d-flex mb-3">
+        <div class="me-2">
+          <select [(ngModel)]="selectedAttribute" (change)="search()" class="form-select">
+            <option *ngFor="let attribute of attributes" [value]="attribute">{{ attribute }}</option>
+          </select>
+        </div>
+        <div>
+          <select [(ngModel)]="selectedRole" (change)="search()" class="form-select">
+            <option value="">Tous les rôles</option>
+            <option *ngFor="let role of roles" [value]="role">{{ role }}</option>
+          </select>
+        </div>
+      </div>
+
+      <input type="text" [(ngModel)]="searchTerm" (input)="search()" class="form-control" placeholder="Rechercher..." />
+
+      <div class="table-responsive mt-4">
+        <table class="table mb-0 custom-table">
+          <thead>
+            <tr>
+              <th>ID</th>
+              <th>Nom</th>
+              <th>Rôle</th>
+              <th>Contact</th>
+              <th>Années d'expérience</th>
+              <th>Certification</th>
+              <th>Statut</th>
+              <th>Actions</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr *ngFor="let technician of filteredTechniciens; let i = index" class="table-row">
+              <td>{{ getSequentialId(i) }}</td>
+              <td>
+                <div class="d-flex align-items-center">
+                  <img src="https://mdbootstrap.com/img/new/avatars/8.jpg" alt="" class="rounded-circle avatar" />
+                  <div class="ms-3">
+                    <p class="fw-bold mb-1">{{ technician.name }}</p>
+                  </div>
+                </div>
+              </td>
+              <td><p class="fw-normal mb-1">{{ technician.role }}</p></td>
+              <td>{{ technician.contactInfo }}</td>
+              <td>{{ technician.yearsOfExperience }}</td>
+              <td>{{ technician.certification }}</td>
+              <td>
+                <span [ngClass]="{
+                    'badge-success': technician.status === 'Active',
+                    'badge-primary': technician.status === 'Onboarding',
+                    'badge-warning': technician.status === 'Awaiting',
+                    'badge-danger': technician.status === 'Inactive'
+                  }" class="badge rounded-pill d-inline">
+                  {{ technician.status }}
+                </span>
+              </td>
+              <td>
+                <button type="button" class="btn btn-sm btn-primary" (click)="openEditDialog(technician.id, technician.certification, technician.role, technician.status, technician.name, technician.contactInfo, technician.yearsOfExperience)">
+                  <i class="fas fa-pencil-alt"></i>
+                </button>
+                <button type="button" class="btn btn-sm btn-danger" (click)="technician.id && deleteTechnicien(technician.id)">
+                  <i class="fas fa-trash"></i>
+                </button>
+              </td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+  </div>
+</div>

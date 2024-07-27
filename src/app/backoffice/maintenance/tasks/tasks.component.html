@@ -1,0 +1,189 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Tasks Dashboard</title>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+  <style>
+    .navbar-search {
+      margin-bottom: 20px;
+    }
+
+    .navbar-search .input-group-prepend {
+      margin-right: 8px;
+    }
+
+    .custom-card {
+      position: relative;
+      overflow: hidden;
+    }
+
+    .custom-card::before {
+      content: "";
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 90px;
+      background-color: #c89df8;
+      z-index: 0;
+    }
+
+    .card-header {
+      position: relative;
+      z-index: 1;
+      margin-top: 40px;
+    }
+
+    .card-header .btn {
+      float: right;
+      margin-left: 100px;
+      margin-top: -50px;
+      width: 150px;
+      height: 50px;
+      background-color: #9e71d1;
+      color: white;
+    }
+
+    .table th,
+    .table td {
+      font-family: 'Arial', sans-serif;
+    }
+
+    .table th {
+      font-family: 'Pretty', sans-serif;
+      font-weight: bold;
+    }
+
+    .table-row {
+      cursor: pointer;
+    }
+
+    .table td button {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      width: 32px;
+      height: 32px;
+      border: none;
+      background: transparent;
+    }
+
+    .table td button i {
+      font-size: 16px;
+    }
+
+    .table td button.btn-primary {
+      color: #007bff;
+    }
+
+    .table td button.btn-danger {
+      color: #dc3545;
+    }
+
+    .table td button:hover {
+      opacity: 0.8;
+    }
+
+    .form-group {
+      margin-bottom: 1rem;
+    }
+
+    .form-group label {
+      display: block;
+      margin-bottom: 0.5rem;
+      font-weight: bold;
+    }
+
+    .form-group input,
+    .form-group textarea,
+    .form-group mat-select {
+      width: 100%;
+      box-sizing: border-box;
+    }
+
+    .bg-gradient-pink {
+      background: linear-gradient(135deg, #f3a6b8, #c89df8);
+    }
+
+    mat-dialog-content {
+      padding: 20px;
+    }
+  </style>
+</head>
+
+<body>
+
+  <form class="navbar-search navbar-search-dark form-inline mr-3 d-none d-md-flex ml-lg-auto mb-4">
+    
+    <div class="form-group mb-0" [ngClass]="{ 'focused': focus === true }">
+      <div class="input-group input-group-alternative">
+        <div class="input-group-prepend">
+          <span class="input-group-text"><i class="fas fa-filter"></i></span>
+        </div>
+
+        <input class="form-control" placeholder="Rechercher par nom club" type="text" (focus)="focus = true"
+        (blur)="focus = false" [(ngModel)]="searchTerm" (input)="search()" >      </div>
+    </div>
+  </form>
+
+  <div class="container">
+    <div class="card custom-card">
+      <div class="card-header">
+        <h5 class="card-title font-weight-light" style="font-size: 20px; font-family: 'Lucida Console', Courier New, monospace;">Tasks</h5>
+        <button type="button" class="btn btn-primary btn-lg" (click)="openDialog()">Ajouter</button>
+      </div>
+      <div class="card-body">
+        <div class="header bg-gradient-danger pb-8 pt-5 pt-md-8">
+          <div class="container-fluid">
+            <div class="header-body">
+              <!-- Table for Tasks -->
+              <div class="table-responsive">
+                <table class="table table-hover">
+                  <thead>
+                    <tr>
+                      <th scope="col">ID</th>
+                      <th scope="col">Description</th>
+                      <th scope="col">Statut</th>
+                      <th scope="col">Priorité</th>
+                      <th scope="col">Date de création</th>
+                      <th scope="col">Commentaires</th>
+                      <th scope="col">Actions</th>
+                    </tr>
+                  </thead>
+                  <tbody>
+                    <tr *ngFor="let task of filteredTasks; let i = index" class="table-row">
+                      <td data-title="ID">{{ getSequentialId(i) }}</td>
+                      <td data-title="Description">{{ task.description }}</td>
+                      <td data-title="Statut" [ngClass]="getStatusClass(task.taskStatus)">{{ task.taskStatus }}</td>
+                      <td data-title="Priorité" [ngClass]="getPriorityClass(task.priority)">{{ task.priority }}</td>
+                      <td data-title="Date de création">{{ task.createdAt | date }}</td>
+                      <td data-title="Commentaires">{{ task.comments }}</td>
+                      <td data-title="Actions">
+                        <!-- Edit Button with icon -->
+                        <button type="button" class="btn btn-sm btn-primary" (click)="openEditDialog(task)">
+                          <i class="fas fa-pencil-alt"></i>
+                        </button>
+
+                        <!-- Delete Button with icon -->
+                        <button type="button" class="btn btn-sm btn-danger" (click)="task.id && deleteTask(task.id)">
+                          <i class="fas fa-trash"></i>
+                        </button>
+                      </td>
+                    </tr>
+                  </tbody>
+                </table>
+              </div>
+
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+</body>
+
+</html>

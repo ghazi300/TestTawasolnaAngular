@@ -1,0 +1,68 @@
+
+
+
+.header-container {
+    width: 100%; /* Ajuste la largeur à 100% de son contenant */
+    height: 80px; /* Définit la hauteur à 80 pixels */
+    padding: 10px; /* Ajoute un espace intérieur de 10 pixels pour le contenu */
+    box-sizing: border-box; /* Assure que le padding est inclus dans la largeur et la hauteur */
+    background-color: rgb(118, 31, 64);
+  }
+  
+  .table tbody tr {
+    margin-bottom: 20px;
+    margin-top: 100px;
+
+  }
+// assigned-tasks.component.scss
+
+.container {
+    margin-top: 100px;
+  
+    .table-responsive {
+      table {
+        width: 100%;
+        margin-bottom: 20px;
+  background-color: aqua;
+        th,
+        td {
+          text-align: center;
+          margin-top: 5px;
+        }
+  
+        th {
+          font-weight: bold;
+        }
+  
+       
+      }
+    }
+  }
+  .table-responsive {
+    overflow-x: auto;
+  }
+  
+  td.mat-cell {
+    padding: 16px;
+  }
+  
+  th.mat-header-cell:first-of-type,
+  td.mat-cell:first-of-type,
+  td.mat-footer-cell:first-of-type {
+    padding: 16px;
+  }
+  
+  th.mat-header-cell {
+    padding: 16px;
+  }
+  
+  .mat-header-cell {
+    font-size: 14px;
+  }
+  .form-control{
+    width: 400px;
+
+
+
+
+  }

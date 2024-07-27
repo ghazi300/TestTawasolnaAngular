@@ -16,7 +16,6 @@ import { EventDetailsDialogComponent } from './event-details-dialog/event-detail
 import { FacilityBookingComponent } from './facility-booking/facility-booking.component';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { CalendarModule } from 'angular-calendar';
-import { MatSelectModule } from '@angular/material/select';
 import { HttpClientModule } from '@angular/common/http';
 import { AddEventDialogComponent } from './add-event-dialog/add-event-dialog.component';
 import { MatDialogModule } from '@angular/material/dialog';
@@ -24,6 +23,8 @@ import { MatIconModule } from '@angular/material/icon';
 import { MatCheckboxModule } from '@angular/material/checkbox';
 import { AddParticipantComponent } from './add-participant/add-participant.component';
 import { ShowParticpantComponent } from './show-particpant/show-particpant.component';
+import { MatSelectModule } from '@angular/material/select';
+
 
 
 @NgModule({
@@ -54,11 +55,12 @@ import { ShowParticpantComponent } from './show-particpant/show-particpant.compo
     MatIconModule,
     ReactiveFormsModule,
     MatCheckboxModule,
-    NgApexchartsModule
+    NgApexchartsModule,
+    MatSelectModule
   ],
   entryComponents: [AddEventDialogComponent] 
    
-   
+
 
     
 

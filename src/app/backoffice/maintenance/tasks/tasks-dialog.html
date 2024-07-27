@@ -1,0 +1,65 @@
+<h2 mat-dialog-title class="bg-gradient-pink">Ajouter une tâche</h2>
+
+<mat-dialog-content class="bg-gradient-pink">
+  <form [formGroup]="taskForm" class="task-form">
+    <div class="form-group">
+      <label for="description">Description de la tâche</label>
+      <input class="form-control" formControlName="description" id="description" required>
+    </div>
+    <div class="form-group">
+      <label for="priority">Priorité</label>
+      <mat-select formControlName="priority" id="priority" required>
+        <mat-option *ngFor="let priority of priorities" [value]="priority">
+          {{priority}}
+        </mat-option>
+      </mat-select>
+    </div>
+    <div class="form-group">
+      <label for="taskStatus">Statut</label>
+      <mat-select formControlName="taskStatus" id="taskStatus" required>
+        <mat-option *ngFor="let status of statusOptions" [value]="status">
+          {{status}}
+        </mat-option>
+      </mat-select>
+    </div>
+    <div class="form-group">
+      <label for="createdAt">Date de création</label>
+      <input type="date" class="form-control" formControlName="createdAt" id="createdAt" required>
+    </div>
+    <div class="form-group">
+      <label for="comments">Commentaires</label>
+      <textarea class="form-control" formControlName="comments" id="comments"></textarea>
+    </div>
+  </form>
+</mat-dialog-content>
+
+<mat-dialog-actions align="end" class="bg-gradient-pink">
+  <button class="btn btn-danger" (click)="onCancel()" style="margin-right: 6px">Annuler</button>
+  <button class="btn btn-success" (click)="submit()" [disabled]="taskForm.invalid">Valider</button>
+</mat-dialog-actions>
+
+<style>
+  .task-form {
+    display: flex;
+    flex-direction: column;
+    gap: 16px; /* Adjust gap between form elements */
+  }
+
+  .form-group {
+    display: flex;
+    flex-direction: column;
+    gap: 8px; /* Adjust gap between label and input */
+  }
+
+  .form-control {
+    padding: 8px;
+    font-size: 14px;
+  }
+
+  mat-select {
+    font-size: 14px;
+  }
+
+  .bg-gradient-pink {
+  }
+</style>
