@@ -64,21 +64,21 @@ export class FacilityBookingComponent implements OnInit {
     }
   }
 
-  eventTimesChanged({ event, newStart, newEnd }: CalendarEventTimesChangedEvent): void {
-    this.events = this.events.map((iEvent) => {
-      if (iEvent.id === event.id) {
-        const updatedEvent: Event = {
-          ...iEvent,
-          start: newStart,
-          end: newEnd || iEvent.end
-        };
-        this.saveEventDates(updatedEvent); 
-        return updatedEvent;
-      }
-      return iEvent;
-    });
-  }
-  
+ eventTimesChanged({ event, newStart, newEnd }: CalendarEventTimesChangedEvent): void {
+  this.events = this.events.map((iEvent) => {
+    if (iEvent.id === event.id) {
+      const updatedEvent: Event = {
+        ...iEvent,
+        start: newStart,
+        end: newEnd || iEvent.end
+      };
+      this.saveEventDates(updatedEvent); 
+      return updatedEvent;
+    }
+    return iEvent;
+  });
+}
+
   
   
 
