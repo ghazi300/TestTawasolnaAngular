@@ -1,44 +1,39 @@
-<mat-card class="w-100">
+<mat-card class="incident-card">
   <mat-card-content>
-    <h2>Incident Details</h2>
+    <h2 class="incident-title">Incident Details</h2>
 
-    <mat-accordion>
+    <mat-accordion class="accordion">
       <mat-expansion-panel [expanded]="true">
         <mat-expansion-panel-header>
           <mat-panel-title>{{ incident?.title }}</mat-panel-title>
         </mat-expansion-panel-header>
-        <div>
-          <mat-form-field>
+        <div class="details">
+          <mat-form-field class="form-field">
             <textarea matInput placeholder="Description" [value]="incident?.description" readonly></textarea>
           </mat-form-field>
-          <mat-form-field>
-            <input matInput placeholder="Location" [value]="incident?.location" readonly>
-          </mat-form-field>
-          <mat-form-field>
+          <mat-form-field class="form-field">
             <input matInput placeholder="Date" [value]="incident?.date | date" readonly>
           </mat-form-field>
-          <mat-form-field>
+          <mat-form-field class="form-field">
             <input matInput placeholder="Severity" [value]="incident?.gravite" readonly>
           </mat-form-field>
         </div>
       </mat-expansion-panel>
     </mat-accordion>
 
-    <div class="image-preview">
-      <div *ngFor="let file of files">
-        <img [src]="file" (click)="openImage(file)">
+    <div class="image-gallery">
+      <div *ngFor="let file of files" class="image-container">
+        <img [src]="file" (click)="openImage(file)" alt="Incident Image">
       </div>
     </div>
 
     <div *ngIf="selectedImage" class="overlay" (click)="closeImage()"></div>
     <div *ngIf="selectedImage" class="image-modal">
       <span class="close" (click)="closeImage()">&times;</span>
-      <img [src]="selectedImage">
+      <img [src]="selectedImage" alt="Selected Image">
     </div>
 
-    <br>
-
-    <h3>Resources</h3>
+    <h3 class="resources-title">Resources</h3>
 
     <mat-accordion *ngIf="incident?.resources?.length > 0; else noResources">
       <mat-expansion-panel *ngFor="let resource of incident?.resources">
@@ -47,10 +42,15 @@
             {{ resource.name }} ({{ resource.type }})
           </mat-panel-title>
         </mat-expansion-panel-header>
-        <div>
-          <mat-form-field>
+        <div class="resource-details">
+          <mat-form-field class="form-field">
             <input matInput placeholder="Location" [value]="resource.location" readonly>
           </mat-form-field>
+          <div class="resource-image-gallery">
+            <div *ngFor="let file of resourceImages[resource._id]" class="image-container">
+              <img [src]="file" (click)="openImage(file)" alt="Resource Image">
+            </div>
+          </div>
         </div>
       </mat-expansion-panel>
     </mat-accordion>

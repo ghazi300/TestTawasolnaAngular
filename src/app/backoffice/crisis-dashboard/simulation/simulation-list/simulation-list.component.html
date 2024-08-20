@@ -1,0 +1,20 @@
+<div class="simulation-list">
+  <h2>Simulations</h2>
+  <button mat-raised-button color="primary" (click)="openCreateSimulationDialog()">Créer Nouvelle Simulation</button>
+  <button mat-raised-button color="secondary" (click)="voirCalendrier()">Voir Calendrier</button>
+
+  <mat-list>
+    <mat-list-item *ngFor="let simulation of simulations">
+      <h3 mat-line>{{ simulation.titre }}</h3>
+      <p mat-line>{{ simulation.description }}</p>
+      <p mat-line>Date: {{ simulation.dateDebut | date:'short' }} - {{ simulation.dateFin | date:'short' }}</p>
+      <p matLine>Plan d'Urgence: {{ simulation.planUrgence?.titre || 'Non associé' }}</p>
+      <button mat-icon-button color="primary" (click)="openEditSimulationDialog(simulation.id)">
+        <mat-icon>edit</mat-icon>
+      </button>
+      <button mat-icon-button color="warn" (click)="deleteSimulation(simulation.id)">
+        <mat-icon>delete</mat-icon>
+      </button>
+    </mat-list-item>
+  </mat-list>
+</div>

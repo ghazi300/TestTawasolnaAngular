@@ -1,6 +1,7 @@
 import { Component, EventEmitter, Output } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { AlertService } from 'src/app/service/alert.service';
+import { GeocodingService } from 'src/app/service/geocoding.service';
 import { IncidentService } from 'src/app/service/incident.service';
 
 @Component({
@@ -33,7 +34,8 @@ export class IncidentFormComponent {
   constructor(
     private fb: FormBuilder,
     private incidentService: IncidentService,
-    private alertService: AlertService
+    private alertService: AlertService,
+    private geocodingService:GeocodingService
   ) {
     this.incidentForm = this.fb.group({
       title: ['', Validators.required],
@@ -92,33 +94,67 @@ export class IncidentFormComponent {
 
   onSubmit(): void {
     if (this.incidentForm.valid) {
-      this.incidentService.uploadFiles(this.uploadedFiles).subscribe(
-        (fileUploadResponse: any[]) => {
-          const fileUrls = fileUploadResponse.map((file: { id: string; fileName: string; fileType: string; }) => file.fileName); // Ajuster selon la réponse réelle
-          const incidentPayload = {
-            ...this.incidentForm.value,
-            images: fileUrls
-          };
+      const locationName = this.incidentForm.get('location')?.value;
   
-          this.incidentService.createIncident(incidentPayload).subscribe(
-            (response) => {
-              console.log('Incident créé:', response);
-              this.alertService.showSuccess('Incident créé avec succès!');
-              this.closeModal.emit(); // Émettre l'événement pour fermer le modal
-            },
-            (error) => {
-              console.error('Erreur lors de la création de l\'incident:', error);
-              this.alertService.showError('Erreur lors de la création de l\'incident.');
+      this.geocodingService.getCoordinates(locationName).subscribe(response => {
+        if (response && Array.isArray(response) && response.length > 0) {
+          // Extraire la première réponse de géocodage
+          const location = response[0];
+          if (location.lat && location.lon) {
+            // Convertir les coordonnées en format numérique
+            const latitude = parseFloat(location.lat);
+            const longitude = parseFloat(location.lon);
+  
+            // Vérifier la validité des coordonnées
+            if (!isNaN(latitude) && !isNaN(longitude)) {
+              const locationArray = [latitude, longitude];
+              
+              this.incidentService.uploadFiles(this.uploadedFiles).subscribe(
+                (fileUploadResponse: any[]) => {
+                  const fileUrls = fileUploadResponse.map((file: { id: string; fileName: string; fileType: string; }) => file.fileName); // Ajuster selon la réponse réelle
+                  
+                  const incidentPayload = {
+                    ...this.incidentForm.value,
+                    location: locationArray, // Inclure les coordonnées converties
+                    images: fileUrls
+                  };
+      
+                  this.incidentService.createIncident(incidentPayload).subscribe(
+                    (response) => {
+                      console.log('Incident créé:', response);
+                      this.alertService.showSuccess('Incident créé avec succès!');
+                      this.closeModal.emit(); // Émettre l'événement pour fermer le modal
+                    },
+                    (error) => {
+                      console.error('Erreur lors de la création de l\'incident:', error);
+                      this.alertService.showError('Erreur lors de la création de l\'incident.');
+                    }
+                  );
+                },
+                (error) => {
+                  console.error('Erreur lors du téléversement des fichiers:', error);
+                  this.alertService.showError('Erreur lors du téléversement des fichiers.');
+                }
+              );
+            } else {
+              console.error('Invalid coordinates:', location.lat, location.lon);
+              this.alertService.showError('Invalid coordinates. Please try again.');
             }
-          );
-        },
-        (error) => {
-          console.error('Erreur lors du téléversement des fichiers:', error);
-          this.alertService.showError('Erreur lors du téléversement des fichiers.');
+          } else {
+            console.error('No coordinates found in response');
+            this.alertService.showError('No coordinates found. Please try again.');
+          }
+        } else {
+          console.error('Invalid response from geocoding service');
+          this.alertService.showError('Invalid response from geocoding service. Please try again.');
         }
-      );
+      }, error => {
+        console.error('Error retrieving coordinates:', error);
+        this.alertService.showError('Error retrieving coordinates. Please try again.');
+      });
     }
   }
+  
   
   onCancel() {
     this.incidentForm.reset();

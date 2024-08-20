@@ -83,39 +83,66 @@
 
     <mat-sidenav-content>
 
-        <!-- Header -->
         <mat-toolbar class="header ps-24 pe-24">
-            <button type="button" class="ms-4" aria-label="Toggle sidenav" mat-icon-button (click)="drawer.toggle()"
-                    *ngIf="isHandset$ | async">
-                <i-feather name="menu" class="text-light-muted feather-base mt-n3"></i-feather>
+            <button type="button" class="ms-4" aria-label="Toggle sidenav" mat-icon-button (click)="drawer.toggle()" *ngIf="isHandset$ | async">
+              <i-feather name="menu" class="text-light-muted feather-base mt-n3"></i-feather>
             </button>
             <button mat-icon-button class="ms-4 me-4" (click)="search=!search">
-                <i-feather name="search" class="mt-n3 text-light-muted feather-base text-dark"></i-feather>
+              <i-feather name="search" class="mt-n3 text-light-muted feather-base text-dark"></i-feather>
             </button>
-            <div class="ms-auto">
-                <button mat-button class="fs-16 pt-4 pb-4 ps-8 pe-8 text-light-muted" [matMenuTriggerFor]="menu">
-                    <img src="assets/images/user2.webp" class="rounded-circle" alt="">
-                    <span class="fw-light ms-8 text-secondary">Hi,</span>
-                    <span class="fw-bold ms-8">Julia</span>
-                    <i-feather name="chevron-down" class="feather-base mt-n2"></i-feather>
-                </button>
-                <mat-menu #menu="matMenu" class="profile-dropdown">
-                    <div class="p-16 mb-4">
-                        <button mat-menu-item class="fs-16">Edit Profile</button>
-                        <button mat-menu-item class="fs-16">Account</button>
-                        <button mat-menu-item class="fs-16">Change Password</button>
-                        <button mat-menu-item class="fs-16">My Settings</button>
+            <div class="ms-auto d-flex align-items-center">
+              <!-- Button for notifications -->
+              <button mat-icon-button [matMenuTriggerFor]="notifMenu" class="position-relative" (click)="markNotificationsAsRead()">
+                <mat-icon>notifications</mat-icon>
+                <span *ngIf="notificationCount > 0" class="badge bg-danger position-absolute top-0 start-100 translate-middle">
+                  {{ notificationCount }}
+                </span>
+              </button>
+          
+              <!-- Profile button (existing) -->
+              <button mat-button class="fs-16 pt-4 pb-4 ps-8 pe-8 text-light-muted" [matMenuTriggerFor]="menu">
+                <img src="assets/images/user2.webp" class="rounded-circle" alt="">
+                <span class="fw-light ms-8 text-secondary">Hi,</span>
+                <span class="fw-bold ms-8">Julia</span>
+                <i-feather name="chevron-down" class="feather-base mt-n2"></i-feather>
+              </button>
+          
+              <!-- Profile dropdown menu -->
+              <mat-menu #menu="matMenu" class="profile-dropdown">
+                <div class="p-16 mb-4">
+                  <button mat-menu-item class="fs-16">Edit Profile</button>
+                  <button mat-menu-item class="fs-16">Account</button>
+                  <button mat-menu-item class="fs-16">Change Password</button>
+                  <button mat-menu-item class="fs-16">My Settings</button>
+                </div>
+                <hr>
+                <div class="p-16">
+                  <button mat-button class="btn btn-info w-100">Logout</button>
+                </div>
+              </mat-menu>
+          
+              <!-- Notification dropdown menu -->
+              <mat-menu #notifMenu="matMenu" class="notification-dropdown">
+                <ng-container *ngIf="notifications && notifications.length > 0; else noNotifications">
+                  <div *ngFor="let notif of notifications.slice(0, 10)" 
+                       [ngClass]="{'notification-read': notif.read, 'notification-unread': !notif.read}"
+                       class="notification-item d-flex align-items-center p-2" 
+                       (click)="viewDetails(notif.incident.id)">
+                    <mat-icon class="notif-icon me-3">notifications</mat-icon>
+                    <div class="notif-content">
+                      <p class="mb-0"><strong>{{ notif.incident.title }}</strong></p>
+                      <p class="mb-0">Un nouvel incident a été signalé.</p>
                     </div>
-
-                    <hr>
-
-                    <div class="p-16">
-                        <button mat-button class="btn btn-info w-100">Logout</button>
-                    </div>
-
-                </mat-menu>
+                  </div>
+                  <button mat-menu-item (click)="viewAllNotifications()">Voir toutes les notifications</button>
+                </ng-container>
+                <ng-template #noNotifications>
+                  <p class="p-2 text-center">Aucune nouvelle notification</p>
+                </ng-template>
+              </mat-menu>
             </div>
-        </mat-toolbar>
+          </mat-toolbar>
+          
 
         <!-- Content -->
         <div class="body-wrapper">

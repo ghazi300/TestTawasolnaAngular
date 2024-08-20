@@ -7,6 +7,7 @@ import {TawasalnaModule} from "../../../tawasalna-module";
 import { IncidentDetailsComponent } from './incident-details/incident-details.component';
 import { WidgetComponent } from './widget/widget.component';
 import { IncidentRecentComponent } from './incident-recent/incident-recent.component';
+import { MapComponent } from './map/map.component';
 
 
 
@@ -16,6 +17,7 @@ import { IncidentRecentComponent } from './incident-recent/incident-recent.compo
     IncidentDetailsComponent,
     WidgetComponent,
     IncidentRecentComponent,
+    MapComponent,
 
   ],
     imports: [

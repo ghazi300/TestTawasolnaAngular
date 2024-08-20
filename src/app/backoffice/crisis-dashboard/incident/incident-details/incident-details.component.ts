@@ -11,10 +11,11 @@ import { IncidentService } from 'src/app/service/incident.service';
 export class IncidentDetailsComponent implements OnInit {
   incident: any | null = null;
   selectedImage: string | null = null;
-  files: string[] = [];
+  files: string[] = []; 
+  resourceImages: { [resourceId: string]: string[] } = {}; // Resource image URLs
 
   constructor(
-    private route: ActivatedRoute, 
+    private route: ActivatedRoute,
     private incidentService: IncidentService
   ) { }
 
@@ -27,6 +28,14 @@ export class IncidentDetailsComponent implements OnInit {
           if (this.incident?.images) {
             this.loadImages(this.incident.images);
           }
+          if (this.incident?.resources) {
+            this.incident.resources.forEach((resource: any) => {
+              if (resource.images) {
+                this.loadResourceImages(resource._id, resource.images);
+              }
+            });
+          }
+          console.log("id",incidentId);
         },
         (error) => {
           console.error('Error fetching incident details:', error);
@@ -35,9 +44,9 @@ export class IncidentDetailsComponent implements OnInit {
     }
   }
 
-  loadImages(imageIds: string[]): void {
-    imageIds.forEach(id => {
-      this.incidentService.getImageById(id).subscribe(
+  loadImages(imageFilenames: string[]): void {
+    imageFilenames.forEach(filename => {
+      this.incidentService.getImageById(filename).subscribe(
         (blob: Blob) => {
           const reader = new FileReader();
           reader.onloadend = () => {
@@ -47,6 +56,26 @@ export class IncidentDetailsComponent implements OnInit {
         },
         (error) => {
           console.error('Error fetching image:', error);
+        }
+      );
+    });
+  }
+
+  loadResourceImages(resourceId: string, imageFilenames: string[]): void {
+    imageFilenames.forEach(filename => {
+      this.incidentService.getImageById(filename).subscribe(
+        (blob: Blob) => {
+          const reader = new FileReader();
+          reader.onloadend = () => {
+            if (!this.resourceImages[resourceId]) {
+              this.resourceImages[resourceId] = [];
+            }
+            this.resourceImages[resourceId].push(reader.result as string);
+          };
+          reader.readAsDataURL(blob);
+        },
+        (error) => {
+          console.error('Error fetching resource image:', error);
         }
       );
     });

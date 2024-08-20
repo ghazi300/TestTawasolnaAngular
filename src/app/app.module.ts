@@ -17,13 +17,14 @@ import { adapterFactory } from 'angular-calendar/date-adapters/date-fns';
 import { MatSelectModule } from '@angular/material/select';
 import { AddEventDialogComponent } from './backoffice/add-event-dialog/add-event-dialog.component';
 import { MatDialogModule } from '@angular/material/dialog';
+import { WebSocketService } from './service/web-socket.service';
 
 @NgModule({
   declarations: [
     AppComponent,
     AuthComponent,
     RegisterComponent,
-    ForgetPasswordComponent,
+    ForgetPasswordComponent
     
   ],
   imports: [
@@ -41,7 +42,7 @@ import { MatDialogModule } from '@angular/material/dialog';
     MatDialogModule,
     
   ],
-  providers: [],
+  providers: [WebSocketService],
   bootstrap: [AppComponent],
   
   entryComponents: [AddEventDialogComponent] // Ajoutez ceci pour les composants de dialogue

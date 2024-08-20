@@ -1,0 +1,30 @@
+<mat-card class="w-100">
+    <mat-card-content>
+      <h4 class="mb-56">Emergency Plans List</h4>
+      <div class="table-container">
+        <table mat-table [dataSource]="plans" class="w-100 mat-elevation-z8">
+          <!-- Titre Column -->
+          <ng-container matColumnDef="titre">
+            <th mat-header-cell *matHeaderCellDef> Title </th>
+            <td mat-cell *matCellDef="let plan"> {{ plan.titre }} </td>
+          </ng-container>
+  
+          <!-- Ressources Column -->
+          <ng-container matColumnDef="ressourcesNecessaires">
+            <th mat-header-cell *matHeaderCellDef> Resources </th>
+            <td mat-cell *matCellDef="let plan"> {{ plan.ressourcesNecessaires }} </td>
+          </ng-container>
+  
+          <!-- Last Updated Column -->
+          <ng-container matColumnDef="lastUpdated">
+            <th mat-header-cell *matHeaderCellDef> Last Updated </th>
+            <td mat-cell *matCellDef="let plan"> {{ plan.lastUpdated | date }} </td>
+          </ng-container>
+  
+          <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+          <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
+        </table>
+      </div>
+    </mat-card-content>
+  </mat-card>
+  

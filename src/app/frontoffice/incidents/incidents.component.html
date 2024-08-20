@@ -1,0 +1,42 @@
+<div *ngFor="let incident of incidents" class="incident-card">
+  <mat-card>
+    <mat-card-header>
+      <mat-card-title>{{ incident.title }}</mat-card-title>
+    </mat-card-header>
+    <mat-card-content>
+      <p><mat-icon>description</mat-icon> <strong>Description:</strong> {{ incident.description }}</p>
+      <p><mat-icon>category</mat-icon> <strong>Type:</strong> {{ incident.type }}</p>
+      <p><mat-icon>{{ getSeverityIcon(incident.gravite) }}</mat-icon> <strong>Severity:</strong> {{ incident.gravite }}</p>
+      <p><mat-icon>status</mat-icon> <strong>Status:</strong> {{ incident.status }}</p>
+      <p><mat-icon>calendar_today</mat-icon> <strong>Date:</strong> {{ incident.date | date:'short' }}</p>
+
+      <div class="images-grid">
+        <div *ngFor="let image of images[incident.id]" class="image-container">
+          <img [src]="image" (click)="openImage(image)" class="incident-image" />
+        </div>
+      </div>
+
+      <div class="resource-section">
+        <h3 class="resource-section-title">Ressources Affectées</h3>
+        <mat-card *ngFor="let resource of incident.resources" class="resource-card">
+          <mat-card-title>{{ resource.name }}</mat-card-title>
+          <mat-card-subtitle><mat-icon>category</mat-icon> Type: {{ resource.type }}</mat-card-subtitle>
+          <p><mat-icon>check_circle</mat-icon> <strong>Availability:</strong> {{ resource.availability }}</p>
+          <p><mat-icon>location_on</mat-icon> <strong>Location:</strong> {{ resource.location | json }}</p>
+          <div class="images-grid">
+            <div *ngFor="let image of resourceImages[resource.id]" class="image-container">
+              <img [src]="image" (click)="openImage(image)" class="resource-image" />
+            </div>
+          </div>
+        </mat-card>
+      </div>
+    </mat-card-content>
+  </mat-card>
+
+  <!-- Image Modal -->
+  <div *ngIf="selectedImage" class="modal-overlay" (click)="closeImage()">
+    <div class="modal-content" (click)="$event.stopPropagation()">
+      <img [src]="selectedImage" class="modal-image" />
+    </div>
+  </div>
+</div>

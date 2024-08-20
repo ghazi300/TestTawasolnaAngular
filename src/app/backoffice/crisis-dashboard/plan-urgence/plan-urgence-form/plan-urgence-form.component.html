@@ -1,0 +1,28 @@
+<div class="card">
+    <div class="card-body">
+      <h4 class="mb-32">Add New Emergency Plan</h4>
+      <form [formGroup]="planForm" (ngSubmit)="onSubmit()">
+        <mat-form-field class="w-100 fs-16" appearance="outline">
+          <mat-label>Title</mat-label>
+          <input matInput formControlName="titre" placeholder="Enter title">
+        </mat-form-field>
+        <mat-form-field class="w-100 fs-16" appearance="outline">
+          <mat-label>Description</mat-label>
+          <input matInput formControlName="description" placeholder="Enter description">
+        </mat-form-field>
+        <mat-form-field class="w-100 fs-16" appearance="outline">
+          <mat-label>Steps</mat-label>
+          <input matInput formControlName="etapes" placeholder="Enter steps">
+        </mat-form-field>
+        <mat-form-field class="w-100 fs-16" appearance="outline">
+          <mat-label>Resources Required</mat-label>
+          <input matInput formControlName="ressourcesNecessaires" placeholder="Enter resources">
+        </mat-form-field>
+        <div class="buttons">
+          <button mat-raised-button color="primary" type="submit">Submit</button>
+          <button mat-raised-button color="warn" (click)="onCancel()">Cancel</button>
+        </div>
+      </form>
+    </div>
+  </div>
+  

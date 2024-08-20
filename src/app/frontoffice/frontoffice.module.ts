@@ -13,6 +13,10 @@ import { HttpClientModule } from '@angular/common/http';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { TawasalnaModule } from '../tawasalna-module';
 import { MatDialogModule } from '@angular/material/dialog';
+import { WeatherDashboardComponent } from './weather-dashboard/weather-dashboard.component';
+import { PlanUrgenceComponent } from './plan-urgence/plan-urgence.component';
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+import { IncidentsComponent } from './incidents/incidents.component';
 
 
 @NgModule({
@@ -23,7 +27,10 @@ import { MatDialogModule } from '@angular/material/dialog';
     RightsidebarComponent,
     MainComponent,
     IncidentFormComponent,
-    ManagementcordinationComponent
+    ManagementcordinationComponent,
+    WeatherDashboardComponent,
+    PlanUrgenceComponent,
+    IncidentsComponent
 
   ],
   imports: [
@@ -33,7 +40,8 @@ import { MatDialogModule } from '@angular/material/dialog';
     ReactiveFormsModule,
     HttpClientModule, 
     TawasalnaModule,
-    MatDialogModule
-  ]
+    MatDialogModule,
+  ],
+  entryComponents: []
 })
 export class FrontofficeModule { }

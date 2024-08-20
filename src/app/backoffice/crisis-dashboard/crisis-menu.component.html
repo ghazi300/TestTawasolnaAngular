@@ -3,8 +3,8 @@
     <div fxFlex="100%" fxFlex.gt-xs="50%" fxFlex.gt-sm="33%" fxFlex.gt-md="25%" class="card-column">
         <mat-card class="menu-card">
             <mat-card-content>
-                <h4>Incident Reporting</h4>
-                <button mat-raised-button color="primary" [routerLink]="['/report-incident']">Report Incident</button>
+                <h4>Incident Tracking</h4>
+                <button mat-raised-button color="primary" [routerLink]="['./incident/map']">Incident Tracking</button>
             </mat-card-content>
         </mat-card>
     </div>
@@ -22,7 +22,7 @@
         <mat-card class="menu-card">
             <mat-card-content>
                 <h4>Manage Resources</h4>
-                <button mat-raised-button color="warn" [routerLink]="['/manage-resources']">Manage Resources</button>
+                <button mat-raised-button color="warn" [routerLink]="['./ressource']">Manage Resources</button>
             </mat-card-content>
         </mat-card>
     </div>
@@ -31,7 +31,16 @@
         <mat-card class="menu-card">
             <mat-card-content>
                 <h4>Emergency Contacts</h4>
-                <button mat-raised-button color="primary" [routerLink]="['/contacts']">Contact List</button>
+                <button mat-raised-button color="primary" [routerLink]="['./plan']">Plan d'urgences</button>
+            </mat-card-content>
+        </mat-card>
+    </div>
+
+    <div fxFlex="100%" fxFlex.gt-xs="50%" fxFlex.gt-sm="33%" fxFlex.gt-md="25%" class="card-column">
+        <mat-card class="menu-card">
+            <mat-card-content>
+                <h4>Simulations</h4>
+                <button mat-raised-button color="primary" [routerLink]="['./simulation']">Simulations</button>
             </mat-card-content>
         </mat-card>
     </div>

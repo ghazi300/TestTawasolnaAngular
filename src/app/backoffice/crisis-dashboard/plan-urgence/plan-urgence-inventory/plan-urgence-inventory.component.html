@@ -1,0 +1,7 @@
+<div class="plan-urgence-inventory">
+    <h4>Emergency Plans Inventory</h4>
+    <app-plan-urgence-list [plans]="plans"></app-plan-urgence-list>
+    <button mat-button color="primary" (click)="showAddPlanForm()">Add Plan</button>
+    <app-plan-urgence-form *ngIf="isAddPlanFormVisible" (formSubmit)="onPlanAdded($event)" (formCancel)="hideAddPlanForm()"></app-plan-urgence-form>
+  </div>
+  

@@ -1,6 +1,5 @@
 // src/app/add-participant/add-participant.component.ts
 import { Component } from '@angular/core';
-import mongoose from 'mongoose';
 import { Participant } from 'src/app/models/Participant';
 import { ParticipantService } from 'src/app/Services/participant.service';
 @Component({

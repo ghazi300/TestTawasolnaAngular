@@ -1,0 +1,30 @@
+<div class="feed-container">
+  <!-- Card for Header Image -->
+  <mat-card class="header-card">
+    <mat-card-header>
+      <mat-card-title>Plans d'Urgence</mat-card-title>
+    </mat-card-header>
+    <img mat-card-image class="header-image" src="assets/images/plan-urgence.jpg" alt="Image du plan d'urgence">
+  </mat-card>
+  
+  <!-- Card for Each Plan -->
+  <div class="plans-container">
+    <mat-card class="plan-card" *ngFor="let plan of plansUrgence" [@cardAnimation]>
+      <mat-card-header>
+        <mat-card-title>{{ plan.titre }}</mat-card-title>
+        <mat-card-subtitle>{{ plan.lastUpdated | date: 'short' }}</mat-card-subtitle>
+      </mat-card-header>
+      <mat-card-content>
+        <p>{{ plan.description }}</p>
+        <div *ngIf="plan.etapes">
+          <h3><mat-icon>list_alt</mat-icon> Étapes</h3>
+          <p>{{ plan.etapes }}</p>
+        </div>
+        <div *ngIf="plan.ressourcesNecessaires">
+          <h3><mat-icon>category</mat-icon> Ressources Nécessaires</h3>
+          <p>{{ plan.ressourcesNecessaires }}</p>
+        </div>
+      </mat-card-content>
+    </mat-card>
+  </div>
+</div>

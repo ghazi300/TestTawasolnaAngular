@@ -8,7 +8,7 @@ import { ResourceService } from 'src/app/service/resource.service';
 })
 export class ResourceListComponent implements OnInit {
   @Input() resources: any[] = [];
-  displayedColumns: string[] = ['name', 'type', 'availability', 'location'];
+  displayedColumns: string[] = ['name', 'type', 'availability'];
 
   constructor(private resourceService: ResourceService) {}
 

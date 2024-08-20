@@ -4,6 +4,7 @@ import {IncidentComponent} from "./incident/incident.component";
 import {IncidentDetailsComponent} from "./incident-details/incident-details.component";
 import {WidgetComponent} from "./widget/widget.component";
 import { IncidentRecentComponent } from './incident-recent/incident-recent.component';
+import { MapComponent } from './map/map.component';
 
 
 
@@ -12,7 +13,8 @@ const routes: Routes = [
   {path:'',component:IncidentComponent},
   {path:'detail/:id',component:IncidentDetailsComponent},
   {path:'widget',component:WidgetComponent},
-  {path:'recent',component:IncidentRecentComponent}
+  {path:'recent',component:IncidentRecentComponent},
+  {path:'map',component:MapComponent}
 
 
 ];

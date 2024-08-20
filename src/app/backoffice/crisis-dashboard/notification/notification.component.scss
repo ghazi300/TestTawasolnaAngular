@@ -1,0 +1,38 @@
+.notification-list {
+    padding: 16px;
+  }
+  
+  .notification-card {
+    margin-bottom: 16px; /* Espacement entre les cartes */
+  }
+  
+  .notification-icon {
+    font-size: 24px;
+    color: #1976d2; /* Couleur de l'icône */
+  }
+  
+  .notification-card mat-card {
+    display: flex;
+    align-items: center;
+  }
+  
+  mat-card-header {
+    display: flex;
+    align-items: center;
+  }
+  
+  mat-card-title {
+    font-weight: bold;
+    margin: 0 0 4px;
+  }
+  
+  .notification-description {
+    margin: 0 0 4px;
+    color: #333;
+  }
+  
+  .notification-date {
+    font-size: 0.875rem;
+    color: #666;
+  }
+  

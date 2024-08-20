@@ -1,0 +1,25 @@
+.event-title {
+    font-weight: bold;
+    font-size: 1.1em;
+    color: #1e90ff;
+  }
+  
+  .event-content {
+    display: flex;
+    flex-direction: column;
+    padding: 8px;
+    background: #D1E8FF;
+    border-radius: 4px;
+    border: 1px solid #1e90ff;
+  }
+  
+  .event-time {
+    font-size: 0.9em;
+    color: #555;
+  }
+  
+  .event-description {
+    font-size: 1em;
+    color: #333;
+  }
+  
